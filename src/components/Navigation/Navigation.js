@@ -13,7 +13,7 @@ class Navigation extends Component {
     className: PropTypes.string,
   };
 
-  render() {
+  _render() {
     return (
       <div className={classNames(this.props.className, 'Navigation')} role="navigation">
         <a className="Navigation-link" href="/about" onClick={Link.handleClick}>About</a>
@@ -24,6 +24,12 @@ class Navigation extends Component {
         <a className="Navigation-link Navigation-link--highlight" href="/register" onClick={Link.handleClick}>Sign up</a>
       </div>
     );
+  }
+
+  render() {
+    return (
+      <div></div>
+    )
   }
 
 }

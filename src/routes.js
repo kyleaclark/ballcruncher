@@ -5,6 +5,7 @@ import Router from 'react-routing/src/Router';
 import http from './core/HttpClient';
 import App from './components/App';
 import ContentPage from './components/ContentPage';
+import HomePage from './components/views/ContactPage';
 import ContactPage from './components/ContactPage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
@@ -14,8 +15,11 @@ import ErrorPage from './components/ErrorPage';
 const router = new Router(on => {
   on('*', async (state, next) => {
     const component = await next();
+    console.log(state.context);
     return component && <App context={state.context}>{component}</App>;
   });
+
+  on('/', async () => <HomePage />);
 
   on('/contact', async () => <ContactPage />);
 
