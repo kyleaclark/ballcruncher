@@ -80,9 +80,7 @@ class NflPage extends Component {
     this.context.onSetTitle(title);
 
     if (this.state.rankings.length) {
-      tableData = this.state.rankings[1].data;
-    } else {
-      tableData = this.state.rankings;
+      tableData = this.state.rankings[0].data;
     }
 
     return (
@@ -90,15 +88,18 @@ class NflPage extends Component {
         <div className="NflPage-container">
           <h3 className='title'>NFL Power Rankings</h3>
 
-          <h5 style={{marginTop: '40px'}}><strong>WEEK 9:</strong></h5>
-          <Table
-            key='nfl_rankings_table'
-            className="table-component"
-            columns={tableColumns}
-            keys={['id']}
-            sortBy={sortBy}
-            tableData={tableData}
-          />
+          {tableData && <div>
+            <h5 style={{marginTop: '40px'}}><strong>WEEK 9:</strong></h5>
+            <Table
+              key='nfl_rankings_table'
+              className="table-component"
+              columns={tableColumns}
+              keys={['id']}
+              sortBy={sortBy}
+              tableData={tableData}
+            />
+          </div>}
+
         </div>
       </div>
     );
