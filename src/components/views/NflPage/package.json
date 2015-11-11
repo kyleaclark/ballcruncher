@@ -1,0 +1,6 @@
+{
+  "name": "Ballcruncher",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./NflPage.js"
+}

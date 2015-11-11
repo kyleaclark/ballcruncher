@@ -3,14 +3,18 @@
 import 'babel-core/polyfill';
 import path from 'path';
 import express from 'express';
+import mongoose from 'mongoose';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Router from './routes';
 import Html from './components/Html';
 
+import rankingsApi from './api/rankings';
+
 const server = global.server = express();
 const port = process.env.PORT || 5000;
 server.set('port', port);
+mongoose.connect("mongodb://localhost/ballcruncher_db");
 
 //
 // Register Node.js middleware
@@ -21,6 +25,7 @@ server.use(express.static(path.join(__dirname, 'public')));
 // Register API middleware
 // -----------------------------------------------------------------------------
 server.use('/api/content', require('./api/content'));
+server.use('/api/rankings', rankingsApi);
 
 //
 // Register server-side rendering middleware

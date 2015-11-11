@@ -3,5 +3,6 @@
 import keyMirror from 'fbjs/lib/keyMirror';
 
 export default keyMirror({
-
+  RECEIVE_RANKINGS: 'RECEIVE_RANKINGS',
+  RECEIVE_ERROR: 'RECEIVE_ERROR'
 });
