@@ -1,8 +1,11 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
+@import '../variables.css';
+
 .Navigation-link {
   display: inline-block;
   padding: 3px 8px;
+  padding-top: 0px;
   text-decoration: none;
   font-size: 1.125em; /* ~18px */
 }
@@ -10,7 +13,7 @@
 .Navigation-link,
 .Navigation-link:active,
 .Navigation-link:visited {
-  color: rgba(255, 255, 255, .6);
+  color: var(--brand-color);
 }
 
 .Navigation-link:hover {

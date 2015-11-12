@@ -1,8 +1,8 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes, Component } from 'react';
-import styles from './ContentPage.css';
-import withStyles from '../../decorators/withStyles';
+import styles from './content.css';
+import withStyles from '../../../decorators/withStyles';
 
 @withStyles(styles)
 class ContentPage extends Component {
@@ -20,8 +20,8 @@ class ContentPage extends Component {
   render() {
     this.context.onSetTitle(this.props.title);
     return (
-      <div className="ContentPage">
-        <div className="ContentPage-container">
+      <div className="page">
+        <div className="page__container">
           {
             this.props.path === '/' ? null : <h1>{this.props.title}</h1>
           }

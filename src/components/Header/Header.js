@@ -18,8 +18,8 @@ class Header extends Component {
           </a>
           <Navigation className="Header-nav" />
           <div className="Header-banner">
-            <h1 className="Header-bannerTitle">Pending Rebuild</h1>
-            <p className="Header-bannerDesc">We will back up soon!</p>
+            <h3 className="Header-bannerTitle">ball don't lie</h3>
+            <p className="Header-bannerDesc">sports analytics &amp; musings</p>
           </div>
         </div>
       </div>

@@ -1,0 +1,6 @@
+{
+  "name": "NflPowerRankings",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./nfl_power_rankings.js"
+}

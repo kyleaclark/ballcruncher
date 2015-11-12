@@ -42,7 +42,7 @@ class Footer extends Component {
     return (
       <div className="Footer">
         <div className="Footer-container">
-          <span className="Footer-text">© Ballcruncher</span>
+          <span className="Footer-text">© Ballcruncher 2015, founded by Kyle Clark</span>
         </div>
       </div>
     );

@@ -1,0 +1,5 @@
+@import '../../variables.css';
+
+.view__nfl_power_rankings--rank-index {
+  width: 40px;
+}

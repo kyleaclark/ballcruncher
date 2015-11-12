@@ -18,6 +18,7 @@ class Table extends React.Component {
   }
 
   _onSort(sortBy) {
+    console.log('sortBy : ', sortBy);
     this.setState({
       sortByProperty: sortBy.property,
       sortByOrder: sortBy.order
@@ -54,14 +55,18 @@ class Table extends React.Component {
         getKeys = this._buildGetKeys(keys),
         sortedData = this._sortedData();
 
-    return sortedData.map(function (row) {
+    return sortedData.map(function (row, rowIndex) {
       return (
         <tr key={getKeys(row)}>
           {columns.map(function (col, index) {
-            item = col.formatter ? col.formatter(row[col.property]) : row[col.property];
+            if (col.property === '_index') {
+              item = rowIndex + 1;
+            } else {
+              item = col.formatter ? col.formatter(row[col.property]) : row[col.property];
+            }
 
             return (
-              <td key={index}>
+              <td key={index} className={col.className}>
                 {item}
               </td>);
           })}
@@ -70,7 +75,7 @@ class Table extends React.Component {
   }
 
   _buildHeaderAttrs(col) {
-    var sortOrder = this.sortByProperty === col.property ? this.sortByOrder : 'none',
+    var sortOrder = this.state.sortByProperty === col.property ? this.state.sortByOrder : 'none',
         nextSortOrder = sortOrder === 'ascending' ? 'descending' : 'ascending';
 
     return {
@@ -87,16 +92,20 @@ class Table extends React.Component {
         self = this;
 
     return columns.map(function (col, index) {
-      sortAttrs = self._buildHeaderAttrs(col);
-      sortOrder = sortAttrs['data-sort'];
+      if (col.sortable) {
+        sortAttrs = self._buildHeaderAttrs(col);
+        sortOrder = sortAttrs['data-sort'];
+      } else {
+        sortAttrs = {};
+      }
 
       return (
         <th
-          key={col.label}
+          key={col.label || col.property}
           title={col.title}
           {...sortAttrs}>
-          <span>{col.label}</span>
-          <span className={`sort-icon sort-${sortOrder}`} />
+          {col.label && <span>{col.label}</span>}
+          {col.sortable && <span className={`sort-icon sort-${sortOrder}`} />}
         </th>
       );
     });

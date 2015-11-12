@@ -2,25 +2,24 @@
 
 @import '../variables.css';
 
-:root {
-  --brand-color: #61dafb;
-}
-
 .Header {
-  background: #373277;
+  /*background: #373277;*/
+  background: var(--gray-darker);
   color: #fff;
 }
 
 .Header-container {
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 10px 0 20px 0;
   max-width: var(--max-content-width);
 }
 
 .Header-brand {
-  color: color(var(--brand-color) lightness(+10%));
-  text-decoration: none;
-  font-size: 1.75em; /* ~28px */
+  font-size: 1.5em; /* ~28px */
+
+  span {
+    color: var(--brand-color);
+  }
 }
 
 .Header-brandTxt {
@@ -28,11 +27,13 @@
 }
 
 .Header-nav {
+  font-family: var(--font-family-alt);
   float: right;
   margin-top: 6px;
 }
 
 .Header-banner {
+  font-family: var(--font-family-alt);
   text-align: center;
 }
 
@@ -40,13 +41,13 @@
   margin: 0;
   padding: 10px;
   font-weight: normal;
-  font-size: 4em;
+  font-size: 2.25em;
   line-height: 1em;
 }
 
 .Header-bannerDesc {
   padding: 0;
   color: rgba(255, 255, 255, .5);
-  font-size: 1.25em;
+  font-size: 1em;
   margin: 0;
 }

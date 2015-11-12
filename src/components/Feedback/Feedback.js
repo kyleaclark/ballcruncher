@@ -23,7 +23,7 @@ class Feedback extends Component {
     return (
       <div className="Feedback">
         <div className="Feedback-container">
-          <span>Sit tight until we're back up</span>
+          <span>where ball don't lie about sports analytics &amp; musings</span>
         </div>
       </div>
     );

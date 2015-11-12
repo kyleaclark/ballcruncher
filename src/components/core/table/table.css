@@ -5,18 +5,18 @@
 .table-component {
   border: 1px solid #ebebeb;
   color: #444;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .table-component th {
   cursor: pointer;
   padding: 10px;
   text-align: left;
-  width: 200px;
 }
 
 .table-component td {
   padding: 10px;
-  width: 200px;
 }
 
 .table-component tbody tr:nth-child(odd) {

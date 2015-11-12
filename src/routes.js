@@ -4,14 +4,11 @@ import React from 'react';
 import Router from 'react-routing/src/Router';
 import http from './core/HttpClient';
 import App from './components/App';
-import ContentPage from './components/ContentPage';
-import HomePage from './components/views/ContactPage';
-import NflPage from './components/views/NflPage';
-import ContactPage from './components/ContactPage';
-import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage';
-import NotFoundPage from './components/NotFoundPage';
-import ErrorPage from './components/ErrorPage';
+import ContentPage from './components/pages/content';
+import HomePage from './components/pages/home';
+import NflPage from './components/pages/nfl';
+import NotFoundPage from './components/pages/not_found';
+import ErrorPage from './components/pages/error';
 
 const router = new Router(on => {
   on('*', async (state, next) => {
@@ -22,12 +19,6 @@ const router = new Router(on => {
   on('/', async () => <HomePage />);
 
   on('/nfl', async () => <NflPage />);
-
-  on('/contact', async () => <ContactPage />);
-
-  on('/login', async () => <LoginPage />);
-
-  on('/register', async () => <RegisterPage />);
 
   on('*', async (state) => {
     const content = await http.get(`/api/content?path=${state.path}`);

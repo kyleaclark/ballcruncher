@@ -1,4 +1,4 @@
-/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);
 
 :root {
 
@@ -13,11 +13,15 @@
   --gray-light:            color(black lightness(+46.7%)); /* #777 */
   --gray-lighter:          color(black lightness(+93.5%)); /* #eee */
 
+  --brand-color:           #61dafb;
+  --brand-color-light:     color(var(--brand-color) lightness(+13.5%)); /* 92e5fc */
+
   /*
    * Typography
    * ======================================================================== */
 
-  --font-family-base:      'Segoe UI', 'HelveticaNeue-Light', sans-serif;
+  --font-family-base:      'Inconsolata', 'Menlo', 'HelveticaNeue-Light', sans-serif;
+  --font-family-alt:       'Menlo', 'Inconsolata', 'HelveticaNeue-Light', sans-serif;
 
   /*
    * Layout
@@ -40,4 +44,19 @@
 
   --animation-swift-out:   .45s cubic-bezier(0.3, 1, 0.4, 1) 0s;
 
+}
+
+.clear {
+  clear: both;
+}
+
+a,
+a:active,
+a:visited {
+  color: var(--gray-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--gray-light);
 }

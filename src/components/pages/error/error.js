@@ -1,8 +1,8 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes, Component } from 'react';
-import withStyles from '../../decorators/withStyles';
-import styles from './ErrorPage.css';
+import withStyles from '../../../decorators/withStyles';
+import styles from './error.css';
 
 @withStyles(styles)
 class ErrorPage extends Component {
