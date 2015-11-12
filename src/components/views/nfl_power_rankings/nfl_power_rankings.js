@@ -7,6 +7,7 @@ import RankingsStore from '../../../stores/RankingsStore';
 import ActionCreator from '../../../actions/ActionCreator';
 import Table from '../../core/table/table';
 import Format from '../../../utils/format';
+import Dropdown from '../../core/dropdown'
 
 @withStyles(styles)
 class NflPowerRankings extends Component {
@@ -41,7 +42,7 @@ class NflPowerRankings extends Component {
     var rankings = RankingsStore.getRankings();
 
     this.setState({
-      weekIndex: rankings.length - 1,
+      selectedWeek: rankings.length - 1,
       rankings: rankings
     });
   }
@@ -84,6 +85,36 @@ class NflPowerRankings extends Component {
     return Format.stripLeadingZero(fixedNum);
   }
 
+  _onWeekSelect(option) {
+    console.log('option : ', option);
+    this.setState({ selectedWeek: option.value });
+  }
+
+  _renderWeekSelection() {
+    let week,
+        defaultOption,
+        options = [];
+
+    for (let index = 0; index < this.state.rankings.length; index++) {
+      week = index + 1;
+      options.push({
+        value: index,
+        label: 'Week ' + week
+      })
+    }
+
+    defaultOption = options[this.state.selectedWeek];
+
+    return (
+      <Dropdown
+        options={options}
+        onChange={this._onWeekSelect.bind(this)}
+        value={defaultOption}
+        placeholder="Select an option"
+      />
+    );
+  }
+
   _renderDetails() {
     return (
       <div>
@@ -104,7 +135,7 @@ class NflPowerRankings extends Component {
 
         <br /><br />
 
-        <span>&raquo; </span><a href='https://github.com/kyleaclark/nfl-power-rankings' target='_blank'>View the data model source code on GitHub</a>
+        <span>&raquo; </span><a href='https://github.com/kyleaclark/nfl-power-rankings' target='_blank' style={{textDecoration: 'underline'}}>View the data model source code on GitHub</a>
       </div>
     )
   }
@@ -118,20 +149,23 @@ class NflPowerRankings extends Component {
         };
 
     if (this.state.rankings.length) {
-      tableData = this.state.rankings[this.state.weekIndex].data;
+      tableData = this.state.rankings[this.state.selectedWeek].data;
     }
 
     return (
       <div>
         {tableData &&
-          <Table
-            key='nfl_rankings_table'
-            className="table-component"
-            columns={tableColumns}
-            keys={['id']}
-            sortBy={sortBy}
-            tableData={tableData}
-          />
+          <div>
+            {this._renderWeekSelection()}
+            <Table
+              key={'nfl_rankings_table_' + this.state.selectedWeek}
+              className="table-component"
+              columns={tableColumns}
+              keys={['id']}
+              sortBy={sortBy}
+              tableData={tableData}
+            />
+          </div>
         }
 
         {tableData && this.props.fullRankings && this._renderDetails()}

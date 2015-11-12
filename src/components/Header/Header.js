@@ -14,7 +14,7 @@ class Header extends Component {
       <div className="Header">
         <div className="Header-container">
           <a className="Header-brand" href="/" onClick={Link.handleClick}>
-            <span className="Header-brandTxt">Ballcruncher</span>
+            <span className="Header-brandTxt">Ballcruncher<sub className="beta-text">(beta)</sub></span>
           </a>
           <Navigation className="Header-nav" />
           <div className="Header-banner">

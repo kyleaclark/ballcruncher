@@ -18,8 +18,8 @@
     "jade": "1.11.0",
     "mongoose": "^4.2.4",
     "normalize.css": "3.0.3",
-    "react": "0.14.0",
-    "react-dom": "0.14.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
     "react-routing": "0.0.5",
     "source-map-support": "0.3.3",
     "superagent": "1.4.0"

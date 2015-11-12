@@ -34,7 +34,7 @@ class HomePage extends Component {
             <hr />
 
 
-            <h4 className="homepage__data-title">NFL Power Rankings - Week 9</h4>
+            <h4 className="homepage__data-title">NFL Power Rankings</h4>
             <h6 className="homepage__data-subtitle"><a href="/nfl" onClick={Link.handleClick}>View the full rankings</a></h6>
             <NflPowerRankings />
           </div>
