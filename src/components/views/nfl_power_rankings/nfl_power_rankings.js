@@ -19,7 +19,7 @@ class NflPowerRankings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      weekIndex: 0,
+      selectedRankingsIndex: 0,
       rankings: []
     };
 
@@ -39,11 +39,23 @@ class NflPowerRankings extends Component {
   }
 
   _onChange() {
-    var rankings = RankingsStore.getRankings();
+    const rankings = RankingsStore.getRankings();
+
+    let week,
+        options = [];
+
+    for (let index = 0; index < rankings.length; index++) {
+      week = index + 2;
+      options.push({
+        value: index,
+        label: 'Week ' + week
+      })
+    }
 
     this.setState({
-      selectedWeek: rankings.length - 1,
-      rankings: rankings
+      rankings: rankings,
+      selectedRankingsIndex: rankings.length - 1,
+      weekSelectionOptions: options
     });
   }
 
@@ -86,30 +98,18 @@ class NflPowerRankings extends Component {
   }
 
   _onWeekSelect(option) {
-    console.log('option : ', option);
-    this.setState({ selectedWeek: option.value });
+    this.setState({ selectedRankingsIndex: option.value });
   }
 
   _renderWeekSelection() {
-    let week,
-        defaultOption,
-        options = [];
-
-    for (let index = 0; index < this.state.rankings.length; index++) {
-      week = index + 1;
-      options.push({
-        value: index,
-        label: 'Week ' + week
-      })
-    }
-
-    defaultOption = options[this.state.selectedWeek];
+    const value = this.state.weekSelectionOptions[this.state.selectedRankingsIndex],
+          options = this.state.weekSelectionOptions.slice().reverse();
 
     return (
       <Dropdown
         options={options}
         onChange={this._onWeekSelect.bind(this)}
-        value={defaultOption}
+        value={value}
         placeholder="Select an option"
       />
     );
@@ -149,7 +149,7 @@ class NflPowerRankings extends Component {
         };
 
     if (this.state.rankings.length) {
-      tableData = this.state.rankings[this.state.selectedWeek].data;
+      tableData = this.state.rankings[this.state.selectedRankingsIndex].data;
     }
 
     return (
@@ -158,7 +158,7 @@ class NflPowerRankings extends Component {
           <div>
             {this._renderWeekSelection()}
             <Table
-              key={'nfl_rankings_table_' + this.state.selectedWeek}
+              key={'nfl_rankings_table_' + this.state.selectedRankingsIndex}
               className="table-component"
               columns={tableColumns}
               keys={['id']}
