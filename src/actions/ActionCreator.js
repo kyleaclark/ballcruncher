@@ -15,7 +15,6 @@ const ActionCreator = {
     if (RankingsStore.isCached()) {
       RankingsStore.propagateRankings();
     } else {
-      console.log('xhr request');
       Api
         .get('/api/rankings')
         .then(function (rankings) {

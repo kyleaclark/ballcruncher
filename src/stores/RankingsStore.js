@@ -28,7 +28,6 @@ class RankingsStore extends FluxStore {
   }
 
   propagateRankings() {
-    console.log('propagateRankings');
     this.emitChange();
   }
 
