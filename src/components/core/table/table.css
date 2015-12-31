@@ -2,35 +2,35 @@
   Table Component
 ----------------------------------*/
 
-.table-component {
+.table__component {
   border: 1px solid #ebebeb;
   color: #444;
   margin: 20px 0;
   width: 100%;
 }
 
-.table-component th {
+.table__component th {
   cursor: pointer;
   padding: 10px;
   text-align: left;
 }
 
-.table-component td {
+.table__component td {
   padding: 10px;
 }
 
-.table-component tbody tr:nth-child(odd) {
+.table__component tbody tr:nth-child(odd) {
   background-color: #ececec;
 }
 
-.table-component .sort-icon:after {
+.table__component .sort-icon:after {
   float: right;
   font-weight: bold;
   margin-right: 10px;
 }
 
-.table-component .sort-ascending:after  { content: '\2191'; }
+.table__component .sort-ascending:after  { content: '\2191'; }
 
-.table-component .sort-descending:after { content: '\2193'; }
+.table__component .sort-descending:after { content: '\2193'; }
 
-.table-component .sort-none:after  { content: '\2195'; }
+.table__component .sort-none:after  { content: '\2195'; }

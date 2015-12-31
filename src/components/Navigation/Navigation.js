@@ -1,10 +1,8 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React, { PropTypes, Component } from 'react';
 import classNames from 'classnames';
-import styles from './Navigation.css';
+import styles from './navigation.css';
 import withStyles from '../../decorators/withStyles';
-import Link from '../Link';
+import Link from '../link';
 
 @withStyles(styles)
 class Navigation extends Component {
@@ -15,10 +13,10 @@ class Navigation extends Component {
 
   render() {
     return (
-      <div className={classNames(this.props.className, 'Navigation')} role="navigation">
-        <a className="Navigation-link" href="/" onClick={Link.handleClick}>Home</a>
-        <span className="Navigation-spacer"> | </span>
-        <a className="Navigation-link" href="/nfl" onClick={Link.handleClick}>NFL</a>
+      <div className={classNames(this.props.className, 'navigation')} role="navigation">
+        <a className="navigiation__link" href="/" onClick={Link.handleClick}>Home</a>
+        <span className="navigiation__spacer"> | </span>
+        <a className="navigiation__link" href="/nfl" onClick={Link.handleClick}>NFL</a>
       </div>
     );
   }

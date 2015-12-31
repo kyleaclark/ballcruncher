@@ -64,7 +64,7 @@ class Dropdown extends React.Component {
 
   renderOption (option) {
     let optionClass = classNames({
-      'Dropdown-option': true,
+      'dropdown__option': true,
       'is-selected': option == this.state.selected
     });
 
@@ -88,7 +88,7 @@ class Dropdown extends React.Component {
       }
     })
 
-    return ops.length ? ops : <div className='Dropdown-noresults'>No options found</div>;
+    return ops.length ? ops : <div className='dropdown__noresults'>No options found</div>;
   }
 
   handleDocumentClick(event) {
@@ -105,7 +105,7 @@ class Dropdown extends React.Component {
     let menu = this.state.isOpen ? <div className={menuClassName}>{this.buildMenu()}</div> : null;
 
     let dropdownClass = classNames({
-      'Dropdown': true,
+      'dropdown': true,
       'is-open': this.state.isOpen
     });
 
@@ -113,7 +113,7 @@ class Dropdown extends React.Component {
       <div className={dropdownClass}>
         <div className={controlClassName} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
           {value}
-          <span className='Dropdown-arrow' />
+          <span className='dropdown__arrow' />
         </div>
         {menu}
       </div>
@@ -122,6 +122,6 @@ class Dropdown extends React.Component {
 
 }
 
-Dropdown.defaultProps = { controlClassName: 'Dropdown-control', menuClassName: 'Dropdown-menu'};
+Dropdown.defaultProps = { controlClassName: 'dropdown__control', menuClassName: 'dropdown__menu'};
 
 export default Dropdown;

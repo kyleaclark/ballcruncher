@@ -1,5 +1,3 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React, { PropTypes, Component } from 'react';
 import styles from './nfl.css';
 import withStyles from '../../../decorators/withStyles';
@@ -23,13 +21,10 @@ class NflPage extends Component {
     this.context.onSetTitle(title);
 
     return (
-      <div className="page">
-        <div className="page__container">
-          <h1 className="page__title">NFL Power Rankings</h1>
+      <div>
+        <h1 className="page__title">NFL Power Rankings</h1>
 
-          <NflPowerRankings fullRankings={true} />
-
-        </div>
+        <NflPowerRankings fullRankings={true} />
       </div>
     );
   }

@@ -1,8 +1,6 @@
-/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 @import '../variables.css';
 
-.Navigation-link {
+.navigiation__link {
   display: inline-block;
   padding: 3px 8px;
   padding-top: 0px;
@@ -10,17 +8,17 @@
   font-size: 1.125em; /* ~18px */
 }
 
-.Navigation-link,
-.Navigation-link:active,
-.Navigation-link:visited {
+.navigiation__link,
+.navigiation__link:active,
+.navigiation__link:visited {
   color: var(--brand-color);
 }
 
-.Navigation-link:hover {
+.navigiation__link:hover {
   color: rgba(255, 255, 255, 1);
 }
 
-.Navigation-link--highlight {
+.navigiation__link--highlight {
   margin-right: 8px;
   margin-left: 8px;
   border-radius: 3px;
@@ -28,10 +26,10 @@
   color: #fff;
 }
 
-.Navigation-link--highlight:hover {
+.navigiation__link--highlight:hover {
   background: rgba(0, 0, 0, .3);
 }
 
-.Navigation-spacer {
+.navigiation__spacer {
   color: rgba(255, 255, 255, .3);
 }

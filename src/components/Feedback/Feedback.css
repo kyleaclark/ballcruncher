@@ -2,12 +2,12 @@
 
 @import '../variables.css';
 
-.Feedback {
+.feedback {
   background: var(--gray-lighter);
   color: var(--gray-darker);
 }
 
-.Feedback-container {
+.feedback__container {
   margin: 0 auto;
   padding: 20px 8px;
   max-width: var(--max-content-width);
@@ -15,19 +15,19 @@
   font-size: 1.5em; /* ~24px */
 }
 
-.Feedback-link,
-.Feedback-link:active,
-.Feedback-link:hover,
-.Feedback-link:visited {
+.feedback__link,
+.feedback__link:active,
+.feedback__link:hover,
+.feedback__link:visited {
   color: #333;
   text-decoration: none;
 }
 
-.Feedback-link:hover {
+.feedback__link:hover {
   text-decoration: underline;
 }
 
-.Feedback-spacer {
+.feedback__spacer {
   padding-right: 15px;
   padding-left: 15px;
 }

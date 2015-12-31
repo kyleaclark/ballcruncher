@@ -2,43 +2,43 @@
 
 @import '../variables.css';
 
-.Footer {
+.footer {
   background: var(--gray-darker);
   color: #fff;
 }
 
-.Footer-container {
+.footer__container {
   margin: 0 auto;
   padding: 20px 15px;
   max-width: var(--max-content-width);
   text-align: center;
 }
 
-.Footer-text {
+.footer__text {
   color: rgba(255, 255, 255, .5);
 }
 
-.Footer-text--muted {
+.footer__text--muted {
   color: rgba(255, 255, 255, .3);
 }
 
-.Footer-spacer {
+.footer__spacer {
   color: rgba(255, 255, 255, .3);
 }
 
-.Footer-text,
-.Footer-link {
+.footer__text,
+.footer__link {
   padding: 2px 5px;
   font-size: 1em;
 }
 
-.Footer-link,
-.Footer-link:active,
-.Footer-link:visited {
+.footer__link,
+.footer__link:active,
+.footer__link:visited {
   color: rgba(255, 255, 255, .6);
   text-decoration: none;
 }
 
-.Footer-link:hover {
+.footer__link:hover {
   color: rgba(255, 255, 255, 1);
 }

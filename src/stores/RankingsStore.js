@@ -3,9 +3,14 @@ import AppDispatcher from '../core/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
 
 let _rankings = [];
+let _cached = false;
 
 function setRankings(rankings) {
   _rankings = rankings;
+}
+
+function cache() {
+  _cached = true;
 }
 
 class RankingsStore extends FluxStore {
@@ -16,6 +21,15 @@ class RankingsStore extends FluxStore {
 
   getRankings() {
     return _rankings;
+  }
+
+  isCached() {
+    return _cached;
+  }
+
+  propagateRankings() {
+    console.log('propagateRankings');
+    this.emitChange();
   }
 
 }
@@ -30,13 +44,14 @@ rankingsStoreInstance.dispatchToken = AppDispatcher.register(payload => {
     case ActionTypes.RECEIVE_RANKINGS:
 
       setRankings(action.rankings);
+      cache(true);
       break;
 
     default:
       return true;
   }
 
-  rankingsStoreInstance.emitChange();
+  rankingsStoreInstance.propagateRankings();
 
 });
 

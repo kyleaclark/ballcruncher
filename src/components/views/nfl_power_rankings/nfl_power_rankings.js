@@ -28,9 +28,6 @@ class NflPowerRankings extends Component {
 
   componentWillMount() {
     RankingsStore.addChangeListener(this._onChange);
-  }
-
-  componentDidMount() {
     ActionCreator.getRankings();
   }
 
@@ -159,7 +156,7 @@ class NflPowerRankings extends Component {
             {this._renderWeekSelection()}
             <Table
               key={'nfl_rankings_table_' + this.state.selectedRankingsIndex}
-              className="table-component"
+              className="table__component"
               columns={tableColumns}
               keys={['id']}
               sortBy={sortBy}

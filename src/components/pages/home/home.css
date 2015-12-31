@@ -1,12 +1,10 @@
-@import '../pages.css';
-
 .homepage__data-title {
   margin-bottom: 0px;
 }
 
 .homepage__data-subtitle {
   margin-top: 0;
-  
+
   a {
     text-decoration: underline;
   }
