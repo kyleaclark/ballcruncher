@@ -39,13 +39,15 @@ class NflPowerRankings extends Component {
     const rankings = RankingsStore.getRankings();
 
     let week,
+        label,
         options = [];
 
     for (let index = 0; index < rankings.length; index++) {
       week = index + 2;
+      label = week === 18 ? 'End of Season' : 'Week ' + week;
       options.push({
         value: index,
-        label: 'Week ' + week
+        label: label
       })
     }
 
