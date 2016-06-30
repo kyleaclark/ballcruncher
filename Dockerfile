@@ -8,4 +8,5 @@ ONBUILD RUN npm install
 ONBUILD RUN npm run build
 ONBUILD COPY . /usr/src/app/build
 
+EXPOSE 5000
 CMD [ "npm", "start" ]
