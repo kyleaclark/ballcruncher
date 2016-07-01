@@ -1,10 +1,10 @@
-FROM node:6.2.2
+FROM node:4.4.7
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-ONBUILD COPY package.json /usr/src/app/
-ONBUILD RUN npm install
+COPY build .
+RUN npm install
 
 EXPOSE 5000
 CMD [ "npm", "start" ]
