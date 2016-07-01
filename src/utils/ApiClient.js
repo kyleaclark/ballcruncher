@@ -11,6 +11,7 @@ const ApiClient = {
       request
         .get(url)
         .end((error, res) => {
+          console.log('error res : ', error, res);
           if (res.status === 404) {
             reject();
           } else {
