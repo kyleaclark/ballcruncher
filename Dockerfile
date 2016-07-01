@@ -1,12 +1,17 @@
 FROM node:6.2.2
 
+# Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-ONBUILD COPY package.json /usr/src/app/
-ONBUILD RUN npm install
-ONBUILD RUN npm run build
-ONBUILD COPY . /usr/src/app/build
+# Install app dependencies
+COPY package.json /usr/src/app/
+RUN npm install
+
+# Bundle app source
+RUN npm run build
+COPY . /usr/src/app/build
 
 EXPOSE 5000
+
 CMD [ "npm", "start" ]
