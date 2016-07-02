@@ -1,6 +1,0 @@
-{
-  "name": "feedback",
-  "version": "0.0.1",
-  "private": true,
-  "main": "./feedback.js"
-}
