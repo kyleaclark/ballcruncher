@@ -1,10 +1,17 @@
-FROM node:4.4.7
+FROM node:6.2.2
+MAINTAINER Kyle Clark
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+WORKDIR /usr/local/app
 
-COPY build .
+COPY package.json /usr/local/app/package.json
 RUN npm install
 
-EXPOSE 5000
-CMD [ "npm", "start" ]
+COPY .babelrc /usr/local/app/.babelrc
+COPY preprocessor.js /usr/local/app/preprocessor.js
+COPY src /usr/local/app/src
+COPY tools /usr/local/app/tools
+RUN npm run build
+
+WORKDIR /usr/local/app/build
+
+CMD ["npm", "start"]

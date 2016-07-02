@@ -1,0 +1,35 @@
+@import '../variables.css';
+
+.navigiation__link {
+  display: inline-block;
+  padding: 3px 8px;
+  padding-top: 0px;
+  text-decoration: none;
+  font-size: 1.125em; /* ~18px */
+}
+
+.navigiation__link,
+.navigiation__link:active,
+.navigiation__link:visited {
+  color: var(--brand-color);
+}
+
+.navigiation__link:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.navigiation__link--highlight {
+  margin-right: 8px;
+  margin-left: 8px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, .15);
+  color: #fff;
+}
+
+.navigiation__link--highlight:hover {
+  background: rgba(0, 0, 0, .3);
+}
+
+.navigiation__spacer {
+  color: rgba(255, 255, 255, .3);
+}

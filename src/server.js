@@ -7,7 +7,7 @@ import express from 'express';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Router from './routes';
-import Html from './components/Html';
+import Html from './components/html';
 
 import rankingsApi from './api/rankings';
 
