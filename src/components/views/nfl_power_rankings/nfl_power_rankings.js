@@ -28,7 +28,10 @@ class NflPowerRankings extends Component {
 
   componentWillMount() {
     RankingsStore.addChangeListener(this._onChange);
-    //ActionCreator.getRankings();
+  }
+
+  componentDidMount() {
+    ActionCreator.getRankings();
   }
 
   componentWillUnmount() {

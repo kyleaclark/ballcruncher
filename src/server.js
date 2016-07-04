@@ -3,9 +3,9 @@
 import 'babel-core/polyfill';
 import path from 'path';
 import express from 'express';
-//import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import React from 'react';
-import ReactDOM from 'react-dom/server';
+import ReactDOMServer from 'react-dom/server';
 import Router from './routes';
 import Html from './components/html';
 
@@ -13,9 +13,9 @@ import rankingsApi from './api/rankings';
 
 const server = global.server = express();
 const port = process.env.PORT || 5000;
+const dbConnection = 'mongodb://localhost/ballcruncher_db';
 server.set('port', port);
-//mongoose.connect(process.env.MONGOLAB_URI);
-//mongoose.connect("mongodb://localhost/ballcruncher_db");
+mongoose.connect(dbConnection);
 
 //
 // Register Node.js middleware
@@ -44,11 +44,11 @@ server.get('*', async (req, res, next) => {
     };
 
     await Router.dispatch({ path: req.path, context }, (state, component) => {
-      data.body = ReactDOM.renderToString(component);
+      data.body = ReactDOMServer.renderToString(component);
       data.css = css.join('');
     });
 
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+    const html = ReactDOMServer.renderToStaticMarkup(<Html {...data} />);
     res.status(statusCode).send('<!doctype html>\n' + html);
   } catch (err) {
     next(err);

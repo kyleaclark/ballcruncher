@@ -18,7 +18,6 @@ class Table extends React.Component {
   }
 
   _onSort(sortBy) {
-    console.log('sortBy : ', sortBy);
     this.setState({
       sortByProperty: sortBy.property,
       sortByOrder: sortBy.order
