@@ -12,7 +12,10 @@ import ErrorPage from './components/views/error';
 const router = new Router(on => {
   on('*', async (state, next) => {
     const component = await next();
-    return component && <App context={state.context}>{component}</App>;
+    if (component === undefined) return component;
+    return render(
+      <App context={context}>{component}</App>
+    );
   });
 
   on('/', async () => <Page route='Home' />);

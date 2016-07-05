@@ -20,7 +20,11 @@
     "normalize.css": "3.0.3",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
+    "react-redux": "^4.4.5",
     "react-routing": "0.0.5",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0",
     "source-map-support": "0.3.3",
     "superagent": "1.4.0"
   },

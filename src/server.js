@@ -8,6 +8,8 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import Router from './routes';
 import Html from './components/html';
+import { getRankings } from './actions/index';
+import configureStore from './store/configureStore';
 
 import rankingsApi from './api/rankings';
 
@@ -33,23 +35,42 @@ server.use('/api/rankings', rankingsApi);
 // -----------------------------------------------------------------------------
 server.get('*', async (req, res, next) => {
   try {
+    let css = [];
     let statusCode = 200;
-    const data = { title: '', description: '', css: '', body: '' };
-    const css = [];
-    const context = {
-      onInsertCss: value => css.push(value),
-      onSetTitle: value => data.title = value,
-      onSetMeta: (key, value) => data[key] = value,
-      onPageNotFound: () => statusCode = 404,
-    };
+    const template = require('./views/index.jade'); // eslint-disable-line global-require
+    const data = { title: '', description: '', css: '', body: '', entry: assets.main.js };
 
-    await Router.dispatch({ path: req.path, context }, (state, component) => {
-      data.body = ReactDOMServer.renderToString(component);
-      data.css = css.join('');
+    if (process.env.NODE_ENV === 'production') {
+      data.trackingId = analytics.google.trackingId;
+    }
+
+    const store = configureStore({}, {
+      cookie: req.headers.cookie,
     });
 
-    const html = ReactDOMServer.renderToStaticMarkup(<Html {...data} />);
-    res.status(statusCode).send('<!doctype html>\n' + html);
+    store.dispatch(getRankings());
+
+    await match(routes, {
+      path: req.path,
+      query: req.query,
+      context: {
+        store,
+        insertCss: styles => css.push(styles._getCss()), // eslint-disable-line no-underscore-dangle
+        setTitle: value => (data.title = value),
+        setMeta: (key, value) => (data[key] = value),
+      },
+      render(component, status = 200) {
+        css = [];
+        statusCode = status;
+        data.state = JSON.stringify(store.getState());
+        data.body = ReactDOM.renderToString(component);
+        data.css = css.join('');
+        return true;
+      },
+    });
+
+    res.status(statusCode);
+    res.send(template(data));
   } catch (err) {
     next(err);
   }

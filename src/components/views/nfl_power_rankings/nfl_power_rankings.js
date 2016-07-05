@@ -3,8 +3,6 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './nfl_power_rankings.css';
 import withStyles from '../../../decorators/withStyles';
-import RankingsStore from '../../../stores/RankingsStore';
-import ActionCreator from '../../../actions/ActionCreator';
 import Table from '../../core/table/table';
 import Format from '../../../utils/format';
 import Dropdown from '../../core/dropdown'
@@ -12,12 +10,9 @@ import Dropdown from '../../core/dropdown'
 @withStyles(styles)
 class NflPowerRankings extends Component {
 
-  static contextTypes = {
-    onSetTitle: PropTypes.func.isRequired,
-  };
-
   constructor(props) {
     super(props);
+    console.log('nfl_power_rankings props : ', props);
     this.state = {
       selectedRankingsIndex: 0,
       rankings: []
@@ -26,20 +21,8 @@ class NflPowerRankings extends Component {
     this._onChange = this._onChange.bind(this)
   }
 
-  componentWillMount() {
-    RankingsStore.addChangeListener(this._onChange);
-  }
-
-  componentDidMount() {
-    ActionCreator.getRankings();
-  }
-
-  componentWillUnmount() {
-    RankingsStore.removeChangeListener(this._onChange);
-  }
-
   _onChange() {
-    const rankings = RankingsStore.getRankings();
+    const rankings = this.state.rankings;
 
     let week,
         label,

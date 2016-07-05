@@ -6,10 +6,12 @@ import FastClick from 'fastclick';
 import Router from './routes';
 import Location from './core/Location';
 import { addEventListener, removeEventListener } from './utils/DOMUtils';
+import configureStore from './store/configureStore';
 
 let cssContainer = document.getElementById('css');
 const appContainer = document.getElementById('app');
 const context = {
+  store: null,
   onSetTitle: value => document.title = value,
   onSetMeta: (name, content) => {
     // Remove and create a new <meta /> tag in order to make it work
@@ -50,9 +52,14 @@ function render(state) {
 function run() {
   let currentLocation = null;
   let currentState = null;
+  const store = {
+    rankings: []
+  };
 
   // Make taps on links and buttons work fast on mobiles
   FastClick.attach(document.body);
+
+  context.store = configureStore(initialState, {});
 
   // Re-render the app when window.location changes
   const unlisten = Location.listen(location => {
@@ -67,26 +74,26 @@ function run() {
   });
 
   // Save the page scroll position into the current location's state
-  const supportPageOffset = window.pageXOffset !== undefined;
-  const isCSS1Compat = ((document.compatMode || '') === 'CSS1Compat');
-  const setPageOffset = () => {
-    currentLocation.state = currentLocation.state || Object.create(null);
-    if (supportPageOffset) {
-      currentLocation.state.scrollX = window.pageXOffset;
-      currentLocation.state.scrollY = window.pageYOffset;
-    } else {
-      currentLocation.state.scrollX = isCSS1Compat ?
-        document.documentElement.scrollLeft : document.body.scrollLeft;
-      currentLocation.state.scrollY = isCSS1Compat ?
-        document.documentElement.scrollTop : document.body.scrollTop;
-    }
-  };
+  // const supportPageOffset = window.pageXOffset !== undefined;
+  // const isCSS1Compat = ((document.compatMode || '') === 'CSS1Compat');
+  // const setPageOffset = () => {
+  //   currentLocation.state = currentLocation.state || Object.create(null);
+  //   if (supportPageOffset) {
+  //     currentLocation.state.scrollX = window.pageXOffset;
+  //     currentLocation.state.scrollY = window.pageYOffset;
+  //   } else {
+  //     currentLocation.state.scrollX = isCSS1Compat ?
+  //       document.documentElement.scrollLeft : document.body.scrollLeft;
+  //     currentLocation.state.scrollY = isCSS1Compat ?
+  //       document.documentElement.scrollTop : document.body.scrollTop;
+  //   }
+  // };
 
-  addEventListener(window, 'scroll', setPageOffset);
-  addEventListener(window, 'pagehide', () => {
-    removeEventListener(window, 'scroll', setPageOffset);
-    unlisten();
-  });
+  // addEventListener(window, 'scroll', setPageOffset);
+  // addEventListener(window, 'pagehide', () => {
+  //   removeEventListener(window, 'scroll', setPageOffset);
+  //   unlisten();
+  // });
 }
 
 // Run the application when both DOM is ready and page content is loaded
