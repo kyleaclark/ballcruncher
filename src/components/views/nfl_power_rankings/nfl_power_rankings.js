@@ -17,9 +17,7 @@ class NflPowerRankings extends Component {
     };
   }
 
-  comonentWillMount() {
-    console.log('componentWIllMount nfl_power_rankings props : ', props);
-
+  componentWillMount() {
     let rankings = this.props.rankings;
     let week,
         label,
@@ -33,8 +31,6 @@ class NflPowerRankings extends Component {
         label: label
       })
     }
-
-    console.log('RANKINGS YOOO : ', rankings);
 
     this.setState({
       rankings: rankings,
