@@ -4,7 +4,7 @@ import 'babel-polyfill';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
 import Router from './routes';
-import Location from './core/Location';
+import history from './core/history';
 import { addEventListener, removeEventListener } from './utils/DOMUtils';
 import configureStore from './store/configureStore';
 
@@ -62,38 +62,17 @@ function run() {
   context.store = configureStore(initialState, {});
 
   // Re-render the app when window.location changes
-  const unlisten = Location.listen(location => {
+  const removeHistoryListener = history.listen(location => {
     currentLocation = location;
-    currentState = Object.assign({}, location.state, {
+    match(routes, {
       path: location.pathname,
       query: location.query,
       state: location.state,
       context,
-    });
-    render(currentState);
+      render: render.bind(undefined, container, location.state),
+    }).catch(err => console.error(err)); // eslint-disable-line no-console
   });
 
-  // Save the page scroll position into the current location's state
-  // const supportPageOffset = window.pageXOffset !== undefined;
-  // const isCSS1Compat = ((document.compatMode || '') === 'CSS1Compat');
-  // const setPageOffset = () => {
-  //   currentLocation.state = currentLocation.state || Object.create(null);
-  //   if (supportPageOffset) {
-  //     currentLocation.state.scrollX = window.pageXOffset;
-  //     currentLocation.state.scrollY = window.pageYOffset;
-  //   } else {
-  //     currentLocation.state.scrollX = isCSS1Compat ?
-  //       document.documentElement.scrollLeft : document.body.scrollLeft;
-  //     currentLocation.state.scrollY = isCSS1Compat ?
-  //       document.documentElement.scrollTop : document.body.scrollTop;
-  //   }
-  // };
-
-  // addEventListener(window, 'scroll', setPageOffset);
-  // addEventListener(window, 'pagehide', () => {
-  //   removeEventListener(window, 'scroll', setPageOffset);
-  //   unlisten();
-  // });
 }
 
 // Run the application when both DOM is ready and page content is loaded
