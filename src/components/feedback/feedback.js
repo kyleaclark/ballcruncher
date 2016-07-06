@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import styles from './feedback.css';
-import withStyles from '../../decorators/withStyles';
 
-@withStyles(styles)
 class Feedback extends Component {
 
   render() {

@@ -2,28 +2,25 @@
 
 import React, { PropTypes, Component } from 'react';
 import styles from './nfl_power_rankings.css';
-import withStyles from '../../../decorators/withStyles';
 import Table from '../../core/table/table';
 import Format from '../../../utils/format';
 import Dropdown from '../../core/dropdown'
 
-@withStyles(styles)
 class NflPowerRankings extends Component {
 
   constructor(props) {
     super(props);
-    console.log('nfl_power_rankings props : ', props);
+
     this.state = {
       selectedRankingsIndex: 0,
       rankings: []
     };
-
-    this._onChange = this._onChange.bind(this)
   }
 
-  _onChange() {
-    const rankings = this.state.rankings;
+  comonentWillMount() {
+    console.log('componentWIllMount nfl_power_rankings props : ', props);
 
+    let rankings = this.props.rankings;
     let week,
         label,
         options = [];
@@ -36,6 +33,8 @@ class NflPowerRankings extends Component {
         label: label
       })
     }
+
+    console.log('RANKINGS YOOO : ', rankings);
 
     this.setState({
       rankings: rankings,

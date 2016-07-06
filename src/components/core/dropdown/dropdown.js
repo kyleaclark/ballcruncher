@@ -4,9 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import styles from './dropdown.css';
-import withStyles from '../../../decorators/withStyles';
 
-@withStyles(styles)
 class Dropdown extends React.Component {
 
   displayName: 'Dropdown'

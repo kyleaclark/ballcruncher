@@ -2,9 +2,6 @@
 
 import React from 'react';
 import styles from './table.css';
-import withStyles from '../../../decorators/withStyles';
-
-@withStyles(styles)
 
 class Table extends React.Component {
 

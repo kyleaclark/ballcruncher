@@ -2,11 +2,9 @@
 
 import React, { Component } from 'react';
 import styles from './header.css';
-import withStyles from '../../decorators/withStyles';
 import Link from '../link';
 import Navigation from '../navigation';
 
-@withStyles(styles)
 class Header extends Component {
 
   render() {

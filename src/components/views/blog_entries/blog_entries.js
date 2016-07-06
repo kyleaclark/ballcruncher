@@ -1,8 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './blog_entries.css';
-import withStyles from '../../../decorators/withStyles';
 
-@withStyles(styles)
 class BlogEntries extends Component {
 
   render() {
