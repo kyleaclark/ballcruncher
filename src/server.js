@@ -5,8 +5,9 @@ import path from 'path';
 import express from 'express';
 import mongoose from 'mongoose';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import Router from './routes';
+import { match } from 'universal-router';
+import ReactDOM from 'react-dom/server';
+import routes from './routes';
 import Html from './components/html';
 import { getRankings } from './actions/index';
 import configureStore from './store/configureStore';
@@ -38,7 +39,7 @@ server.get('*', async (req, res, next) => {
     let css = [];
     let statusCode = 200;
     const template = require('./views/index.jade'); // eslint-disable-line global-require
-    const data = { title: '', description: '', css: '', body: '', entry: assets.main.js };
+    const data = { title: '', description: '', css: '', body: '' };
 
     if (process.env.NODE_ENV === 'production') {
       data.trackingId = analytics.google.trackingId;
