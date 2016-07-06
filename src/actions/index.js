@@ -1,5 +1,5 @@
-import * as types from '../constants/actionTypes'
-import Api from '../utils/ApiClient';
+import * as types from '../constants/actionTypes';
+import fetch from '../core/fetch';
 
 function receiveRankings(rankings) {
   return {
@@ -10,8 +10,7 @@ function receiveRankings(rankings) {
 
 export function getRankings() {
   return dispatch => {
-    Api
-      .get('/api/rankings')
+    fetch('/api/rankings')
       .then(rankings => {
         dispatch(receiveRankings(rankings));
       });
