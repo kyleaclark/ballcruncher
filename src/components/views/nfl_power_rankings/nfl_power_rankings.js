@@ -1,7 +1,6 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React, { PropTypes, Component } from 'react';
-import styles from './nfl_power_rankings.css';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './nfl_power_rankings.css';
 import Table from '../../core/table/table';
 import Format from '../../../utils/format';
 import Dropdown from '../../core/dropdown'
@@ -115,7 +114,8 @@ class NflPowerRankings extends Component {
 
         <br /><br />
 
-        <span>&raquo; </span><a href='https://github.com/kyleaclark/nfl-power-rankings' target='_blank' style={{textDecoration: 'underline'}}>View the data model source code on GitHub</a>
+        <span>&raquo; </span>
+        <a href='https://github.com/kyleaclark/nfl-power-rankings' target='_blank'>View the data model source code on GitHub</a>
       </div>
     )
   }
@@ -139,7 +139,7 @@ class NflPowerRankings extends Component {
             {this._renderWeekSelection()}
             <Table
               key={'nfl_rankings_table_' + this.state.selectedRankingsIndex}
-              className="table__component"
+              className={s.table__component}
               columns={tableColumns}
               keys={['id']}
               sortBy={sortBy}
@@ -155,4 +155,4 @@ class NflPowerRankings extends Component {
 
 }
 
-export default NflPowerRankings;
+export default withStyles(s)(NflPowerRankings);

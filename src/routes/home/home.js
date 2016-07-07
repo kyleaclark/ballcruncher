@@ -26,10 +26,6 @@ function Home({ rankings }, context) {
         <div>
           <div className={s.page__primary}>
             <h1 className={s.page__title}>Welcome to Ballcruncher</h1>
-            <p className={s.page__subtitle}>
-              Ballcruncher is &mdash; a critical or vital point; a crucial or difficult question;<br />
-            a system analyzing large amounts of information &amp; data about sports.
-            </p>
 
             <hr />
 

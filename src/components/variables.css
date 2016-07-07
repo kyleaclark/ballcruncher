@@ -60,7 +60,3 @@ a:visited {
 a:hover {
   color: var(--gray-light);
 }
-
-.beta-text {
-  font-size: 0.5em;
-}

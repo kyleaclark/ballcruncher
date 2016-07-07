@@ -1,5 +1,11 @@
 @import '../variables.css';
 
+.navigation {
+  font-family: var(--font-family-alt);
+  float: right;
+  margin-top: 6px;
+}
+
 .navigiation__link {
   display: inline-block;
   padding: 3px 8px;

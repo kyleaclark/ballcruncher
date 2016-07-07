@@ -1,7 +1,8 @@
 'use strict';
 
 import React from 'react';
-import styles from './table.css';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './table.css';
 
 class Table extends React.Component {
 
@@ -62,7 +63,7 @@ class Table extends React.Component {
             }
 
             return (
-              <td key={index} className={col.className}>
+              <td key={index} className={s[col.className]}>
                 {item}
               </td>);
           })}
@@ -95,13 +96,15 @@ class Table extends React.Component {
         sortAttrs = {};
       }
 
+      //let sortOrderClass = sortOrder ? 's.table__sort_${sortOrder}' : '';
+
       return (
         <th
           key={col.label || col.property}
           title={col.title}
           {...sortAttrs}>
           {col.label && <span>{col.label}</span>}
-          {col.sortable && <span className={`sort-icon sort-${sortOrder}`} />}
+          {col.sortable && <span className={s.table__sort_icon} />}
         </th>
       );
     });
@@ -114,7 +117,7 @@ class Table extends React.Component {
         sortBy = this.state.sortBy;
 
     return (
-      <table className={this.props.className}>
+      <table className={s[this.props.className]}>
         <thead>
           <tr>
             {this._renderHeading()}
@@ -131,7 +134,7 @@ class Table extends React.Component {
 Table.displayName = 'Table';
 
 Table.defaultProps = {
-  className: 'table-component'
+  className: 'table'
 };
 
-export default Table;
+export default withStyles(s)(Table);

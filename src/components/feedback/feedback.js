@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import styles from './feedback.css';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './feedback.css';
 
 class Feedback extends Component {
 
   render() {
     return (
-      <div className="feedback">
-        <div className="feedback__container">
-          <span>where ball don't lie about sports analytics &amp; musings</span>
+      <div className={s.feedback}>
+        <div className={s.feedback__container}>
+          <span>where ballcruncher don&#39;t lie about sports analytics &amp; musings</span>
         </div>
       </div>
     );
@@ -15,4 +16,4 @@ class Feedback extends Component {
 
 }
 
-export default Feedback;
+export default withStyles(s)(Feedback);
