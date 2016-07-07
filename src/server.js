@@ -16,7 +16,7 @@ import rankingsApi from './api/rankings';
 
 const server = global.server = express();
 const port = process.env.PORT || 5000;
-const dbConnection = 'mongodb://localhost/ballcruncher_db';
+const dbConnection = process.env.MONGOLAB_URI || 'mongodb://localhost/ballcruncher_db';
 server.set('port', port);
 mongoose.connect(dbConnection);
 
