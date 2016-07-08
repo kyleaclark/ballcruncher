@@ -22,6 +22,17 @@ class NflPowerRankings extends Component {
         label,
         options = [];
 
+    // TODO: refactor this to be generic...
+    rankings.sort(function (a, b) {
+      if (a.week > b.week) {
+        return 1;
+      }
+      if (a.week < b.week) {
+        return -1;
+      }
+      return 0;
+    });
+
     for (let index = 0; index < rankings.length; index++) {
       week = index + 2;
       label = week === 18 ? 'End of Season' : 'Week ' + week;
