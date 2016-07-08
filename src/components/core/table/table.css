@@ -2,8 +2,10 @@
   Table Component
 ----------------------------------*/
 
+@import '../../variables.css';
+
 .table {
-  border: 1px solid #ebebeb;
+  border: 1px solid var(--gray-lighter);
   color: #444;
   margin: 20px 0;
   width: 100%;
@@ -16,11 +18,8 @@
 }
 
 .table td {
+  color: var(--white-base);
   padding: 10px;
-}
-
-.table tbody tr:nth-child(odd) {
-  background-color: #ececec;
 }
 
 .table__sort_icon:after {

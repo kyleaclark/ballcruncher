@@ -6,7 +6,7 @@
    * Colors
    * ======================================================================== */
 
-  --white-base:            hsl(255, 255, 255);
+  --white-base:            #ffffff;
   --gray-darker:           color(black lightness(+13.5%)); /* #222 */
   --gray-dark:             color(black lightness(+25%));   /* #404040 */
   --gray:                  color(black lightness(+33.5%)); /* #555 */
@@ -15,6 +15,39 @@
 
   --brand-color:           #61dafb;
   --brand-color-light:     color(var(--brand-color) lightness(+13.5%)); /* 92e5fc */
+
+  --ari-color:             #97233F;
+  --atl-color:             #A71930;
+  --bal-color:             #241773;
+  --buf-color:             #00338D;
+  --car-color:             #0085CA;
+  --chi-color:             #0B162A;
+  --cin-color:             #000000;
+  --cle-color:             #FB4F14;
+  --dal-color:             #002244;
+  --den-color:             #002244;
+  --det-color:             #005A8B;
+  --gb-color:              #203731;
+  --hou-color:             #03202F;
+  --ind-color:             #002C5F;
+  --jac-color:             #000000;
+  --kc-color:              #E31837;
+  --mia-color:             #008E97;
+  --min-color:             #4F2683;
+  --ne-color:              #002244;
+  --no-color:              #9F8958;
+  --nyg-color:             #0B2265;
+  --nyj-color:             #203731;
+  --oak-color:             #A5ACAF;
+  --phi-color:             #004953;
+  --pit-color:             #000000;
+  --sd-color:              #002244;
+  --sea-color:             #002244;
+  --sf-color:              #AA0000;
+  --stl-color:             #002244;
+  --tb-color:              #D50A0A;
+  --ten-color:             #002244;
+  --was-color:             #773141;
 
   /*
    * Typography
@@ -59,4 +92,103 @@ a:visited {
 
 a:hover {
   color: var(--gray-light);
+}
+
+/*** TEAM DATA COLORS (TODO: MOVE TO INDIVIDUAL FILE) ***/
+
+.ari {
+  background-color: var(--ari-color);
+}
+.atl {
+  background-color: var(--atl-color);
+}
+.bal {
+  background-color: var(--bal-color);;
+}
+.buf {
+  background-color: var(--buf-color);
+}
+.car {
+  background-color: var(--car-color);
+}
+.chi {
+  background-color: var(--chi-color);
+}
+.cin {
+  background-color: var(--cin-color);
+}
+.cle {
+  background-color: var(--cle-color);
+}
+.dal {
+  background-color: var(--dal-color);
+}
+.den {
+  background-color: var(--den-color);
+}
+.det {
+  background-color: var(--det-color);
+}
+.gb {
+  background-color: var(--gb-color);
+}
+.hou {
+  background-color: var(--hou-color);
+}
+.ind {
+  background-color: var(--ind-color);
+}
+.jac {
+  background-color: var(--jac-color);
+}
+.kc {
+  background-color: var(--kc-color);
+}
+.mia {
+  background-color: var(--mia-color);
+}
+.min {
+  background-color: var(--min-color);
+}
+.ne {
+  background-color: var(--ne-color);
+}
+.no {
+  background-color: var(--no-color);
+}
+.nyg {
+  background-color: var(--nyg-color);
+}
+.nyj {
+  background-color: var(--nyj-color);
+}
+.oak {
+  background-color: var(--oak-color);
+}
+.phi {
+  background-color: var(--phi-color);
+}
+.pit {
+  background-color: var(--pit-color);
+}
+.sd {
+  background-color: var(--sd-color);
+}
+.sea {
+  background-color: var(--sea-color);
+}
+.sf {
+  background-color: var(--sf-color);
+}
+.stl {
+  background-color: var(--stl-color);
+}
+.tb {
+  background-color: var(--tb-color);
+}
+.ten {
+  background-color: var(--ten-color);
+}
+.was {
+  background-color: var(--was-color);
 }

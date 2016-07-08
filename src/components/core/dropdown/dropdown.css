@@ -35,7 +35,7 @@
   width: 0
 }
 
-.is-open .dropdown__arrow {
+.is_open .dropdown__arrow {
   border-color: transparent transparent #999;
   border-width: 0 5px 5px;
 }
@@ -80,7 +80,7 @@
   color: #333;
 }
 
-.dropdown__option.is-selected {
+.dropdown__option.is_selected {
   background-color: #f2f9fc;
   color: #333;
 }
