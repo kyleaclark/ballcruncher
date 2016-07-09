@@ -1,23 +1,38 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
 
 import 'babel-polyfill';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
-import Router from './routes';
+import UniversalRouter from 'universal-router';
+import routes from './routes';
 import history from './core/history';
-import { addEventListener, removeEventListener } from './utils/DOMUtils';
 import configureStore from './store/configureStore';
+import { readState, saveState } from 'history/lib/DOMStateStorage';
+import {
+  addEventListener,
+  removeEventListener,
+  windowScrollX,
+  windowScrollY,
+} from './core/DOMUtils';
 
-let cssContainer = document.getElementById('css');
-const appContainer = document.getElementById('app');
+console.log('DID WE EVER INCLUDE CLIENT.JS???');
+
 const context = {
   store: null,
-  onSetTitle: value => document.title = value,
-  onSetMeta: (name, content) => {
+  insertCss: styles => styles._insertCss(), // eslint-disable-line no-underscore-dangle
+  setTitle: value => (document.title = value),
+  setMeta: (name, content) => {
     // Remove and create a new <meta /> tag in order to make it work
     // with bookmarks in Safari
     const elements = document.getElementsByTagName('meta');
-    [].slice.call(elements).forEach((element) => {
+    Array.from(elements).forEach((element) => {
       if (element.getAttribute('name') === name) {
         element.parentNode.removeChild(element);
       }
@@ -25,36 +40,60 @@ const context = {
     const meta = document.createElement('meta');
     meta.setAttribute('name', name);
     meta.setAttribute('content', content);
-    document.getElementsByTagName('head')[0].appendChild(meta);
+    document
+      .getElementsByTagName('head')[0]
+      .appendChild(meta);
   },
 };
 
-function render(state) {
-  Router.dispatch(state, (newState, component) => {
-    ReactDOM.render(component, appContainer, () => {
-      // Restore the scroll position if it was saved into the state
-      if (state.scrollY !== undefined) {
-        window.scrollTo(state.scrollX, state.scrollY);
-      } else {
-        window.scrollTo(0, 0);
-      }
+// Restore the scroll position if it was saved into the state
+function restoreScrollPosition(state) {
+  if (state && state.scrollY !== undefined) {
+    window.scrollTo(state.scrollX, state.scrollY);
+  } else {
+    window.scrollTo(0, 0);
+  }
+}
 
-      // Remove the pre-rendered CSS because it's no longer used
-      // after the React app is launched
-      if (cssContainer) {
-        cssContainer.parentNode.removeChild(cssContainer);
-        cssContainer = null;
-      }
-    });
+let renderComplete = (state, callback) => {
+  const elem = document.getElementById('css');
+  if (elem) elem.parentNode.removeChild(elem);
+  callback(true);
+  renderComplete = (s) => {
+    restoreScrollPosition(s);
+
+    // Google Analytics tracking. Don't send 'pageview' event after
+    // the initial rendering, as it was already sent
+    window.ga('send', 'pageview');
+
+    callback(true);
+  };
+};
+
+function render(container, state, component) {
+  console.log('client render : ', render);
+  return new Promise((resolve, reject) => {
+    try {
+      ReactDOM.render(
+        component,
+        container,
+        renderComplete.bind(undefined, state, resolve)
+      );
+    } catch (err) {
+      reject(err);
+    }
   });
 }
 
 function run() {
+  console.log('CLIENT RUN...');
   let currentLocation = null;
-  let currentState = null;
-  const store = {
-    rankings: []
-  };
+  const container = document.getElementById('app');
+  const initialState = JSON.parse(
+    document.
+      getElementById('source').
+      getAttribute('data-initial-state')
+  );
 
   // Make taps on links and buttons work fast on mobiles
   FastClick.attach(document.body);
@@ -73,6 +112,84 @@ function run() {
     }).catch(err => console.error(err)); // eslint-disable-line no-console
   });
 
+  // Save the page scroll position into the current location's state
+  const supportPageOffset = window.pageXOffset !== undefined;
+  const isCSS1Compat = ((document.compatMode || '') === 'CSS1Compat');
+  const setPageOffset = () => {
+    currentLocation.state = currentLocation.state || Object.create(null);
+    if (supportPageOffset) {
+      currentLocation.state.scrollX = window.pageXOffset;
+      currentLocation.state.scrollY = window.pageYOffset;
+    } else {
+      currentLocation.state.scrollX = isCSS1Compat ?
+        document.documentElement.scrollLeft : document.body.scrollLeft;
+      currentLocation.state.scrollY = isCSS1Compat ?
+        document.documentElement.scrollTop : document.body.scrollTop;
+    }
+  };
+
+  addEventListener(window, 'scroll', setPageOffset);
+  addEventListener(window, 'pagehide', () => {
+    removeEventListener(window, 'scroll', setPageOffset);
+    removeHistoryListener();
+  });
+}
+
+function run() {
+  const container = document.getElementById('app');
+  const initialState = JSON.parse(
+    document.
+      getElementById('source').
+      getAttribute('data-initial-state')
+  );
+  let currentLocation = history.getCurrentLocation();
+
+  // Make taps on links and buttons work fast on mobiles
+  FastClick.attach(document.body);
+
+  context.store = configureStore(initialState, {});
+
+  // Re-render the app when window.location changes
+  function onLocationChange(location) {
+    // Save the page scroll position into the current location's state
+    if (currentLocation.key) {
+      saveState(currentLocation.key, {
+        ...readState(currentLocation.key),
+        scrollX: windowScrollX(),
+        scrollY: windowScrollY(),
+      });
+    }
+    currentLocation = location;
+
+    UniversalRouter.resolve(routes, {
+      path: location.pathname,
+      query: location.query,
+      state: location.state,
+      context,
+      render: render.bind(undefined, container, location.state),
+    }).catch(err => console.error(err)); // eslint-disable-line no-console
+  }
+
+  // Add History API listener and trigger initial change
+  const removeHistoryListener = history.listen(onLocationChange);
+  history.replace(currentLocation);
+
+  // https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration
+  let originalScrollRestoration;
+  if (window.history && 'scrollRestoration' in window.history) {
+    originalScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = 'manual';
+  }
+
+  // Prevent listeners collisions during history navigation
+  addEventListener(window, 'pagehide', function onPageHide() {
+    removeEventListener(window, 'pagehide', onPageHide);
+    removeHistoryListener();
+    if (originalScrollRestoration) {
+      window.history.scrollRestoration = originalScrollRestoration;
+      originalScrollRestoration = undefined;
+    }
+  });
 }
 
 // Run the application when both DOM is ready and page content is loaded

@@ -36,7 +36,6 @@ class Dropdown extends React.Component {
   }
 
   handleMouseDown(event) {
-
     if (event.type == 'mousedown' && event.button !== 0) return;
     event.stopPropagation();
     event.preventDefault();
@@ -108,10 +107,10 @@ class Dropdown extends React.Component {
     });
 
     return (
-      <div className={dropdownClass}>
-        <div className={controlClassName} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
-          <div className='placeholder'>{this.state.selected.label}</div>
-          <span className='dropdown__arrow' />
+      <div className={s[dropdownClass]}>
+        <div className={s[controlClassName]} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
+          <div className={s.placeholder}>{this.state.selected.label}</div>
+          <span className={s.dropdown__arrow} />
         </div>
         {menu}
       </div>

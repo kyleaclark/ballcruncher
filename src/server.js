@@ -4,42 +4,61 @@ import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
 import mongoose from 'mongoose';
-import React from 'react';
-import { match } from 'universal-router';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+// import expressJwt from 'express-jwt';
+// import expressGraphQL from 'express-graphql';
+// import jwt from 'jsonwebtoken';
 import ReactDOM from 'react-dom/server';
+import { match } from 'universal-router';
+import PrettyError from 'pretty-error';
+// import passport from './core/passport';
+// import models from './data/models';
+// import schema from './data/schema';
 import routes from './routes';
-import Html from './components/html';
-import { getRankings } from './actions/index';
+import assets from './assets'; // eslint-disable-line import/no-unresolved
+import { port, dbConnection, analytics } from './config';
 import configureStore from './store/configureStore';
+//import { setRuntimeVariable } from './actions/runtime';
 
+import { getRankings } from './actions/index';
 import rankingsApi from './api/rankings';
 
-const server = global.server = express();
-const port = process.env.PORT || 5000;
-const dbConnection = process.env.MONGOLAB_URI || 'mongodb://localhost/ballcruncher_db';
-server.set('port', port);
+const app = express();
+
+//
+// Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
+// user agent is not known.
+// -----------------------------------------------------------------------------
+global.navigator = global.navigator || {};
+global.navigator.userAgent = global.navigator.userAgent || 'all';
+
+app.set('port', port);
 mongoose.connect(dbConnection);
 
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
-server.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-//server.use('/api/content', require('./api/content'));
-server.use('/api/rankings', rankingsApi);
+//app.use('/api/content', require('./api/content'));
+app.use('/api/rankings', rankingsApi);
 
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
-server.get('*', async (req, res, next) => {
+app.get('*', async (req, res, next) => {
   try {
     let css = [];
     let statusCode = 200;
     const template = require('./views/index.jade'); // eslint-disable-line global-require
-    const data = { title: '', description: '', css: '', body: '' };
+    const data = { title: '', description: '', css: '', body: '', entry: assets.main.js };
 
     if (process.env.NODE_ENV === 'production') {
       data.trackingId = analytics.google.trackingId;
@@ -78,9 +97,27 @@ server.get('*', async (req, res, next) => {
 });
 
 //
+// Error handling
+// -----------------------------------------------------------------------------
+const pe = new PrettyError();
+pe.skipNodeFiles();
+pe.skipPackage('express');
+
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  console.log(pe.render(err)); // eslint-disable-line no-console
+  const template = require('./views/error.jade'); // eslint-disable-line global-require
+  const statusCode = err.status || 500;
+  res.status(statusCode);
+  res.send(template({
+    message: err.message,
+    stack: process.env.NODE_ENV === 'production' ? '' : err.stack,
+  }));
+});
+
+//
 // Launch the server
 // -----------------------------------------------------------------------------
-server.listen(port, () => {
+app.listen(port, () => {
   /* eslint-disable no-console */
   console.log(`The server is running at http://localhost:${port}/`);
 });

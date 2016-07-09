@@ -98,7 +98,7 @@ class Table extends React.Component {
       }
 
       //let sortOrderClass = sortOrder ? 's.table__sort_${sortOrder}' : '';
-
+      
       return (
         <th
           key={col.label || col.property}
