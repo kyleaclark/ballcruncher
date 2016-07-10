@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './table.css';
 
@@ -97,15 +98,18 @@ class Table extends React.Component {
         sortAttrs = {};
       }
 
-      //let sortOrderClass = sortOrder ? 's.table__sort_${sortOrder}' : '';
-      
+      let sortOrderClass = cx(
+        s.table__sort_icon,
+        s[`table__sort_${sortOrder}`]
+      );
+
       return (
         <th
           key={col.label || col.property}
           title={col.title}
           {...sortAttrs}>
           {col.label && <span>{col.label}</span>}
-          {col.sortable && <span className={s.table__sort_icon} />}
+          {col.sortable && <span className={sortOrderClass} />}
         </th>
       );
     });
