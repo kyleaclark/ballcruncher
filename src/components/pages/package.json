@@ -1,6 +1,0 @@
-{
-  "name": "page",
-  "version": "0.0.1",
-  "private": true,
-  "main": "./page.js"
-}
