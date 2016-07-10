@@ -25,11 +25,11 @@
     text-align: left;
     width: 100%;
   }
+}
 
-  h4 {
-    margin-top: 15px;
-    margin-bottom: 5px;
-  }
+.page__sidebar_title {
+  margin-top: 30px;
+  margin-bottom: 5px;
 }
 
 .homepage__data_title {

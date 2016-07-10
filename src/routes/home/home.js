@@ -13,8 +13,7 @@ import s from './home.css';
 import Link from '../../components/link';
 import BlogEntries from '../../components/views/blog_entries';
 import NflPowerRankings from '../../components/views/nfl_power_rankings';
-
-//let ballcruncherImage = require('../../../images/ballcruncher-small.jpg');
+import ballcruncherImage from '../../images/ballcruncher-small.jpg';
 
 const title = 'Ballcruncher - Home';
 
@@ -35,7 +34,8 @@ function Home({ rankings }, context) {
           </div>
 
           <div className={s.page__sidebar}>
-            <h4>Latest Blog Entries:</h4>
+            <h4 className={s.page__sidebar_title}>Latest Blog Entries:</h4>
+            <img src={ballcruncherImage} alt="Ballcruncher" />
             <br /><br />
 
             <BlogEntries />
