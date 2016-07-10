@@ -22,8 +22,6 @@ import {
   windowScrollY,
 } from './core/DOMUtils';
 
-console.log('DID WE EVER INCLUDE CLIENT.JS???');
-
 const context = {
   store: null,
   insertCss: styles => styles._insertCss(), // eslint-disable-line no-underscore-dangle
@@ -71,7 +69,6 @@ let renderComplete = (state, callback) => {
 };
 
 function render(container, state, component) {
-  console.log('client render : ', render);
   return new Promise((resolve, reject) => {
     try {
       ReactDOM.render(
@@ -86,7 +83,6 @@ function render(container, state, component) {
 }
 
 function run() {
-  console.log('CLIENT RUN...');
   let currentLocation = null;
   const container = document.getElementById('app');
   const initialState = JSON.parse(

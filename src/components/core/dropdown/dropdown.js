@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import classNames from 'classnames';
+import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './dropdown.css';
 
@@ -61,22 +61,26 @@ class Dropdown extends React.Component {
   }
 
   renderOption (option) {
-    let optionClass = classNames({
-      'dropdown__option': true,
-      'is_selected': option == this.state.selected
+    let optionClass = cx({
+      [s.dropdown__option]: true,
+      [s.is_selected]: option == this.state.selected
     });
 
-    return <div key={option.value} className={optionClass} onMouseDown={this.setValue.bind(this, option)} onClick={this.setValue.bind(this, option)}>{option.label}</div>
+    return (
+      <div key={option.value} className={optionClass} onMouseDown={this.setValue.bind(this, option)} onClick={this.setValue.bind(this, option)}>
+        {option.label}
+      </div>
+    );
   }
 
   buildMenu() {
     let ops = this.props.options.map((option) => {
       if (option.type == 'group') {
-        let groupTitle = (<div className='title'>{option.name}</div>);
+        let groupTitle = (<div className={s.title}>{option.name}</div>);
         let _options = option.items.map((item) => this.renderOption(item));
 
         return (
-          <div className='group' key={option.name}>
+          <div className={s.group} key={option.name}>
             {groupTitle}
             {_options}
           </div>
@@ -86,7 +90,7 @@ class Dropdown extends React.Component {
       }
     })
 
-    return ops.length ? ops : <div className='dropdown__noresults'>No options found</div>;
+    return ops.length ? ops : <div className={s.dropdown__noresults}>No options found</div>;
   }
 
   handleDocumentClick(event) {
@@ -99,15 +103,15 @@ class Dropdown extends React.Component {
 
   render() {
     const { controlClassName, menuClassName } = this.props;
-    let menu = this.state.isOpen ? <div className={menuClassName}>{this.buildMenu()}</div> : null;
+    let menu = this.state.isOpen ? <div className={s[menuClassName]}>{this.buildMenu()}</div> : null;
 
-    let dropdownClass = classNames({
-      'dropdown': true,
-      'is_open': this.state.isOpen
+    let dropdownClass = cx({
+      [s.dropdown]: true,
+      [s.is_open]: this.state.isOpen
     });
 
     return (
-      <div className={s[dropdownClass]}>
+      <div className={dropdownClass}>
         <div className={s[controlClassName]} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
           <div className={s.placeholder}>{this.state.selected.label}</div>
           <span className={s.dropdown__arrow} />
