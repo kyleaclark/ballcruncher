@@ -34,8 +34,8 @@ class NflPowerRankings extends Component {
     });
 
     for (let index = 0; index < rankings.length; index++) {
-      week = index + 2;
-      label = week === 18 ? 'End of Season' : 'Week ' + week;
+      week = index + 1;
+      label = ' 2015 Week ' + week;
       options.push({
         value: index,
         label: label

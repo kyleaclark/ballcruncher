@@ -12,13 +12,19 @@ import App from '../components/app';
 
 // Child routes
 import home from './home';
+import nfl from './nfl';
+import content from './content';
+import error from './error';
 
 export default {
 
   path: '/',
 
   children: [
-    home
+    home,
+    nfl,
+    content,
+    error
   ],
 
   async action({ next, render, context }) {

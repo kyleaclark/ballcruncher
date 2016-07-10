@@ -5,13 +5,13 @@
 @import '../../variables.css';
 
 .table {
-  border: 1px solid var(--gray-lighter);
   color: #444;
   margin: 20px 0;
   width: 100%;
 }
 
 .table th {
+  background-color: var(--gray-lighter);
   cursor: pointer;
   padding: 10px;
   text-align: left;
