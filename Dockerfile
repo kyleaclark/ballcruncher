@@ -6,7 +6,6 @@ WORKDIR /usr/local/app
 COPY package.json /usr/local/app/package.json
 RUN npm install
 
-COPY preprocessor.js /usr/local/app/preprocessor.js
 COPY src /usr/local/app/src
 COPY tools /usr/local/app/tools
 RUN npm run build
