@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { analytics } from '../config';
 
-function Html({ title, description, style, script, children }) {
+function Html({ title, description, style, script, state, children }) {
   return (
     <html className="no-js" lang="">
       <head>
@@ -15,7 +15,7 @@ function Html({ title, description, style, script, children }) {
       </head>
       <body>
         <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
-        {script && <script src={script} />}
+        {script && state && <script src={script} data-initial-state={state} />}
         {analytics.google.trackingId &&
           <script
             dangerouslySetInnerHTML={{ __html:

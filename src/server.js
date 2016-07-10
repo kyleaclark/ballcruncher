@@ -3,16 +3,18 @@
 import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
+import expressGraphQL from 'express-graphql';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Html from './components/html';
-import { ErrorPage } from './routes/error/ErrorPage';
-import errorPageStyle from './routes/error/ErrorPage.css';
+import { ErrorPage } from './routes/error/errorPage';
+import errorPageStyle from './routes/error/errorPage.css';
 import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
+import schema from './data/schema';
 import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import { port, dbConnection } from './config';
@@ -44,8 +46,14 @@ app.use(bodyParser.json());
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-//app.use('/api/content', require('./api/content'));
 app.use('/api/rankings', rankingsApi);
+
+app.use('/graphql', expressGraphQL(req => ({
+  schema,
+  graphiql: true,
+  rootValue: { request: req },
+  pretty: process.env.NODE_ENV !== 'production',
+})));
 
 //
 // Register server-side rendering middleware

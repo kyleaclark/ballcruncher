@@ -9,7 +9,7 @@
 
 import React from 'react';
 import App from '../../components/app';
-import ErrorPage from './ErrorPage';
+import ErrorPage from './errorPage';
 
 export default {
 
