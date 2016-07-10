@@ -72,7 +72,6 @@
     "gaze": "^1.0.0",
     "git-repository": "^0.1.4",
     "glob": "^7.0.3",
-    "jade-loader": "^0.8.0",
     "json-loader": "^0.5.4",
     "mkdirp": "^0.5.1",
     "mocha": "^2.4.5",
