@@ -144,56 +144,6 @@ function run() {
   });
 }
 
-function run() {
-  const container = document.getElementById('app');
-  let currentLocation = history.getCurrentLocation();
-
-  // Make taps on links and buttons work fast on mobiles
-  FastClick.attach(document.body);
-
-  // Re-render the app when window.location changes
-  function onLocationChange(location) {
-    // Save the page scroll position into the current location's state
-    if (currentLocation.key) {
-      saveState(currentLocation.key, {
-        ...readState(currentLocation.key),
-        scrollX: windowScrollX(),
-        scrollY: windowScrollY(),
-      });
-    }
-    currentLocation = location;
-
-    UniversalRouter.resolve(routes, {
-      path: location.pathname,
-      query: location.query,
-      state: location.state,
-      context,
-      render: render.bind(undefined, container, location.state), // eslint-disable-line react/jsx-no-bind, max-len
-    }).catch(err => console.error(err)); // eslint-disable-line no-console
-  }
-
-  // Add History API listener and trigger initial change
-  const removeHistoryListener = history.listen(onLocationChange);
-  history.replace(currentLocation);
-
-  // https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration
-  let originalScrollRestoration;
-  if (window.history && 'scrollRestoration' in window.history) {
-    originalScrollRestoration = window.history.scrollRestoration;
-    window.history.scrollRestoration = 'manual';
-  }
-
-  // Prevent listeners collisions during history navigation
-  addEventListener(window, 'pagehide', function onPageHide() {
-    removeEventListener(window, 'pagehide', onPageHide);
-    removeHistoryListener();
-    if (originalScrollRestoration) {
-      window.history.scrollRestoration = originalScrollRestoration;
-      originalScrollRestoration = undefined;
-    }
-  });
-}
-
 // Run the application when both DOM is ready and page content is loaded
 if (['complete', 'loaded', 'interactive'].includes(document.readyState) && document.body) {
   run();
