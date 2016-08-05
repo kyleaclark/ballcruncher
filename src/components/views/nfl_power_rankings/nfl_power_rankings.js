@@ -5,6 +5,8 @@ import Table from '../../core/table/table';
 import Format from '../../../utils/format';
 import Dropdown from '../../core/dropdown'
 
+import { getRankings } from '../../../actions/index';
+
 class NflPowerRankings extends Component {
 
   constructor(props) {
@@ -12,6 +14,7 @@ class NflPowerRankings extends Component {
 
     this.state = {
       selectedRankingsIndex: 0,
+      selectedYearIndex: 2015,
       rankings: []
     };
   }
@@ -33,19 +36,29 @@ class NflPowerRankings extends Component {
       return 0;
     });
 
-    for (let index = 0; index < rankings.length; index++) {
+    rankings.forEach(function (item, index) {
       week = index + 1;
-      label = ' 2015 Week ' + week;
+      label = ' Week ' + week;
       options.push({
         value: index,
         label: label
-      })
-    }
+      });
+    });
+
+    let yearOptions = [{
+      value: 2015,
+      label: '2015'
+    }, {
+      value: 2014,
+      label: '2014'
+    }];
 
     this.setState({
       rankings: rankings,
       selectedRankingsIndex: rankings.length - 1,
-      weekSelectionOptions: options
+      selectedYearIndex: rankings[0].year,
+      weekSelectionOptions: options,
+      yearSelectionOptions: yearOptions
     });
   }
 
@@ -87,8 +100,28 @@ class NflPowerRankings extends Component {
     return Format.stripLeadingZero(fixedNum);
   }
 
+  _onYearSelect(option) {
+    console.log('_onYearSelect : ', this.props);
+    this.props.getRankings(2014);
+    //store.dispatch(getRankings(option.value));
+  }
+
   _onWeekSelect(option) {
     this.setState({ selectedRankingsIndex: option.value });
+  }
+
+  _renderYearSelection() {
+    const value = this.state.yearSelectionOptions[this.state.selectedYearIndex],
+          options = this.state.yearSelectionOptions.slice().reverse();
+
+    return (
+      <Dropdown
+        options={options}
+        onChange={this._onYearSelect.bind(this)}
+        value={value}
+        placeholder="Select an option"
+      />
+    );
   }
 
   _renderWeekSelection() {
