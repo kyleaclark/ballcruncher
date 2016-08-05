@@ -12,8 +12,15 @@ let router = new Router();
 
 // Matches /api/rankings
 router.get("/", function(req, res) {
+  let findParams = {};
 
-  Ranking.find((err, rankings) => {
+  if (req.query.year) {
+    let year = parseInt(req.query.year);
+
+    findParams.year = year;
+  }
+
+  Ranking.find(findParams, (err, rankings) => {
 
     if (err) {
       res.send(err);
