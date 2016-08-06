@@ -11,17 +11,13 @@ import { bindActionCreators } from 'redux';
 
 import * as RankingsActions from '../../actions/index';
 
-const title = 'Ballcruncher - Home';
-
 class Home extends Component {
-//function Home({ rankings }, context) {
-  //context.setTitle(title);
 
   render () {
-    console.log('render home');
+    console.log('render home : ', this.props);
     console.log('this.props.rankings : ', this.props.rankings);
-    const rankings = this.props.rankings;
-    const hasRankings = rankings && rankings.length;
+    let rankings = this.props.rankings;
+    let hasRankings = rankings && rankings.length;
 
     return (
       <div className={s.page}>
@@ -59,6 +55,7 @@ class Home extends Component {
 //Home.contextTypes = { setTitle: PropTypes.func.isRequired };
 
 function mapStateToProps(state) {
+  console.log('mapStateToProps : ', state.rankings);
   return {
     rankings: state.rankings
   };

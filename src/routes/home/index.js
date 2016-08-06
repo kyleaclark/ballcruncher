@@ -8,6 +8,7 @@ export default {
 
   async action({ context }) {
     context.store.dispatch(getRankings())
+    context.setTitle('Ballcruncher - Home');
 
     return <Home />;
   },
