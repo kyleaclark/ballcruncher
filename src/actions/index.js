@@ -8,11 +8,17 @@ function receiveRankings(rankings) {
   }
 }
 
-export function getRankings() {
-  return dispatch => {
-    fetch('/api/rankings')
-      .then(rankings => {
-        dispatch(receiveRankings(rankings));
-      });
+export function getRankings(nflYear) {
+  let year = nflYear || 2015;
+  let url = `/api/rankings?year=${year}`;
+
+  return async dispatch => {
+    try {
+      const resp = await fetch(url)
+      const data = await resp.json()
+      dispatch(receiveRankings(data))
+    } catch (error) {
+      console.log('getRankings error : ', error)
+    }
   }
 }

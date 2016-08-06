@@ -20,11 +20,11 @@ export default function configureStore(initialState, helpersConfig) {
     }
 
     enhancer = compose(
-      applyMiddleware(...middleware),
+      applyMiddleware(thunk),
       devToolsExtension,
     );
   } else {
-    enhancer = applyMiddleware(...middleware);
+    enhancer = applyMiddleware(thunk);
   }
 
   // See https://github.com/rackt/redux/releases/tag/v3.1.0

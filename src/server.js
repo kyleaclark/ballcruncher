@@ -1,5 +1,9 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
+// Note: see https://github.com/facebook/react/issues/6451 for purpose of Object.assign polyfill
+Object.assign = null
+Object.assign = require('object-assign')
+
 import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
