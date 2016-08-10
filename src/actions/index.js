@@ -12,7 +12,15 @@ export function getRankings(nflYear) {
   let year = nflYear || 2015;
   let url = `/api/rankings?year=${year}`;
 
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    // const state = getState()
+    // const rankings = state.rankings
+    //
+    // 
+    // // if (rankings.length) {
+    // //   return Promise.resolve()
+    // // }
+
     try {
       const resp = await fetch(url)
       const data = await resp.json()

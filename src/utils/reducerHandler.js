@@ -6,6 +6,6 @@ export default function reducerHandler(initialState, actionHandlers) {
       return reduceFn(state, action)
     }
 
-    return state;
+    return state
   }
 }

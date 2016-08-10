@@ -1,35 +1,62 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './nfl.css'
 
-import React, { PropTypes } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './nfl.css';
-import Link from '../../components/link';
-import NflPowerRankings from '../../components/views/nfl_power_rankings';
+import Link from '../../components/link'
+import NflPowerRankings from '../../components/views/nfl_power_rankings'
 
-const title = 'Ballcruncher - NFL';
+import * as RankingsActions from '../../actions/index'
 
-function Nfl({ rankings }, context) {
-  context.setTitle(title);
-  return (
-    <div className={s.page}>
-      <div className={s.page__container}>
+class Nfl extends Component {
 
-          <h1 className={s.page__title}>NFL Power Rankings</h1>
+  _renderRankings () {
+    let rankings = this.props.rankings
+    let hasRankings = rankings && rankings.length
 
-          <NflPowerRankings rankings={rankings} fullRankings={true} />
+    if (hasRankings) {
+      return (
+        <NflPowerRankings
+          rankings={rankings}
+          fullRankings={true}
+          {...this.props.actions}
+        />
+      )
+    }
+  }
 
+  render () {
+
+
+    return (
+      <div className={s.page}>
+        <div className={s.page__container}>
+
+            <h1 className={s.page__title}>NFL Power Rankings</h1>
+
+            {this._renderRankings()}
+
+        </div>
       </div>
-    </div>
-  );
+    )
+  }
+
 }
 
-Nfl.contextTypes = { setTitle: PropTypes.func.isRequired };
+function mapStateToProps(state) {
+  return {
+    rankings: state.rankings
+  }
+}
 
-export default withStyles(s)(Nfl);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(RankingsActions, dispatch)
+  }
+}
+
+export default withStyles(s)(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Nfl))

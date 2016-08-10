@@ -1,5 +1,3 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 // Note: see https://github.com/facebook/react/issues/6451 for purpose of Object.assign polyfill
 Object.assign = null
 Object.assign = require('object-assign')
@@ -72,7 +70,7 @@ app.get('*', async (req, res, next) => {
       cookie: req.headers.cookie,
     });
 
-    //store.dispatch(getRankings());
+    store.dispatch(getRankings());
 
     await UniversalRouter.resolve(routes, {
       path: req.path,
