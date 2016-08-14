@@ -15,9 +15,8 @@ class Home extends Component {
 
   _renderRankings() {
     const rankings = this.props.rankings
-    const hasRankings = rankings && rankings.length
 
-    if (hasRankings) {
+    if (rankings) {
       return (
         <NflPowerRankings rankings={rankings} {...this.props.actions} />
       )
@@ -25,8 +24,6 @@ class Home extends Component {
   }
 
   render () {
-
-
     return (
       <div className={s.page}>
         <div className={s.page__container}>

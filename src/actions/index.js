@@ -1,10 +1,11 @@
 import * as types from '../constants/actionTypes';
 import fetch from '../core/fetch';
 
-function receiveRankings(rankings) {
+function updateRankings(rankings, year) {
   return {
-    type: types.RECEIVE_RANKINGS,
-    rankings: rankings
+    type: types.UPDATE_RANKINGS,
+    rankingsList: rankings,
+    year: year
   }
 }
 
@@ -13,18 +14,18 @@ export function getRankings(nflYear) {
   let url = `/api/rankings?year=${year}`;
 
   return async (dispatch, getState) => {
-    // const state = getState()
-    // const rankings = state.rankings
-    //
-    // 
-    // // if (rankings.length) {
-    // //   return Promise.resolve()
-    // // }
+    const state = getState()
+    const rankings = state.rankings || {}
+    const rankingsList = rankings[year]
+
+    if (rankingsList && rankingsList.length) {
+      Promise.resolve()
+    }
 
     try {
       const resp = await fetch(url)
       const data = await resp.json()
-      dispatch(receiveRankings(data))
+      dispatch(updateRankings(data, year))
     } catch (error) {
       console.log('getRankings error : ', error)
     }

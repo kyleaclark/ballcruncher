@@ -12,10 +12,9 @@ import * as RankingsActions from '../../actions/index'
 class Nfl extends Component {
 
   _renderRankings () {
-    let rankings = this.props.rankings
-    let hasRankings = rankings && rankings.length
+    const rankings = this.props.rankings
 
-    if (hasRankings) {
+    if (rankings) {
       return (
         <NflPowerRankings
           rankings={rankings}
@@ -27,8 +26,6 @@ class Nfl extends Component {
   }
 
   render () {
-
-
     return (
       <div className={s.page}>
         <div className={s.page__container}>
