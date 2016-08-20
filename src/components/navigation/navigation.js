@@ -13,9 +13,9 @@ class Navigation extends Component {
   render() {
     return (
       <div className={s.navigation} role="navigation">
-        <a className={s.navigiation__link} href="/" onClick={Link.handleClick}>Home</a>
+        <Link className={s.navigiation__link} to="/">Home</Link>
         <span className={s.navigiation__spacer}> | </span>
-        <a className={s.navigiation__link} href="/nfl" onClick={Link.handleClick}>NFL</a>
+        <Link className={s.navigiation__link} to="/nfl">NFL</Link>
       </div>
     );
   }

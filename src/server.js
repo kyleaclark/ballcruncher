@@ -1,4 +1,6 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+// Note: see https://github.com/facebook/react/issues/6451 for purpose of Object.assign polyfill
+Object.assign = null
+Object.assign = require('object-assign')
 
 import 'babel-polyfill';
 import path from 'path';
@@ -84,11 +86,11 @@ app.get('*', async (req, res, next) => {
       render(component, status = 200) {
         css = [];
         statusCode = status;
-        data.state = JSON.stringify(store.getState());
+        data.state = store.getState();
         data.children = ReactDOM.renderToString(component);
         data.style = css.join('');
         return true;
-      },
+      }
     });
 
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);

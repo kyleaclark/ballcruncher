@@ -8,7 +8,7 @@ class Feedback extends Component {
     return (
       <div className={s.feedback}>
         <div className={s.feedback__container}>
-          <span>where ballcruncher don&#39;t lie about sports analytics &amp; musings</span>
+          <span>ball don&#39;t lie about sports analytics &amp; musings</span>
         </div>
       </div>
     );
