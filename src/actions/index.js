@@ -1,31 +1,29 @@
 import * as types from '../constants/actionTypes';
 import fetch from '../core/fetch';
 
-function updateRankings(rankings, year) {
+function updateRankings(rankings) {
   return {
     type: types.UPDATE_RANKINGS,
-    rankingsList: rankings,
-    year: year
+    rankingsList: rankings
   }
 }
 
-export function getRankings(nflYear) {
-  let year = nflYear || 2015;
-  let url = `/api/rankings?year=${year}`;
+export function getRankings() {
+  let url = '/api/rankings'
 
   return async (dispatch, getState) => {
     const state = getState()
     const rankings = state.rankings || {}
-    const rankingsList = rankings[year]
+    const emptyRankings = Object.keys(rankings).length === 0
 
-    if (rankingsList && rankingsList.length) {
+    if (!emptyRankings) {
       Promise.resolve()
     }
 
     try {
       const resp = await fetch(url)
       const data = await resp.json()
-      dispatch(updateRankings(data, year))
+      dispatch(updateRankings(data))
     } catch (error) {
       console.log('getRankings error : ', error)
     }

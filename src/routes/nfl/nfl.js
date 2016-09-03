@@ -13,8 +13,9 @@ class Nfl extends Component {
 
   _renderRankings () {
     const rankings = this.props.rankings
+    const emptyRankings = Object.keys(rankings).length === 0
 
-    if (rankings) {
+    if (!emptyRankings) {
       return (
         <NflPowerRankings
           rankings={rankings}

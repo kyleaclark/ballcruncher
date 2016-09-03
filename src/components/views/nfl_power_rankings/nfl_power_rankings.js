@@ -7,74 +7,25 @@ import Dropdown from '../../core/dropdown'
 
 import { getRankings } from '../../../actions/index'
 
-// TODO: Move this into some other type of configuration
-const yearValues = [2015, 2014, 2013, 2012, 2011, 2010, 2009]
-let yearSelectionOptions = []
-yearValues.forEach(function (item) {
-  yearSelectionOptions.push({
-    value: item,
-    label: item.toString()
-  })
-})
-
 class NflPowerRankings extends Component {
 
   constructor(props) {
     super(props)
-
-    this.state = {
-      selectedWeekIndex: 0,
-      selectedYear: 2015,
-      rankingsList: []
-    }
   }
 
   componentWillMount() {
-    this._buildInitialRankings(this.state.selectedYear)
-  }
+    let columns = this._buildTableColumns()
+    let yearSelectionOptions = this._buildYearSelectionOptions()
+    let weekSelectionOptions = this._buildWeekSelectionOptions()
 
-  _buildInitialRankings() {
-    let selectedYear = this.state.selectedYear
-    let rankingsList = this.props.rankings[selectedYear] || []
-    let options = this._generateOptions(rankingsList)
+    let initialState = {
+      columns,
+      yearSelectionOptions,
+      weekSelectionOptions
+    }
 
-    this.setState({
-      columns : this._buildTableColumns(),
-      rankingsList: rankingsList,
-      selectedWeekIndex: rankingsList.length - 1,
-      weekSelectionOptions: options,
-      selectedYear: selectedYear
-    })
-  }
-
-  // TODO: Fix duplicate logic with _buildInitialRankings
-  _updateRankingsList(selectedYear) {
-    let rankingsList = this.props.rankings[selectedYear] || []
-    let options = this._generateOptions(rankingsList)
-
-    this.setState({
-      rankingsList: rankingsList,
-      selectedWeekIndex: rankingsList.length - 1,
-      weekSelectionOptions: options,
-      selectedYear: selectedYear
-    })
-  }
-
-  _generateOptions(rankingsList) {
-    let week,
-        label,
-        options = []
-
-    rankingsList.forEach(function (item, index) {
-      week = index + 1
-      label = ' Week ' + week
-      options.push({
-        value: index,
-        label: label
-      })
-    })
-
-    return options
+    let builtState = Object.assign({}, initialState, this._buildRankings())
+    this.setState(builtState)
   }
 
   _buildTableColumns() {
@@ -105,6 +56,60 @@ class NflPowerRankings extends Component {
     return columns
   }
 
+  _buildYearSelectionOptions() {
+    const yearsList = this.props.rankings.yearsList
+
+    let yearSelectionOptions = yearsList.map((item) => {
+      return {
+        value: item,
+        label: item.toString()
+      }
+    })
+
+    return yearSelectionOptions
+  }
+
+  _buildWeekSelectionOptions() {
+    const rankings = this.props.rankings.values
+
+    let weekSelectionOptions = {}
+    Object.keys(rankings).forEach((key) => {
+      let rankingsList = rankings[key]
+      weekSelectionOptions[key] = this._buildSingleYearWeekSelectionOptions(rankingsList)
+    });
+
+    return weekSelectionOptions
+  }
+
+  _buildSingleYearWeekSelectionOptions(rankingsList) {
+    let options = rankingsList.map((item, index) => {
+      let week = index + 1
+      let label = ' Week ' + week
+
+      return {
+        value: index,
+        label: label
+      }
+    })
+
+    return options
+  }
+
+  _buildRankings(yearValue) {
+    let rankingsMap = this.props.rankings.values
+    let yearsList = this.props.rankings.yearsList
+
+    let selectedYear = yearValue || yearsList[0]
+    let rankingsList = rankingsMap[selectedYear]
+    let selectedWeekIndex = rankingsList.length - 1
+
+    return {
+      selectedYear,
+      rankingsList,
+      selectedWeekIndex
+    }
+  }
+
   // TODO: Move to Format Util
   _formatDecimal(num) {
     return Format.toFixedFloat(num, 2)
@@ -112,18 +117,13 @@ class NflPowerRankings extends Component {
 
   // TODO: Move to Format Util
   _formatSpecialDecimal(num) {
-    var fixedNum = Format.toFixedFloat(num, 2)
-
+    const fixedNum = Format.toFixedFloat(num, 2)
     return Format.stripLeadingZero(fixedNum)
   }
 
   _onYearSelect(option) {
-    this.props.getRankings(option.value).then((data) => {
-      this._updateRankingsList(option.value)
-    }).catch((error) => {
-      // TODO: Handle error
-      console.log({ error })
-    })
+    const rankings = this._buildRankings(option.value)
+    this.setState(rankings)
   }
 
   _onWeekSelect(option) {
@@ -131,13 +131,13 @@ class NflPowerRankings extends Component {
   }
 
   _renderYearSelection() {
-    const currentOption = yearSelectionOptions.find(year => {
+    const currentOption = this.state.yearSelectionOptions.find(year => {
       return year.value === this.state.selectedYear
     })
 
     return (
       <Dropdown
-        options={yearSelectionOptions}
+        options={this.state.yearSelectionOptions}
         onChange={this._onYearSelect.bind(this)}
         value={currentOption}
         placeholder="Select an option"
@@ -146,12 +146,12 @@ class NflPowerRankings extends Component {
   }
 
   _renderWeekSelection() {
-    const value = this.state.weekSelectionOptions[this.state.selectedWeekIndex],
-          options = this.state.weekSelectionOptions.slice().reverse()
+    const weekSelectionOptions = this.state.weekSelectionOptions[this.state.selectedYear]
+    const value = weekSelectionOptions[this.state.selectedWeekIndex]
 
     return (
       <Dropdown
-        options={options}
+        options={weekSelectionOptions}
         onChange={this._onWeekSelect.bind(this)}
         value={value}
         placeholder="Select an option"
