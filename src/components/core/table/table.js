@@ -53,7 +53,7 @@ class Table extends React.Component {
         getKeys = this._buildGetKeys(keys),
         sortedData = this._sortedData();
 
-    return sortedData.map(function (row, rowIndex) {
+    return sortedData.map((row, rowIndex) => {
       let teamIdClassName = row.id.toLowerCase();
       return (
         <tr key={getKeys(row)} className={s[teamIdClassName]}>

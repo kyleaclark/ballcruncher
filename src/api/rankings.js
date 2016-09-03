@@ -1,34 +1,36 @@
-import { Router } from 'express';
-import mongoose from 'mongoose';
+import { Router } from 'express'
+import mongoose from 'mongoose'
 
 let rankingSchema = new mongoose.Schema({
   _id: String,
+  year: Number,
+  week: Number,
   data: Array
-});
+})
 
-let Ranking = mongoose.model('Nfl_Ranking', rankingSchema, 'nfl_rankings');
+let Ranking = mongoose.model('Nfl_Rankings', rankingSchema, 'nfl_rankings')
 
-let router = new Router();
+let router = new Router()
 
 // Matches /api/rankings
 router.get("/", function(req, res) {
-  let findParams = {};
+  let findParams = {}
+  let query = req.query || {}
 
-  if (req.query.year) {
-    let year = parseInt(req.query.year);
+  if (query.year) {
+    let year = parseInt(req.query.year)
 
-    findParams.year = year;
+    findParams.year = year
   }
 
   Ranking.find(findParams, (err, rankings) => {
-
     if (err) {
-      res.send(err);
+      res.send(err)
     }
 
-    res.json(rankings);
-  });
+    res.json(rankings)
+  })
 
-});
+})
 
-export default router;
+export default router
