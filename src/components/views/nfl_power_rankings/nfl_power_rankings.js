@@ -92,7 +92,7 @@ class NflPowerRankings extends Component {
       }
     })
 
-    return options
+    return options.reverse()
   }
 
   _buildRankings(yearValue) {
@@ -101,12 +101,12 @@ class NflPowerRankings extends Component {
 
     let selectedYear = yearValue || yearsList[0]
     let rankingsList = rankingsMap[selectedYear]
-    let selectedWeekIndex = rankingsList.length - 1
+    let selectedWeekValue = rankingsList.length - 1
 
     return {
       selectedYear,
       rankingsList,
-      selectedWeekIndex
+      selectedWeekValue
     }
   }
 
@@ -127,7 +127,7 @@ class NflPowerRankings extends Component {
   }
 
   _onWeekSelect(option) {
-    this.setState({ selectedWeekIndex: option.value })
+    this.setState({ selectedWeekValue: option.value })
   }
 
   _renderYearSelection() {
@@ -147,13 +147,15 @@ class NflPowerRankings extends Component {
 
   _renderWeekSelection() {
     const weekSelectionOptions = this.state.weekSelectionOptions[this.state.selectedYear]
-    const value = weekSelectionOptions[this.state.selectedWeekIndex]
+    const currentOption = weekSelectionOptions.find(week => {
+      return week.value === this.state.selectedWeekValue
+    })
 
     return (
       <Dropdown
         options={weekSelectionOptions}
         onChange={this._onWeekSelect.bind(this)}
-        value={value}
+        value={currentOption}
         placeholder="Select an option"
       />
     )
@@ -186,7 +188,7 @@ class NflPowerRankings extends Component {
   }
 
   render() {
-    var tableData = this.state.rankingsList[this.state.selectedWeekIndex].data,
+    var tableData = this.state.rankingsList[this.state.selectedWeekValue].data,
         tableColumns = this.state.columns,
         sortBy = {
           property: 'power_ranking',
@@ -200,7 +202,7 @@ class NflPowerRankings extends Component {
             {this._renderYearSelection()}
             {this._renderWeekSelection()}
             <Table
-              key={'nfl_rankings_table_' + this.state.selectedWeekIndex}
+              key={'nfl_rankings_table_' + this.state.selectedWeekValue}
               className={s.table__component}
               columns={tableColumns}
               keys={['id']}
