@@ -21,6 +21,10 @@ class Home extends Component {
       return (
         <NflPowerRankings rankings={rankings} {...this.props.actions} />
       )
+    } else {
+      return (
+        <h4>Please wait, loading...</h4>
+      )
     }
   }
 

@@ -23,6 +23,10 @@ class Nfl extends Component {
           {...this.props.actions}
         />
       )
+    } else {
+      return (
+        <h4>Please wait, loading...</h4>
+      )
     }
   }
 
