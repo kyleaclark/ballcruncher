@@ -1,0 +1,6 @@
+{
+  "name": "FantasyFootballRankings",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./fantasy_football_rankings.js"
+}

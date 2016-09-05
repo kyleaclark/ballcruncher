@@ -16,6 +16,8 @@ class Navigation extends Component {
         <Link className={s.navigiation__link} to="/">Home</Link>
         <span className={s.navigiation__spacer}> | </span>
         <Link className={s.navigiation__link} to="/nfl">NFL</Link>
+        <span className={s.navigiation__spacer}> | </span>
+        <Link className={s.navigiation__link} to="/fantasy-football">FFB</Link>
       </div>
     );
   }

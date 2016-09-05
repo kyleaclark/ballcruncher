@@ -17,8 +17,15 @@
   text-align: left;
 }
 
+.table__even-row { background-color: var(--white-base) }
+.table__odd-row { background-color: var(--gray-lightest) }
+
+/*.table__even-row {
+  background-color: var(--gray-lightest);
+}*/
+
+
 .table td {
-  color: var(--white-base);
   padding: 10px;
 }
 

@@ -46,17 +46,24 @@ class Table extends React.Component {
     }
   }
 
-  _renderBody(tableData, columns, keys) {
-    var item,
+  _renderBody() {
+    let item,
         columns = this.props.columns,
         keys = this.props.keys,
         getKeys = this._buildGetKeys(keys),
-        sortedData = this._sortedData();
+        sortedData = this._sortedData(),
+        rowClassNameValue = null;
 
     return sortedData.map((row, rowIndex) => {
-      let teamIdClassName = row.id.toLowerCase();
+      // TODO: Fix so default is the default and require key as a prop
+      if (this.props.rowClassNameKey === 'default') {
+        rowClassNameValue = rowIndex % 2 === 0 ? 'table__even-row' : 'table__odd-row'
+      } else {
+        rowClassNameValue = row.id.toLowerCase()
+      }
+
       return (
-        <tr key={getKeys(row)} className={s[teamIdClassName]}>
+        <tr key={getKeys(row)} className={s[rowClassNameValue]}>
           {columns.map(function (col, index) {
             if (col.property === '_index') {
               item = rowIndex + 1;

@@ -13,6 +13,7 @@ import App from '../components/app';
 // Child routes
 import home from './home';
 import nfl from './nfl';
+import fantasyFootball from './fantasy-football'
 import content from './content';
 import error from './error';
 
@@ -23,6 +24,7 @@ export default {
   children: [
     home,
     nfl,
+    fantasyFootball,
     content,
     error
   ],

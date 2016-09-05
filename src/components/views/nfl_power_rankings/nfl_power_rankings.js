@@ -164,25 +164,42 @@ class NflPowerRankings extends Component {
   _renderDetails() {
     return (
       <div>
+        <h4>Breakdown of the power ranking formula:</h4>
+        <ul className={s.formula_details_list}>
+          <li><span>victory value (25%)</span> - teams wins * strength of victory (relative scale of 0 to 100 by the highest upper bound value)</li>
+
+          <li><span>pythagorean win value (25%)</span> - points scored) / (points scored + points against) * games played (relative scale of0 to 100 by the highest upper bound value)</li>
+
+          <li><span>point differential value (25%)</span> - (ppg differential plus/minus average * strength of schedule (relative scale of 0 to 100 by the highest upper bound value)</li>
+
+          <li><span>win_percentage value (10%)</span> - win percentage (relative scale of 0 to 100 by the highest upper bound value)</li>
+
+          <li><span>points scored value (5%)</span> — points scored (relative scale of 0 to 100 by the highest upper bound value i.e. league best 28 points equals 100, 21 equals 75, and 14 points equals 50 on the scale)</li>
+
+          <li><span>points against value (5%)</span> — points against (relative scale of 0 to 100 by the lowest lower bound value i.e. league best 14 points equals 100, 21 equals ~66, and 28 points equals 50 on the scale)</li>
+
+          <li><span>turnover differential value (5%)</span> - turnover_differential plus/minus (relative scale of -100 to 100 by the lowest lower bound value)</li>
+
+        </ul>
+
         <code>
-          Legend:
-          RK  = Power Ranking,
-          TM  = Team,
-          W = Wins,
-          L = Losses,
-          PWR = Power Ranking Score,
-          SOS = Strength of Schedule,
-          SOV = Strength of Victory,
-          PDV = Point Differential Value,
-          PSV = Points Scored Value,
-          PAV = Points Against Value,
+          Legend:<br />
+          RK  = Power Ranking<br />
+          TM  = Team<br />
+          W = Wins<br />
+          L = Losses<br />
+          PWR = Power Ranking Score<br />
+          SOS = Strength of Schedule<br />
+          SOV = Strength of Victory<br />
+          PDV = Point Differential Value<br />
+          PSV = Points Scored Value<br />
+          PAV = Points Against Value<br />
           TDV = Turnover Differential Value
         </code>
 
         <br /><br />
 
-        <span>&raquo </span>
-        <a href='https://github.com/kyleaclark/nfl-power-rankings' target='_blank'>View the data model source code on GitHub</a>
+        <a href='https://github.com/kyleaclark/nfl-power-rankings' className={s.github__link} target='_blank'>View the data model source code on GitHub</a>
       </div>
     )
   }
