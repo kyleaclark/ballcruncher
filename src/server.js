@@ -2,75 +2,77 @@
 Object.assign = null
 Object.assign = require('object-assign')
 
-import 'babel-polyfill';
-import path from 'path';
-import express from 'express';
-import expressGraphQL from 'express-graphql';
-import mongoose from 'mongoose';
-import cookieParser from 'cookie-parser';
-import bodyParser from 'body-parser';
-import React from 'react';
-import ReactDOM from 'react-dom/server';
-import Html from './components/html';
-import { ErrorPage } from './routes/error/errorPage';
-import errorPageStyle from './routes/error/errorPage.css';
-import UniversalRouter from 'universal-router';
-import PrettyError from 'pretty-error';
-import schema from './data/schema';
-import routes from './routes';
-import assets from './assets'; // eslint-disable-line import/no-unresolved
-import { port, dbConnection } from './config';
-import configureStore from './store/configureStore';
+import 'babel-polyfill'
+import path from 'path'
+import express from 'express'
+import expressGraphQL from 'express-graphql'
+import mongoose from 'mongoose'
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
+import React from 'react'
+import ReactDOM from 'react-dom/server'
+import Html from './components/html'
+import { ErrorPage } from './routes/error/errorPage'
+import errorPageStyle from './routes/error/errorPage.css'
+import UniversalRouter from 'universal-router'
+import PrettyError from 'pretty-error'
+import schema from './data/schema'
+import routes from './routes'
+import assets from './assets' // eslint-disable-line import/no-unresolved
+import { port, dbConnection } from './config'
+import configureStore from './store/configureStore'
 
-import { getRankings } from './actions/index';
-import rankingsApi from './api/rankings';
+import { getRankings } from './actions/index'
+import rankingsApi from './api/rankings'
+import fantasyFootballRankingsApi from './api/fantasy-football-rankings'
 
-const app = express();
+const app = express()
 
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
 // -----------------------------------------------------------------------------
-global.navigator = global.navigator || {};
-global.navigator.userAgent = global.navigator.userAgent || 'all';
+global.navigator = global.navigator || {}
+global.navigator.userAgent = global.navigator.userAgent || 'all'
 
-app.set('port', port);
-mongoose.connect(dbConnection);
+app.set('port', port)
+mongoose.connect(dbConnection)
 
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-app.use('/api/rankings', rankingsApi);
+app.use('/api/rankings', rankingsApi)
+app.use('/api/fantasy-football-rankings', fantasyFootballRankingsApi)
 
 app.use('/graphql', expressGraphQL(req => ({
   schema,
   graphiql: true,
   rootValue: { request: req },
   pretty: process.env.NODE_ENV !== 'production',
-})));
+})))
 
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   try {
-    let css = [];
-    let statusCode = 200;
-    const data = { title: '', description: '', style: '', script: assets.main.js, children: '' };
+    let css = []
+    let statusCode = 200
+    const data = { title: '', description: '', style: '', script: assets.main.js, children: '' }
 
     const store = configureStore({}, {
       cookie: req.headers.cookie,
-    });
+    })
 
-    store.dispatch(getRankings());
+    store.dispatch(getRankings())
 
     await UniversalRouter.resolve(routes, {
       path: req.path,
@@ -78,40 +80,40 @@ app.get('*', async (req, res, next) => {
       context: {
         store,
         insertCss: (...styles) => {
-          styles.forEach(style => css.push(style._getCss())); // eslint-disable-line no-underscore-dangle, max-len
+          styles.forEach(style => css.push(style._getCss())) // eslint-disable-line no-underscore-dangle, max-len
         },
         setTitle: value => (data.title = value),
         setMeta: (key, value) => (data[key] = value),
       },
       render(component, status = 200) {
-        css = [];
-        statusCode = status;
-        data.state = store.getState();
-        data.children = ReactDOM.renderToString(component);
-        data.style = css.join('');
-        return true;
+        css = []
+        statusCode = status
+        data.state = store.getState()
+        data.children = ReactDOM.renderToString(component)
+        data.style = css.join('')
+        return true
       }
-    });
+    })
 
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />)
 
-    res.status(statusCode);
-    res.send(`<!doctype html>${html}`);
+    res.status(statusCode)
+    res.send(`<!doctype html>${html}`)
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
 //
 // Error handling
 // -----------------------------------------------------------------------------
-const pe = new PrettyError();
-pe.skipNodeFiles();
-pe.skipPackage('express');
+const pe = new PrettyError()
+pe.skipNodeFiles()
+pe.skipPackage('express')
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-  console.log(pe.render(err)); // eslint-disable-line no-console
-  const statusCode = err.status || 500;
+  console.log(pe.render(err)) // eslint-disable-line no-console
+  const statusCode = err.status || 500
   const html = ReactDOM.renderToStaticMarkup(
     <Html
       title="Internal Server Error"
@@ -120,15 +122,15 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     >
       {ReactDOM.renderToString(<ErrorPage error={err} />)}
     </Html>
-  );
-  res.status(statusCode);
-  res.send(`<!doctype html>${html}`);
-});
+  )
+  res.status(statusCode)
+  res.send(`<!doctype html>${html}`)
+})
 
 //
 // Launch the server
 // -----------------------------------------------------------------------------
 app.listen(port, () => {
   /* eslint-disable no-console */
-  console.log(`The server is running at http://localhost:${port}/`);
-});
+  console.log(`The server is running at http://localhost:${port}/`)
+})

@@ -1,8 +1,9 @@
 @import '../variables.css';
 
 .header {
-  background: var(--gray-darker);
-  color: #fff;
+  background: var(--white-base);
+  border-bottom: 1px solid var(--gray-lightest);
+  color: var(--gray-dark);
 }
 
 .header__container {
@@ -11,12 +12,24 @@
   max-width: var(--max-content-width);
 }
 
-.header__title {
-  color: var(--gray-light);
+.header__title_container {
   display: inline-block;
+  margin: 0;
+  vertical-align: top;
+}
+
+.header__title {
+  color: var(--gray-darker);
   font-size: 1.5em;
-  margin: 0 0 0 10px;
+  margin: 0;
   padding: 0;
+}
+
+.header__subtitle {
+  color: var(--gray-light);
+  display: block;
+  font-size: 0.85em;
+  margin: 0;
 }
 
 .header__banner {

@@ -10,12 +10,13 @@ class Header extends Component {
     return (
       <div className={s.header}>
         <div className={s.header__container}>
-          <h1 className={s.header__title}>Ballcruncher</h1>
-          <Navigation className={s.header__nav} />
-          <div className={s.header__banner}>
-            <h3 className={s.header__banner__title}>ball don&#39;t lie</h3>
-            <p className={s.header__banner__desc}>sports analytics &amp; musings</p>
+
+          <div className={s.header__title_container}>
+            <h1 className={s.header__title}>Ballcruncher</h1>
+            <h3 className={s.header__subtitle}>stat crunching &amp; sports musings</h3>
           </div>
+
+          <Navigation className={s.header__nav} />
         </div>
       </div>
     );

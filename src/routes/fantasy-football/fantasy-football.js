@@ -2,24 +2,23 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from './nfl.css'
+import s from './fantasy-football.css'
 
 import Link from '../../components/link'
-import NflPowerRankings from '../../components/views/nfl_power_rankings'
+import FantasyFootballRankings from '../../components/views/fantasy_football_rankings'
 
-import * as RankingsActions from '../../actions/index'
+import * as RankingsActions from '../../actions/fantasy-football-rankings'
 
-class Nfl extends Component {
+class FantasyFootball extends Component {
 
   _renderRankings () {
-    const rankings = this.props.rankings
+    const rankings = this.props.fantasyFootballRankings
     const emptyRankings = Object.keys(rankings).length === 0
 
     if (!emptyRankings) {
       return (
-        <NflPowerRankings
+        <FantasyFootballRankings
           rankings={rankings}
-          fullRankings={true}
           {...this.props.actions}
         />
       )
@@ -35,7 +34,8 @@ class Nfl extends Component {
       <div className={s.page}>
         <div className={s.page__container}>
 
-            <h3 className={s.page__title}>NFL Power Rankings</h3>
+            <h3 className={s.page__title}>Fantasy Football Rankings</h3>
+            <h6>The data represents 2015 fantasy production, but past performance is a useful predictor of future outcomes.</h6>
 
             {this._renderRankings()}
 
@@ -48,7 +48,7 @@ class Nfl extends Component {
 
 function mapStateToProps(state) {
   return {
-    rankings: state.rankings
+    fantasyFootballRankings: state.fantasyFootballRankings
   }
 }
 
@@ -61,4 +61,4 @@ function mapDispatchToProps(dispatch) {
 export default withStyles(s)(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Nfl))
+)(FantasyFootball))

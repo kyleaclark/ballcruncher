@@ -32,12 +32,15 @@ class Home extends Component {
     return (
       <div className={s.page}>
         <div className={s.page__container}>
+
+          <h3 className={s.homepage__data_title}>Welcome to Ballcruncher</h3>
+
+          <p>Sports analytics data covering weekly NFL Power Rankings and annual Fantasy Football Rankings.<br />Learn more about the data models used to make the rankings calculations on the <Link className={s.home__link} to="/nfl">NFL</Link> and <Link className={s.home__link} to="/fantasy-football">FFB</Link> pages.</p>
+
+          <hr />
+
           <div>
             <div className={s.page__primary}>
-              <h1 className={s.page__title}>Welcome to Ballcruncher</h1>
-
-              <hr />
-
               <h4 className={s.homepage__data_title}>NFL Power Rankings</h4>
               <h6 className={s.homepage__data_subtitle}><a href="/nfl" onClick={Link.handleClick}>View the full rankings</a></h6>
 

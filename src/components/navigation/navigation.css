@@ -21,7 +21,7 @@
 }
 
 .navigiation__link:hover {
-  color: rgba(255, 255, 255, 1);
+  color: var(--gray-dark);
 }
 
 .navigiation__link--highlight {
@@ -29,7 +29,7 @@
   margin-left: 8px;
   border-radius: 3px;
   background: rgba(0, 0, 0, .15);
-  color: #fff;
+  color: var(--white-base);
 }
 
 .navigiation__link--highlight:hover {
@@ -37,5 +37,5 @@
 }
 
 .navigiation__spacer {
-  color: rgba(255, 255, 255, .3);
+  color: var(--gray-lightest);
 }

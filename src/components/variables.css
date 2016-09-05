@@ -12,9 +12,11 @@
   --gray:                  color(black lightness(+33.5%)); /* #555 */
   --gray-light:            color(black lightness(+46.7%)); /* #777 */
   --gray-lighter:          color(black lightness(+86.5%)); /* #eee */
+  --gray-lightest:         color(black lightness(+92.5%));
 
-  --brand-color:           #61dafb;
-  --brand-color-light:     color(var(--brand-color) lightness(+13.5%)); /* 92e5fc */
+  --brand-color-true:      #61dafb;
+  --brand-color:           color(var(--brand-color-true) blackness(+13.5%));
+  --brand-color-light:     color(var(--brand-color-true) lightness(+13.5%)); /* 92e5fc */
 
   --ari-color:             #97233F;
   --atl-color:             #A71930;
@@ -98,97 +100,129 @@ a:hover {
 
 .ari {
   background-color: var(--ari-color);
+  color: var(--white-base);
 }
 .atl {
   background-color: var(--atl-color);
+  color: var(--white-base);
 }
 .bal {
-  background-color: var(--bal-color);;
+  background-color: var(--bal-color);
+  color: var(--white-base);
 }
 .buf {
   background-color: var(--buf-color);
+  color: var(--white-base);
 }
 .car {
   background-color: var(--car-color);
+  color: var(--white-base);
 }
 .chi {
   background-color: var(--chi-color);
+  color: var(--white-base);
 }
 .cin {
   background-color: var(--cin-color);
+  color: var(--white-base);
 }
 .cle {
   background-color: var(--cle-color);
+  color: var(--white-base);
 }
 .dal {
   background-color: var(--dal-color);
+  color: var(--white-base);
 }
 .den {
   background-color: var(--den-color);
+  color: var(--white-base);
 }
 .det {
   background-color: var(--det-color);
+  color: var(--white-base);
 }
 .gb {
   background-color: var(--gb-color);
+  color: var(--white-base);
 }
 .hou {
   background-color: var(--hou-color);
+  color: var(--white-base);
 }
 .ind {
   background-color: var(--ind-color);
+  color: var(--white-base);
 }
-.jac {
+.jac, .jax {
   background-color: var(--jac-color);
+  color: var(--white-base);
 }
 .kc {
   background-color: var(--kc-color);
+  color: var(--white-base);
 }
 .mia {
   background-color: var(--mia-color);
+  color: var(--white-base);
 }
 .min {
   background-color: var(--min-color);
+  color: var(--white-base);
 }
 .ne {
   background-color: var(--ne-color);
+  color: var(--white-base);
 }
 .no {
   background-color: var(--no-color);
+  color: var(--white-base);
 }
 .nyg {
   background-color: var(--nyg-color);
+  color: var(--white-base);
 }
 .nyj {
   background-color: var(--nyj-color);
+  color: var(--white-base);
 }
 .oak {
   background-color: var(--oak-color);
+  color: var(--white-base);
 }
 .phi {
   background-color: var(--phi-color);
+  color: var(--white-base);
 }
 .pit {
   background-color: var(--pit-color);
+  color: var(--white-base);
 }
 .sd {
   background-color: var(--sd-color);
+  color: var(--white-base);
 }
 .sea {
   background-color: var(--sea-color);
+  color: var(--white-base);
 }
 .sf {
   background-color: var(--sf-color);
+  color: var(--white-base);
 }
 .stl {
   background-color: var(--stl-color);
+  color: var(--white-base);
 }
 .tb {
   background-color: var(--tb-color);
+  color: var(--white-base);
 }
 .ten {
   background-color: var(--ten-color);
+  color: var(--white-base);
 }
 .was {
   background-color: var(--was-color);
+  color: var(--white-base);
 }
