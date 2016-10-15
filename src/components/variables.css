@@ -210,7 +210,7 @@ a:hover {
   background-color: var(--sf-color);
   color: var(--white-base);
 }
-.stl {
+.stl, .la {
   background-color: var(--stl-color);
   color: var(--white-base);
 }
