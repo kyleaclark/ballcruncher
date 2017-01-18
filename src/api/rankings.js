@@ -17,20 +17,27 @@ router.get("/", function(req, res) {
   let findParams = {}
   let query = req.query || {}
 
-  if (query.year) {
-    let year = parseInt(req.query.year)
-
-    findParams.year = year
-  }
-
-  Ranking.find(findParams, (err, rankings) => {
+  Ranking.findOne({year : query.year, week: query.week}, {}).exec((err, rankings) =>  {
+    console.log('errrrrrr : ', rankings)
     if (err) {
       res.send(err)
     }
 
-    res.json(rankings)
+    res.json([rankings])
   })
 
+})
+
+router.get("/latest", function(req, res) {
+  var sortLatest = {year : -1, week: -1}
+
+  Ranking.findOne().sort(sortLatest).exec((err, rankings) =>  {
+    if (err) {
+      res.send(err)
+    }
+
+    res.json([rankings])
+  })
 })
 
 export default router

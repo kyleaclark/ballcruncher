@@ -7,6 +7,9 @@ import Dropdown from '../../core/dropdown'
 
 import { getRankings } from '../../../actions/index'
 
+// TODO: Dynamically generate Years and Weeks from a utility service or API data source
+const yearsList = [2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009]
+
 class NflPowerRankings extends Component {
 
   constructor(props) {
@@ -57,8 +60,6 @@ class NflPowerRankings extends Component {
   }
 
   _buildYearSelectionOptions() {
-    const yearsList = this.props.rankings.yearsList
-
     let yearSelectionOptions = yearsList.map((item) => {
       return {
         value: item,
@@ -70,12 +71,20 @@ class NflPowerRankings extends Component {
   }
 
   _buildWeekSelectionOptions() {
-    const rankings = this.props.rankings.values
-
     let weekSelectionOptions = {}
+
+    let rankings = {}
+    yearsList.forEach((item) => {
+      rankings[item] = []
+      for (let weekIndex = 1; weekIndex < 18; weekIndex++) {
+        rankings[item].push({
+          week: weekIndex
+        })
+      }
+    })
+
     Object.keys(rankings).forEach((key) => {
-      let rankingsList = rankings[key]
-      weekSelectionOptions[key] = this._buildSingleYearWeekSelectionOptions(rankingsList)
+      weekSelectionOptions[key] = this._buildSingleYearWeekSelectionOptions(rankings[key])
     });
 
     return weekSelectionOptions
@@ -87,7 +96,7 @@ class NflPowerRankings extends Component {
       let label = ' Week ' + week
 
       return {
-        value: index,
+        value: week,
         label: label
       }
     })
@@ -96,17 +105,16 @@ class NflPowerRankings extends Component {
   }
 
   _buildRankings(yearValue) {
-    let rankingsMap = this.props.rankings.values
-    let yearsList = this.props.rankings.yearsList
+    let rankingsMap = this.props.rankings
 
     let selectedYear = yearValue || yearsList[0]
     let rankingsList = rankingsMap[selectedYear]
-    let selectedWeekValue = rankingsList.length - 1
+    let selectedWeek = 17
 
     return {
       selectedYear,
       rankingsList,
-      selectedWeekValue
+      selectedWeek
     }
   }
 
@@ -122,12 +130,29 @@ class NflPowerRankings extends Component {
   }
 
   _onYearSelect(option) {
-    const rankings = this._buildRankings(option.value)
-    this.setState(rankings)
+    this.props.getRankings(option.value, this.state.selectedWeek)
+      .then(() => {
+        this.setState((prevState, props) => ({
+          selectedYear: option.value
+        }));
+      })
+      .catch((error) => {
+        // TODO: Handle error in the UI for the user
+        console.error('getRankings : ', error)
+      })
   }
 
   _onWeekSelect(option) {
-    this.setState({ selectedWeekValue: option.value })
+    this.props.getRankings(this.state.selectedYear, option.value)
+      .then(() => {
+        this.setState((prevState, props) => ({
+          selectedWeek: option.value
+        }));
+      })
+      .catch((error) => {
+        // TODO: Handle error in the UI for the user
+        console.error('getRankings : ', error)
+      })
   }
 
   _renderYearSelection() {
@@ -148,7 +173,7 @@ class NflPowerRankings extends Component {
   _renderWeekSelection() {
     const weekSelectionOptions = this.state.weekSelectionOptions[this.state.selectedYear]
     const currentOption = weekSelectionOptions.find(week => {
-      return week.value === this.state.selectedWeekValue
+      return week.value === this.state.selectedWeek
     })
 
     return (
@@ -156,7 +181,6 @@ class NflPowerRankings extends Component {
         options={weekSelectionOptions}
         onChange={this._onWeekSelect.bind(this)}
         value={currentOption}
-        placeholder="Select an option"
       />
     )
   }
@@ -205,7 +229,8 @@ class NflPowerRankings extends Component {
   }
 
   render() {
-    var tableData = this.state.rankingsList[this.state.selectedWeekValue].data,
+    const rankingId = this.state.selectedYear + '_' + this.state.selectedWeek
+    let tableData = this.props.rankings[rankingId].data,
         tableColumns = this.state.columns,
         sortBy = {
           property: 'power_ranking',
@@ -219,7 +244,7 @@ class NflPowerRankings extends Component {
             {this._renderYearSelection()}
             {this._renderWeekSelection()}
             <Table
-              key={'nfl_rankings_table_' + this.state.selectedWeekValue}
+              key={'nfl_rankings_table_' + this.state.selectedWeek}
               className={s.table__component}
               columns={tableColumns}
               keys={['id']}
