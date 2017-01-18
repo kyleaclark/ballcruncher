@@ -8,8 +8,8 @@ function updateRankings(rankings) {
   }
 }
 
-export function getRankings() {
-  let url = '/api/rankings'
+export function getRankings(year, week) {
+  let url = `/api/rankings?year=${year}&week=${week}`;
 
   return async (dispatch, getState) => {
     const state = getState()

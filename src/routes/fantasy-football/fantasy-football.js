@@ -35,7 +35,7 @@ class FantasyFootball extends Component {
         <div className={s.page__container}>
 
             <h3 className={s.page__title}>Fantasy Football Rankings</h3>
-            <h6>The data represents 2015 fantasy production, but past performance is a useful predictor of future outcomes.</h6>
+            <p>Projections from 2015 fantasy production, as past performance is a useful predictor of future outcomes.</p>
 
             {this._renderRankings()}
 
