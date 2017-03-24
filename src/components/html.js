@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { analytics } from '../config';
+import { analyticsConfig } from '../config';
 
 function Html({ title, description, style, script, children, state }) {
   return (
@@ -12,6 +12,14 @@ function Html({ title, description, style, script, children, state }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <style id="css" dangerouslySetInnerHTML={{ __html: style }} />
+        {analyticsConfig.segment.trackingId &&
+          <script type="text/javascript">
+            !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+            analytics.load({analyticsConfig.segment.trackingId});
+            analytics.page();
+            }}();
+          </script>
+      }
       </head>
       <body>
         <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
@@ -22,16 +30,6 @@ function Html({ title, description, style, script, children, state }) {
             data-initial-state={JSON.stringify(state)}
           />
         )}
-        {analytics.google.trackingId &&
-          <script
-            dangerouslySetInnerHTML={{ __html:
-            'window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;' +
-            `ga('create','${analytics.google.trackingId}','auto');ga('send','pageview')` }}
-          />
-        }
-        {analytics.google.trackingId &&
-          <script src="https://www.google-analytics.com/analytics.js" async defer />
-        }
       </body>
     </html>
   );

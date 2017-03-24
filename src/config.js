@@ -15,9 +15,10 @@ export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 
 export const dbConnection = process.env.MONGOLAB_URI || 'mongodb://localhost/ballcruncher_db';
 
-export const analytics = {
+export const analyticsConfig = {
 
   // https://analytics.google.com/
+  segment: { trackingId: process.env.SEGMENT_TRACKING_ID }
   google: { trackingId: process.env.GOOGLE_TRACKING_ID || 'UA-XXXXX-X' },
 
 };
