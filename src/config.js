@@ -18,7 +18,7 @@ export const dbConnection = process.env.MONGOLAB_URI || 'mongodb://localhost/bal
 export const analyticsConfig = {
 
   // https://analytics.google.com/
-  segment: { trackingId: process.env.SEGMENT_TRACKING_ID }
-  google: { trackingId: process.env.GOOGLE_TRACKING_ID || 'UA-XXXXX-X' },
+  segment: { trackingId: process.env.SEGMENT_TRACKING_ID },
+  google: { trackingId: process.env.GOOGLE_TRACKING_ID || 'UA-XXXXX-X' }
 
 };
