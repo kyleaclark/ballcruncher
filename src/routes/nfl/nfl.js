@@ -30,10 +30,6 @@ class Nfl extends Component {
     }
   }
 
-  componentDidMount() {
-    window.analytics.page()
-  }
-
   render () {
     return (
       <div className={s.page}>
