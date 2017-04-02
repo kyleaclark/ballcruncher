@@ -1,16 +1,19 @@
-import React from 'react'
-import Home from './home'
-import { getRankings } from '../../actions/index'
+import React from 'react';
+import Layout from '../../components/layout';
+import Home from './home';
+import { getRankings } from '../../actions/index';
 
 export default {
 
   path: '/',
 
-  async action({ context }) {
-    context.store.dispatch(getRankings(2016, 17))
-    context.setTitle('Ballcruncher - Home')
+  async action({ store }) {
+    store.dispatch(getRankings(2016, 17));
 
-    return <Home />;
-  }
+    return {
+      title: 'Home',
+      component: <Layout><Home /></Layout>,
+    };
+  },
 
 };

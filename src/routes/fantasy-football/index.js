@@ -1,16 +1,19 @@
-import React from 'react'
-import FantasyFootball from './fantasy-football'
-import { getRankings } from '../../actions/fantasy-football-rankings'
+import React from 'react';
+import Layout from '../../components/layout';
+import FantasyFootball from './fantasy-football';
+import { getRankings } from '../../actions/fantasy-football-rankings';
 
 export default {
 
   path: '/fantasy-football',
 
-  async action({ context }) {
-    context.store.dispatch(getRankings())
-    context.setTitle('Ballcruncher - Fantasy Football')
+  async action({ store }) {
+    store.dispatch(getRankings());
 
-    return <FantasyFootball />
-  }
+    return {
+      title: 'Fantasy Football',
+      component: <Layout><FantasyFootball /></Layout>,
+    };
+  },
 
 };

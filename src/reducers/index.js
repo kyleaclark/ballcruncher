@@ -1,10 +1,8 @@
-import { combineReducers } from 'redux'
-import rankings from './rankings'
-import fantasyFootballRankings from './fantasy-football-rankings'
+import { combineReducers } from 'redux';
+import rankings from './rankings';
+import fantasyFootballRankings from './fantasy-football-rankings';
 
-const rootReducer = combineReducers({
+export default combineReducers({
   rankings,
-  fantasyFootballRankings
-})
-
-export default rootReducer
+  fantasyFootballRankings,
+});
