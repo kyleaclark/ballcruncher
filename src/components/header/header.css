@@ -1,14 +1,14 @@
 @import '../variables.css';
 
 .header {
-  background: var(--white-base);
+  background: var(--gray-dark);
   border-bottom: 1px solid var(--gray-lightest);
   color: var(--gray-dark);
 }
 
 .header__container {
   margin: 0 auto;
-  padding: 10px 0 20px 0;
+  padding: 10px 0;
   max-width: var(--max-content-width);
 }
 
@@ -47,7 +47,7 @@
 
 .header__banner__desc {
   padding: 0;
-  color: rgba(255, 255, 255, .5);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 1em;
   margin: 0;
 }

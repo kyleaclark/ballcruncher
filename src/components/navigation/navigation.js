@@ -1,8 +1,14 @@
 import React, { PropTypes, Component } from 'react';
+import styled from 'styled-components'
 import classNames from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './navigation.css';
 import Link from '../link';
+
+const NavContainer = styled.div`
+  font-family: var(--font-family-alt);
+  margin-top: 0px;
+`
 
 class Navigation extends Component {
 
@@ -12,13 +18,11 @@ class Navigation extends Component {
 
   render() {
     return (
-      <div className={s.navigation} role="navigation">
-        <Link className={s.navigiation__link} to="/">Home</Link>
-        <span className={s.navigiation__spacer}> | </span>
+      <NavContainer role="navigation">
         <Link className={s.navigiation__link} to="/nfl">NFL</Link>
-        <span className={s.navigiation__spacer}> | </span>
-        <Link className={s.navigiation__link} to="/fantasy-football">FFB</Link>
-      </div>
+        <span className={s.navigiation__spacer}></span>
+        <Link className={s.navigiation__link} to="/fantasy-football">Fantasy Football</Link>
+      </NavContainer>
     );
   }
 

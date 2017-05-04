@@ -1,45 +1,64 @@
-/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+@import '../../components/variables.css';
 
-* {
-  margin: 0;
-  line-height: 1.2;
-}
-
-html {
-  display: table;
-  width: 100%;
-  height: 100%;
-  color: #888;
-  text-align: center;
-  font-family: sans-serif;
-}
-
-body {
-  display: table-cell;
-  margin: 2em auto;
-  vertical-align: middle;
-}
-
-h1 {
-  color: #555;
-  font-weight: 400;
-  font-size: 2em;
-}
-
-p {
+.page__container {
   margin: 0 auto;
-  width: 280px;
+  padding: 20px 2px;
+  max-width: var(--max-content-width);
 }
 
-@media only screen and (max-width: 280px) {
+.page__primary {
+  float: left;
+  margin-right: 5%;
+  width: 70%;
 
-  body, p {
-    width: 95%;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
   }
+}
 
-  h1 {
-    font-size: 1.5em;
-    margin: 0 0 0.3em;
+.page__sidebar {
+  float: left;
+  text-align: right;
+  width: 25%;
+
+  @media only screen and (max-width: 768px) {
+    text-align: left;
+    width: 100%;
   }
+}
 
+.page__sidebar_title {
+  margin-top: 30px;
+  margin-bottom: 5px;
+}
+
+.homepage__data_title {
+  margin-bottom: 0;
+}
+
+.homepage__data_subtitle {
+  margin-top: 0;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.home__link {
+  text-decoration: none;
+  font-size: 1em;
+}
+
+.home__link,
+.home__link:active,
+.home__link:visited {
+  color: var(--brand-color);
+}
+
+.home__link:hover {
+  color: var(--gray-dark);
+}
+
+.clear {
+  clear: both;
 }
