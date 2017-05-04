@@ -1,6 +1,6 @@
 {
-  "name": "app",
+  "name": "Layout",
   "version": "0.0.0",
   "private": true,
-  "main": "./app.js"
+  "main": "./layout.js"
 }

@@ -21,7 +21,6 @@ body {
 }
 
 h1 {
-  color: #555;
   font-weight: 400;
   font-size: 2em;
 }
@@ -32,15 +31,13 @@ p {
 }
 
 @media only screen and (max-width: 280px) {
-
-  body, p {
+  body,
+  p {
     width: 95%;
   }
 
   h1 {
     font-size: 1.5em;
     margin: 0 0 0.3em;
-
   }
-
 }

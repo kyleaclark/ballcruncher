@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
@@ -10,6 +11,16 @@ import NflPowerRankings from '../../components/views/nfl_power_rankings'
 import ballcruncherImage from '../../images/ballcruncher-small.jpg'
 
 import * as RankingsActions from '../../actions/index'
+
+const PageSubTitle = styled.h4`
+  margin: 0px;
+  padding: 0px;
+`
+
+const PageSubHeadline = styled.p`
+  margin: 0px;
+  padding: 0px;
+`
 
 class Home extends Component {
 
@@ -33,30 +44,16 @@ class Home extends Component {
       <div className={s.page}>
         <div className={s.page__container}>
 
-          <h3 className={s.homepage__data_title}>Welcome to Ballcruncher</h3>
+          <PageSubTitle>Data analysis of weekly NFL Power Rankings and annual Fantasy Football Rankings.</PageSubTitle>
 
-          <p>Sports analytics data covering weekly NFL Power Rankings and annual Fantasy Football Rankings.<br />Learn more about the data models used to make the rankings calculations on the <Link className={s.home__link} to="/nfl">NFL</Link> and <Link className={s.home__link} to="/fantasy-football">FFB</Link> pages.</p>
+          <PageSubHeadline>Learn more about the data models created at the bottom of the page on <Link className={s.home__link} to="/nfl">NFL</Link> and <Link className={s.home__link} to="/fantasy-football">FFB</Link> pages.</PageSubHeadline>
 
           <hr />
 
-          <div>
-            <div className={s.page__primary}>
-              <h4 className={s.homepage__data_title}>NFL Power Rankings</h4>
-              <h6 className={s.homepage__data_subtitle}><a href="/nfl" onClick={Link.handleClick}>View the full rankings</a></h6>
+          <h3 className={s.page__title}>NFL Power Rankings</h3>
 
-              {this._renderRankings()}
-            </div>
+          {this._renderRankings()}
 
-            <div className={s.page__sidebar}>
-              <h4 className={s.page__sidebar_title}>Latest Blog Entries:</h4>
-              <img src={ballcruncherImage} alt="Ballcruncher" />
-              <br /><br />
-
-              <BlogEntries />
-            </div>
-
-            <div className={s.clear}></div>
-          </div>
         </div>
       </div>
     )

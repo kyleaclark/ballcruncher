@@ -1,16 +1,19 @@
-import React from 'react'
-import Nfl from './nfl'
-import { getRankings } from '../../actions/index'
+import React from 'react';
+import Layout from '../../components/layout';
+import Nfl from './nfl';
+import { getRankings } from '../../actions/index';
 
 export default {
 
   path: '/nfl',
 
-  async action({ context }) {
-    context.store.dispatch(getRankings(2016, 17))
-    context.setTitle('Ballcruncher - NFL')
+  async action({ store }) {
+    store.dispatch(getRankings(2016, 17));
 
-    return <Nfl />
-  }
+    return {
+      title: 'NFL',
+      component: <Layout><Nfl /></Layout>,
+    };
+  },
 
 };

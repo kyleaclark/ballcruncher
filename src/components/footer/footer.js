@@ -11,7 +11,7 @@ class Footer extends Component {
     return (
       <div className={s.footer}>
         <div className={s.footer__container}>
-          <span className={s.footer__text}>© Ballcruncher 2016</span>
+          <span className={s.footer__text}>© Ballcruncher 2017 &ndash; Sports Numbers &amp; Analysis</span>
         </div>
       </div>
     );
