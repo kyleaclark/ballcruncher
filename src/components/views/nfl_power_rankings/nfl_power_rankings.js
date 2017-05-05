@@ -41,18 +41,18 @@ class NflPowerRankings extends Component {
     ]
 
     if (this.props.fullRankings) {
-      columns[1].label = 'TM'
-      columns[2].label = 'W'
-      columns[3].label = 'L'
-      columns[4].label = 'PWR'
+      columns[1].label = 'Tm'
+      columns[2].label = 'Ws'
+      columns[3].label = 'Ls'
+      columns[4].label = 'Pwr Rating'
 
       columns = columns.concat([
-        { label: 'SOS', property: 'sos', formatter: this._formatSpecialDecimal, title: 'Strength of Schedule', sortable: true },
-        { label: 'SOV', property: 'sov', formatter: this._formatSpecialDecimal, title: 'Strength of Victory', sortable: true },
-        { label: 'PD', property: 'point_differential', title: 'Point Differential', sortable: true },
-        { label: 'PS', property: 'points_scored_avg', formatter: this._formatDecimal, title: 'Points Scored Per Game', sortable: true },
-        { label: 'PA', property: 'points_against_avg', formatter: this._formatDecimal, title: 'Points Against Per Game', sortable: true },
-        { label: 'TD', property: 'turnover_differential', title: 'Turnover Differential', sortable: true }
+        { label: 'SoS', property: 'sos', formatter: this._formatSpecialDecimal, title: 'Strength of Schedule', sortable: true },
+        { label: 'SoV', property: 'sov', formatter: this._formatSpecialDecimal, title: 'Strength of Victory', sortable: true },
+        { label: 'Pt Diff', property: 'point_differential', title: 'Point Differential', sortable: true },
+        { label: 'Avg Pts', property: 'points_scored_avg', formatter: this._formatDecimal, title: 'Points Scored Per Game', sortable: true },
+        { label: 'Avg Against', property: 'points_against_avg', formatter: this._formatDecimal, title: 'Points Against Per Game', sortable: true },
+        { label: 'Turnover Diff', property: 'turnover_differential', title: 'Turnover Differential', sortable: true }
       ])
     }
 

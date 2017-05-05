@@ -1,9 +1,33 @@
 'use strict';
 
 import React from 'react';
+import styled from 'styled-components';
 import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './table.css';
+
+const Th = styled.th`
+  background-color: #efefef;
+  border: 1px solid #fafafa;
+  color: #404040;
+  cursor: pointer;
+  font-weight: 600;
+  min-width: 40px;
+  padding: 8px;
+  padding-right: 15px
+  position: relative;
+  text-align: left;
+
+  &:hover {
+    background-color: #eaeaea;
+  }
+`
+
+const Td = styled.td`
+  border: 1px solid #fafafa;
+  min-width: 50px;
+  padding: 8px;
+`
 
 class Table extends React.Component {
 
@@ -72,9 +96,9 @@ class Table extends React.Component {
             }
 
             return (
-              <td key={index} className={s[col.className]}>
+              <Td key={index} className={s[col.className]}>
                 {item}
-              </td>);
+              </Td>);
           })}
         </tr>);
     });
@@ -111,13 +135,13 @@ class Table extends React.Component {
       );
 
       return (
-        <th
+        <Th
           key={col.label || col.property}
           title={col.title}
           {...sortAttrs}>
           {col.label && <span>{col.label}</span>}
           {col.sortable && <span className={sortOrderClass} />}
-        </th>
+        </Th>
       );
     });
   }
