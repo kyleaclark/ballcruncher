@@ -6,15 +6,7 @@ import Link from '../link';
 import Navigation from '../navigation';
 
 const Title = styled.h1`
-  color: #efefef;
-  display: block;
-  font-size: 1.5em;
-  margin: 0;
-  padding: 0;
 
-  &:hover {
-    color: #fff;
-  }
 `
 
 class Header extends Component {
@@ -23,7 +15,10 @@ class Header extends Component {
     return (
       <div className={s.header}>
         <div className={s.header__container}>
-          <Link className={s.navigiation__link} to="/"><Title>Ballcruncher</Title></Link>
+        
+          <Link className={s.navigiation__link} to="/">
+            <h1 className={s.header__title}>Ballcruncher</h1>
+          </Link>
 
           <Navigation className={s.header__nav} />
         </div>

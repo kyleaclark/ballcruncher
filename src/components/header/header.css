@@ -19,10 +19,15 @@
 }
 
 .header__title {
-  color: var(--gray-darker);
+  color: #efefef;
+  display: block;
   font-size: 1.5em;
   margin: 0;
   padding: 0;
+
+  &:hover {
+    color: #fff;
+  }
 }
 
 .header__subtitle {
