@@ -12,6 +12,7 @@ import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
+import { ServerStyleSheet } from 'styled-components'
 import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
 import App from './components/app';
@@ -99,10 +100,13 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
-    data.styles = [
-      { id: 'css', cssText: [...css].join('') },
-    ];
+    const sheet = new ServerStyleSheet()
+    // data.styles = sheet.getStyleTags() // or sheet.getStyleElement()
+    data.children = ReactDOM.renderToString(sheet.collectStyles(<App context={context}>{route.component}</App>));
+    data.styles = sheet.getStyleElement(); // or sheet.getStyleElement()
+    // data.styles = [
+    //   { id: 'css', cssText: [...css].join('') },
+    // ];
     data.scripts = [
       assets.vendor.js,
       assets.client.js,
@@ -112,6 +116,7 @@ app.get('*', async (req, res, next) => {
       data.scripts.push(assets[route.chunk].js);
     }
 
+    // const html = ReactDOM.renderToString(sheet.collectStyles(<Html {...data} />));
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);

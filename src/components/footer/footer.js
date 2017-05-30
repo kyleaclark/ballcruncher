@@ -1,7 +1,4 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React, { PropTypes, Component } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './footer.css';
 import Link from '../link';
 
@@ -19,4 +16,4 @@ class Footer extends Component {
 
 }
 
-export default withStyles(s)(Footer);
+export default Footer;

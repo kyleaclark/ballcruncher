@@ -3,7 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import cx from 'classnames';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './table.css';
 
 const Th = styled.th`
@@ -173,4 +172,4 @@ Table.defaultProps = {
   className: 'table'
 };
 
-export default withStyles(s)(Table);
+export default Table;

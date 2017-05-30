@@ -1,31 +1,49 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import styled from 'styled-components';
 import s from './header.css';
 import Link from '../link';
 import Navigation from '../navigation';
 
-const Title = styled.h1`
+const HeaderWrapper = styled.div`
+  background-color: #bbb;
+  border-bottom: 1px solid #eee;
+  color: #bbb;
+`;
 
-`
+const HeaderContainer = styled.div`
+  margin: 0 auto;
+  padding: 10px 0;
+  max-width: 1000px;
+`;
+
+const Title = styled.h1`
+  color: #efefef;
+  display: block;
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    color: #fff;
+  }
+`;
 
 class Header extends Component {
 
   render() {
     return (
-      <div className={s.header}>
-        <div className={s.header__container}>
-        
+      <HeaderWrapper>
+        <HeaderContainer>
           <Link className={s.navigiation__link} to="/">
-            <h1 className={s.header__title}>Ballcruncher</h1>
+            <Title>Ballcruncher</Title>
           </Link>
 
           <Navigation className={s.header__nav} />
-        </div>
-      </div>
+        </HeaderContainer>
+      </HeaderWrapper>
     );
   }
 
 }
 
-export default withStyles(s)(Header);
+export default Header;

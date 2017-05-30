@@ -3,7 +3,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import cx from 'classnames';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './dropdown.css';
 
 class Dropdown extends React.Component {
@@ -125,4 +124,4 @@ class Dropdown extends React.Component {
 
 Dropdown.defaultProps = { controlClassName: 'dropdown__control', menuClassName: 'dropdown__menu'};
 
-export default withStyles(s)(Dropdown);
+export default Dropdown;

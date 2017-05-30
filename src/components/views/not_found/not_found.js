@@ -1,10 +1,8 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes, Component } from 'react';
-import withStyles from '../../../decorators/withStyles';
 import styles from './not_found.css';
 
-@withStyles(styles)
 class NotFoundPage extends Component {
 
   static contextTypes = {

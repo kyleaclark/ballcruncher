@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './nfl_power_rankings.css'
 import Table from '../../core/table/table'
 import Format from '../../../utils/format'
@@ -261,4 +260,4 @@ class NflPowerRankings extends Component {
 
 }
 
-export default withStyles(s)(NflPowerRankings)
+export default NflPowerRankings;

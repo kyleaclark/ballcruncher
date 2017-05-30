@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import styled from 'styled-components'
 import classNames from 'classnames';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './navigation.css';
 import Link from '../link';
 
@@ -28,4 +27,4 @@ class Navigation extends Component {
 
 }
 
-export default withStyles(s)(Navigation);
+export default Navigation;

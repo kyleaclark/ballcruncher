@@ -8,7 +8,6 @@
  */
 
 import React, { PropTypes } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './layout.css';
 import Header from '../header';
 import Feedback from '../feedback';
@@ -30,4 +29,4 @@ class Layout extends React.Component {
   }
 }
 
-export default withStyles(s)(Layout);
+export default Layout;

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './feedback.css';
 
 class Feedback extends Component {
@@ -16,4 +15,4 @@ class Feedback extends Component {
 
 }
 
-export default withStyles(s)(Feedback);
+export default Feedback;
