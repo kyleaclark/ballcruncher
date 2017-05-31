@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import s from './header.css';
 import Link from '../link';
-import NavigationLink from '../core/navigation-link';
 import Navigation from '../navigation';
 
 const HeaderWrapper = styled.div`
@@ -35,11 +33,11 @@ class Header extends Component {
     return (
       <HeaderWrapper>
         <HeaderContainer>
-          <NavigationLink to="/">
+          <Link to="/" navigationLink={true}>
             <Title>Ballcruncher</Title>
-          </NavigationLink>
+          </Link>
 
-          <Navigation className={s.header__nav} />
+          <Navigation />
         </HeaderContainer>
       </HeaderWrapper>
     );

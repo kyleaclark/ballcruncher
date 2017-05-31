@@ -1,10 +1,14 @@
 import React, { PropTypes } from 'react';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import s from './layout.css';
 import variables from '../variables';
 import Header from '../header';
 import Feedback from '../feedback';
 import Footer from '../footer';
+
+// const LayoutContainer = styled.div`
+//   font-family: ${props => props.theme['font-family-base']};
+// `;
 
 class Layout extends React.Component {
   static propTypes = {
@@ -22,6 +26,6 @@ class Layout extends React.Component {
       </ThemeProvider>
     );
   }
-}
+};
 
 export default Layout;

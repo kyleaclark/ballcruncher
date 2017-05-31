@@ -2,8 +2,12 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import cx from 'classnames';
-import s from './table.css';
+
+const TableContainer = styled.table`
+  color: #444;
+  margin: 20px 0;
+  width: 100%;
+`;
 
 const Th = styled.th`
   background-color: #efefef;
@@ -13,20 +17,45 @@ const Th = styled.th`
   font-weight: 600;
   min-width: 40px;
   padding: 8px;
-  padding-right: 15px
+  padding-right: 15px;
   position: relative;
   text-align: left;
 
   &:hover {
     background-color: #eaeaea;
   }
-`
+`;
+
+const Tr = styled.tr`
+  background-color: ${props => props.theme[props.rowColor]};
+`;
 
 const Td = styled.td`
   border: 1px solid #fafafa;
   min-width: 50px;
   padding: 8px;
-`
+`;
+
+const SortIcon = styled.span`
+  border-style: solid;
+  content: ' ';
+  height: 0;
+  margin-top: ${Math.ceil(2.5)};
+  position: absolute;
+  right: 6px;
+  top: 15px;
+  width: 0;
+`;
+
+const SortAscendingIcon = styled(SortIcon)`
+  border-color: transparent transparent #666;
+  border-width: 0 6px 6px;
+`;
+
+const SortDescendingIcon = styled(SortIcon)`
+  border-color: #666 transparent transparent;
+  border-width: 6px 6px 0;
+`;
 
 class Table extends React.Component {
 
@@ -79,14 +108,10 @@ class Table extends React.Component {
 
     return sortedData.map((row, rowIndex) => {
       // TODO: Fix so default is the default and require key as a prop
-      if (this.props.rowClassNameKey === 'default') {
-        rowClassNameValue = rowIndex % 2 === 0 ? 'table__even-row' : 'table__odd-row'
-      } else {
-        rowClassNameValue = row.id.toLowerCase()
-      }
+      const rowColor = this.props.rowClassNameKey === 'default' ? 'white-base' : row.id.toLowerCase() + '-color';
 
       return (
-        <tr key={getKeys(row)} className={s[rowClassNameValue]}>
+        <Tr key={getKeys(row)} rowColor={rowColor}>
           {columns.map(function (col, index) {
             if (col.property === '_index') {
               item = rowIndex + 1;
@@ -95,11 +120,11 @@ class Table extends React.Component {
             }
 
             return (
-              <Td key={index} className={s[col.className]}>
+              <Td key={index}>
                 {item}
               </Td>);
           })}
-        </tr>);
+        </Tr>);
     });
   }
 
@@ -114,13 +139,22 @@ class Table extends React.Component {
     };
   }
 
+  _renderSortIcon(sortOrder) {
+    console.log('renderSortIcon : ', sortOrder);
+    if (sortOrder === 'ascending') {
+      return <SortAscendingIcon />
+    } else if (sortOrder === 'descending') {
+      return <SortDescendingIcon />
+    }
+  }
+
   _renderHeading() {
     var sortAttrs,
         sortOrder,
         columns = this.props.columns,
         self = this;
 
-    return columns.map(function (col, index) {
+    return columns.map((col, index) => {
       if (col.sortable) {
         sortAttrs = self._buildHeaderAttrs(col);
         sortOrder = sortAttrs['data-sort'];
@@ -128,18 +162,13 @@ class Table extends React.Component {
         sortAttrs = {};
       }
 
-      let sortOrderClass = cx(
-        s.table__sort_icon,
-        s[`table__sort_${sortOrder}`]
-      );
-
       return (
         <Th
           key={col.label || col.property}
           title={col.title}
           {...sortAttrs}>
           {col.label && <span>{col.label}</span>}
-          {col.sortable && <span className={sortOrderClass} />}
+          {col.sortable && this._renderSortIcon(sortOrder)}
         </Th>
       );
     });
@@ -152,7 +181,7 @@ class Table extends React.Component {
         sortBy = this.state.sortBy;
 
     return (
-      <table className={s[this.props.className]}>
+      <TableContainer>
         <thead>
           <tr>
             {this._renderHeading()}
@@ -161,7 +190,7 @@ class Table extends React.Component {
         <tbody>
           {this._renderBody()}
         </tbody>
-      </table>
+      </TableContainer>
     );
   }
 }

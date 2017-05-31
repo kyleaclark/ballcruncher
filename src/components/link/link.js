@@ -1,13 +1,5 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React, { PropTypes } from 'react';
+import styled from 'styled-components';
 import history from '../../core/history';
 
 function isLeftClickEvent(event) {
@@ -17,6 +9,24 @@ function isLeftClickEvent(event) {
 function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
+
+const NavigationLink = styled.a`
+  display: inline-block;
+  padding: 0 20px 3px 0;
+  padding-top: 0;
+  text-decoration: none;
+  font-size: 1.125em;
+
+  &,
+  &:active,
+  &:visited {
+    color: ${props => props.theme['brand-color']};
+  };
+
+  &:hover {
+    color: ${props => props.theme['gray-lightest']};
+  };
+`;
 
 class Link extends React.Component {
   static propTypes = {
@@ -48,7 +58,16 @@ class Link extends React.Component {
 
   render() {
     const { to, children, ...props } = this.props;
-    return <a href={to} {...props} onClick={this.handleClick}>{children}</a>;
+
+    if (this.props.navigationLink) {
+      return (
+        <NavigationLink href={to} {...props} onClick={this.handleClick}>
+          {children}
+        </NavigationLink>
+      )
+    } else {
+      return <a href={to} {...props} onClick={this.handleClick}>{children}</a>;
+    }
   }
 }
 
