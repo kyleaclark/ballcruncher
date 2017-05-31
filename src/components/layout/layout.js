@@ -1,14 +1,7 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React, { PropTypes } from 'react';
+import { ThemeProvider } from 'styled-components';
 import s from './layout.css';
+import variables from '../variables';
 import Header from '../header';
 import Feedback from '../feedback';
 import Footer from '../footer';
@@ -20,11 +13,13 @@ class Layout extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        {this.props.children}
-        <Footer />
-      </div>
+      <ThemeProvider theme={variables}>
+        <div>
+          <Header />
+          {this.props.children}
+          <Footer />
+        </div>
+      </ThemeProvider>
     );
   }
 }
