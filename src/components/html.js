@@ -1,13 +1,11 @@
 import React, { PropTypes } from 'react';
 import serialize from 'serialize-javascript';
-import { segmentTrackingId } from '../config';
 import { injectGlobal } from 'styled-components';
+import styledNormalize from 'styled-normalize';
+import { segmentTrackingId } from '../config';
+import baseStyles from '../styles/index';
 
-injectGlobal`
-body {
-  font-family: 'Roboto';
-}
-`;
+baseStyles();
 
 class Html extends React.Component {
   static propTypes = {
@@ -28,6 +26,7 @@ class Html extends React.Component {
 
   render() {
     const { title, description, styles, scripts, state, children } = this.props;
+
     return (
       <html className="no-js" lang="en">
         <head>
