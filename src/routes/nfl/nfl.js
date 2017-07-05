@@ -1,13 +1,30 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from './nfl.css'
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import styled from 'styled-components';
 
-import Link from '../../components/link'
-import NflPowerRankings from '../../components/views/nfl_power_rankings'
+import Link from '../../components/link';
+import NflPowerRankings from '../../components/views/nfl_power_rankings';
 
-import * as RankingsActions from '../../actions/index'
+import * as RankingsActions from '../../actions/index';
+
+const PageContainer = styled.div`
+  margin: 0 auto;
+  padding: 20px 2px;
+  max-width: ${props => props.theme['max-content-width']};
+`;
+
+function mapStateToProps(state) {
+  return {
+    rankings: state.rankings
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(RankingsActions, dispatch)
+  }
+}
 
 class Nfl extends Component {
 
@@ -32,33 +49,19 @@ class Nfl extends Component {
 
   render () {
     return (
-      <div className={s.page}>
-        <div className={s.page__container}>
+      <PageContainer>
 
-            <h3 className={s.page__title}>NFL Power Rankings</h3>
+          <h3>NFL Power Rankings</h3>
 
-            {this._renderRankings()}
+          {this._renderRankings()}
 
-        </div>
-      </div>
+      </PageContainer>
     )
   }
 
 }
 
-function mapStateToProps(state) {
-  return {
-    rankings: state.rankings
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(RankingsActions, dispatch)
-  }
-}
-
-export default withStyles(s)(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Nfl))
+)(Nfl)

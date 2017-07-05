@@ -28,6 +28,22 @@ const NavigationLink = styled.a`
   };
 `;
 
+const TextLink = styled.a`
+  color: ${props => props.theme['brand-color']};
+  font-size: 1em;
+  text-decoration: none;
+
+
+  &:active,
+  &:visited {
+    color: ${props => props.theme['brand-color']};
+  }
+
+  &:hover {
+    color: ${props => props.theme['gray-dark']};
+  }
+`;
+
 class Link extends React.Component {
   static propTypes = {
     to: PropTypes.string.isRequired,
@@ -58,15 +74,27 @@ class Link extends React.Component {
 
   render() {
     const { to, children, ...props } = this.props;
+    let handleClick = this.handleClick;
 
+    if (this.props.external) {
+      handleClick = null;
+    }
+
+    /* TODO: refactor to handle multiple link style types */
     if (this.props.navigationLink) {
       return (
-        <NavigationLink href={to} {...props} onClick={this.handleClick}>
+        <NavigationLink href={to} {...props} onClick={handleClick}>
           {children}
         </NavigationLink>
       )
+    } else if (this.props.type === 'text') {
+      return (
+        <TextLink href={to} {...props} onClick={handleClick}>
+          {children}
+        </TextLink>
+      )
     } else {
-      return <a href={to} {...props} onClick={this.handleClick}>{children}</a>;
+      return <a href={to} {...props} onClick={handleClick}>{children}</a>;
     }
   }
 }

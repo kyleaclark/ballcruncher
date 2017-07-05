@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import s from './layout.css';
 import variables from '../variables';
 import Header from '../header';
 import Footer from '../footer';

@@ -1,7 +1,4 @@
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-
 import React, { PropTypes, Component } from 'react';
-import styles from './content.css';
 
 class ContentPage extends Component {
 
@@ -18,13 +15,11 @@ class ContentPage extends Component {
   render() {
     this.context.onSetTitle(this.props.title);
     return (
-      <div className="page">
-        <div className="page__container">
+      <div>
           {
             this.props.path === '/' ? null : <h1>{this.props.title}</h1>
           }
           <div dangerouslySetInnerHTML={{__html: this.props.content || ''}} />
-        </div>
       </div>
     );
   }

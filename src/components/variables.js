@@ -33,6 +33,7 @@ const variables = {
   'ind-color':             '#002C5F',
   'jac-color':             '#006778',
   'kc-color':              '#E31837',
+  'la-color':              '#002244',
   'mia-color':             '#008E97',
   'min-color':             '#4F2683',
   'ne-color':              '#002244',

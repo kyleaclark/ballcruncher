@@ -27,11 +27,12 @@ const Th = styled.th`
 `;
 
 const Tr = styled.tr`
-  background-color: ${props => props.theme[props.rowColor]};
+  background-color: ${props => props.theme[props.rowBgColor]};
 `;
 
 const Td = styled.td`
   border: 1px solid #fafafa;
+  color: ${props => props.theme[props.rowTextColor]};
   min-width: 50px;
   padding: 8px;
 `;
@@ -108,10 +109,11 @@ class Table extends React.Component {
 
     return sortedData.map((row, rowIndex) => {
       // TODO: Fix so default is the default and require key as a prop
-      const rowColor = this.props.rowClassNameKey === 'default' ? 'white-base' : row.id.toLowerCase() + '-color';
+      const rowBgColor = this.props.rowClassNameKey === 'default' ? 'white-base' : row.id.toLowerCase() + '-color';
+      const rowTextColor = this.props.rowClassNameKey === 'default' ? 'gray-dark' : 'white-base';
 
       return (
-        <Tr key={getKeys(row)} rowColor={rowColor}>
+        <Tr key={getKeys(row)} rowBgColor={rowBgColor}>
           {columns.map(function (col, index) {
             if (col.property === '_index') {
               item = rowIndex + 1;
@@ -120,7 +122,7 @@ class Table extends React.Component {
             }
 
             return (
-              <Td key={index}>
+              <Td key={index} rowTextColor={rowTextColor}>
                 {item}
               </Td>);
           })}
@@ -140,7 +142,6 @@ class Table extends React.Component {
   }
 
   _renderSortIcon(sortOrder) {
-    console.log('renderSortIcon : ', sortOrder);
     if (sortOrder === 'ascending') {
       return <SortAscendingIcon />
     } else if (sortOrder === 'descending') {

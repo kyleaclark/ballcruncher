@@ -1,33 +1,39 @@
-import React, { PropTypes, Component } from 'react'
-import s from './nfl_power_rankings.css'
-import Table from '../../core/table/table'
-import Format from '../../../utils/format'
-import Dropdown from '../../core/dropdown'
+import React, { PropTypes, Component } from 'react';
+import styled from 'styled-components';
 
-import { getRankings } from '../../../actions/index'
+import Link from '../../link/link';
+import Table from '../../core/table/table';
+import Format from '../../../utils/format';
+import Dropdown from '../../core/dropdown';
+
+import { getRankings } from '../../../actions/index';
+
+const DetailsList = styled.ul`
+  font-weight: 600;
+`;
 
 // TODO: Dynamically generate Years and Weeks from a utility service or API data source
-const yearsList = [2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009]
+const yearsList = [2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009];
 
 class NflPowerRankings extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentWillMount() {
-    let columns = this._buildTableColumns()
-    let yearSelectionOptions = this._buildYearSelectionOptions()
-    let weekSelectionOptions = this._buildWeekSelectionOptions()
+    let columns = this._buildTableColumns();
+    let yearSelectionOptions = this._buildYearSelectionOptions();
+    let weekSelectionOptions = this._buildWeekSelectionOptions();
 
     let initialState = {
       columns,
       yearSelectionOptions,
       weekSelectionOptions
-    }
+    };
 
-    let builtState = Object.assign({}, initialState, this._buildRankings())
-    this.setState(builtState)
+    let builtState = Object.assign({}, initialState, this._buildRankings());
+    this.setState(builtState);
   }
 
   _buildTableColumns() {
@@ -37,13 +43,13 @@ class NflPowerRankings extends Component {
       { label: 'Wins', property: 'wins', title: 'Wins', sortable: true },
       { label: 'Losses', property: 'losses', title: 'Losses', sortable: true },
       { label: 'Power Rating', property: 'power_ranking', formatter: this._formatDecimal, title: 'Power Rating', sortable: true }
-    ]
+    ];
 
     if (this.props.fullRankings) {
-      columns[1].label = 'Tm'
-      columns[2].label = 'Ws'
-      columns[3].label = 'Ls'
-      columns[4].label = 'Pwr Rating'
+      columns[1].label = 'Tm';
+      columns[2].label = 'Ws';
+      columns[3].label = 'Ls';
+      columns[4].label = 'Pwr Rating';
 
       columns = columns.concat([
         { label: 'SoS', property: 'sos', formatter: this._formatSpecialDecimal, title: 'Strength of Schedule', sortable: true },
@@ -55,7 +61,7 @@ class NflPowerRankings extends Component {
       ])
     }
 
-    return columns
+    return columns;
   }
 
   _buildYearSelectionOptions() {
@@ -188,7 +194,7 @@ class NflPowerRankings extends Component {
     return (
       <div>
         <h4>Breakdown of the power ranking formula:</h4>
-        <ul className={s.formula_details_list}>
+        <DetailsList>
           <li><span>victory value (25%)</span> - teams wins * strength of victory (relative scale of 0 to 100 by the highest upper bound value)</li>
 
           <li><span>pythagorean win value (25%)</span> - points scored) / (points scored + points against) * games played (relative scale of0 to 100 by the highest upper bound value)</li>
@@ -203,7 +209,7 @@ class NflPowerRankings extends Component {
 
           <li><span>turnover differential value (5%)</span> - turnover_differential plus/minus (relative scale of -100 to 100 by the lowest lower bound value)</li>
 
-        </ul>
+        </DetailsList>
 
         <code>
           Legend:<br />
@@ -222,7 +228,7 @@ class NflPowerRankings extends Component {
 
         <br /><br />
 
-        <a href='https://github.com/kyleaclark/nfl-power-rankings' className={s.github__link} target='_blank'>View the data model source code on GitHub</a>
+        <Link external={true} type='text' to='https://github.com/kyleaclark/nfl-power-rankings' target='_blank'>View the data model source code on GitHub</Link>
       </div>
     )
   }
@@ -244,7 +250,6 @@ class NflPowerRankings extends Component {
             {this._renderWeekSelection()}
             <Table
               key={'nfl_rankings_table_' + this.state.selectedWeek}
-              className={s.table__component}
               columns={tableColumns}
               keys={['id']}
               sortBy={sortBy}

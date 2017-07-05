@@ -1,26 +1,41 @@
-import React, { Component, PropTypes } from 'react'
-import styled from 'styled-components'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from './home.css'
+import React, { Component, PropTypes } from 'react';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import Link from '../../components/link'
-import BlogEntries from '../../components/views/blog_entries'
-import NflPowerRankings from '../../components/views/nfl_power_rankings'
-import ballcruncherImage from '../../images/ballcruncher-small.jpg'
+import Link from '../../components/link';
+import BlogEntries from '../../components/views/blog_entries';
+import NflPowerRankings from '../../components/views/nfl_power_rankings';
 
-import * as RankingsActions from '../../actions/index'
+import * as RankingsActions from '../../actions/index';
+
+const PageContainer = styled.div`
+  margin: 0 auto;
+  padding: 20px 2px;
+  max-width: ${props => props.theme['max-content-width']};
+`;
 
 const PageSubTitle = styled.h4`
   margin: 0px;
   padding: 0px;
-`
+`;
 
 const PageSubHeadline = styled.p`
   margin: 0px;
   padding: 0px;
-`
+`;
+
+function mapStateToProps(state) {
+  return {
+    rankings: state.rankings
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(RankingsActions, dispatch)
+  }
+}
 
 class Home extends Component {
 
@@ -41,38 +56,24 @@ class Home extends Component {
 
   render () {
     return (
-      <div className={s.page}>
-        <div className={s.page__container}>
+      <PageContainer>
 
-          <PageSubTitle>Data analysis of weekly NFL Power Rankings and annual Fantasy Football Rankings.</PageSubTitle>
+        <PageSubTitle>Data analysis of weekly NFL Power Rankings and annual Fantasy Football Rankings.</PageSubTitle>
 
-          <PageSubHeadline>Learn more about the data models created at the bottom of the page on <Link className={s.home__link} to="/nfl">NFL</Link> and <Link className={s.home__link} to="/fantasy-football">FFB</Link> pages.</PageSubHeadline>
+        <PageSubHeadline>Learn more about the data models on the bottom of the <Link type={'text'} to="/nfl">NFL</Link> and <Link type={'text'} to="/fantasy-football">Fantasy Football</Link> pages.</PageSubHeadline>
 
-          <hr />
+        <hr />
 
-          <h3 className={s.page__title}>NFL Power Rankings</h3>
+        <h3>NFL Power Rankings</h3>
 
-          {this._renderRankings()}
+        {this._renderRankings()}
 
-        </div>
-      </div>
+      </PageContainer>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    rankings: state.rankings
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(RankingsActions, dispatch)
-  }
-}
-
-export default withStyles(s)(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home))
+)(Home)

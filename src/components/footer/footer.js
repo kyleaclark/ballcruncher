@@ -1,16 +1,34 @@
 import React, { PropTypes, Component } from 'react';
-import s from './footer.css';
+import styled from 'styled-components';
 import Link from '../link';
+
+const FooterWrapper = styled.div`
+  background: ${props => props.theme['gray-darker']};
+  color: #fff;
+`;
+
+const FooterContainer = styled.div`
+  margin: 0 auto;
+  padding: 20px 15px;
+  max-width: ${props => props.theme['max-content-width']};
+  text-align: center;
+`;
+
+const FooterText = styled.span`
+  color: rgba(255, 255, 255, .5);
+`;
 
 class Footer extends Component {
 
   render() {
+    const year = new Date().getFullYear();
+
     return (
-      <div className={s.footer}>
-        <div className={s.footer__container}>
-          <span className={s.footer__text}>© Ballcruncher 2017 &ndash; Sports Numbers &amp; Analysis</span>
-        </div>
-      </div>
+      <FooterWrapper>
+        <FooterContainer>
+          <FooterText>© Ballcruncher 2015-{year} &ndash; Sports Musings &amp; Analysis</FooterText>
+        </FooterContainer>
+      </FooterWrapper>
     );
   }
 

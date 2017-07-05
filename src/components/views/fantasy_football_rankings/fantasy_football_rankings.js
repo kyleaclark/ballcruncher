@@ -1,10 +1,15 @@
-import React, { PropTypes, Component } from 'react'
-import s from './fantasy_football_rankings.css'
-import Table from '../../core/table/table'
-import Format from '../../../utils/format'
-import Dropdown from '../../core/dropdown'
+import React, { PropTypes, Component } from 'react';
+import styled from 'styled-components';
+import Link from '../../link/link';
+import Table from '../../core/table/table';
+import Format from '../../../utils/format';
+import Dropdown from '../../core/dropdown';
 
-import { getRankings } from '../../../actions/fantasy-football-rankings'
+import { getRankings } from '../../../actions/fantasy-football-rankings';
+
+const DetailsList = styled.ol`
+  font-weight: 600;
+`;
 
 class FantasyFootballRankings extends Component {
 
@@ -37,7 +42,7 @@ class FantasyFootballRankings extends Component {
       { label: 'Auction Value', property: 'auction_value', formatter: this._formatDecimal, title: 'Auction Value', sortable: true }
     ]
 
-    return columns
+    return columns;
   }
 
   _buildYearSelectionOptions() {
@@ -50,7 +55,7 @@ class FantasyFootballRankings extends Component {
       }
     })
 
-    return yearSelectionOptions
+    return yearSelectionOptions;
   }
 
   _buildPositionSelectionOptions() {
@@ -62,7 +67,7 @@ class FantasyFootballRankings extends Component {
       positionSelectionOptions[key] = this._buildSingleYearPositionSelectionOptions(rankingsList)
     });
 
-    return positionSelectionOptions
+    return positionSelectionOptions;
   }
 
   _buildSingleYearPositionSelectionOptions(rankingsList) {
@@ -76,27 +81,27 @@ class FantasyFootballRankings extends Component {
       }
     })
 
-    return options
+    return options;
   }
 
   _buildRankings(yearValue) {
-    let rankingsMap = this.props.rankings.values
-    let yearsList = this.props.rankings.yearsList
+    let rankingsMap = this.props.rankings.values;
+    let yearsList = this.props.rankings.yearsList;
 
-    let selectedYear = yearValue || yearsList[0]
-    let rankingsList = rankingsMap[selectedYear]
-    let selectedPositionValue = 0
+    let selectedYear = yearValue || yearsList[0];
+    let rankingsList = rankingsMap[selectedYear];
+    let selectedPositionValue = 0;
 
     return {
       selectedYear,
       rankingsList,
       selectedPositionValue
-    }
+    };
   }
 
   // TODO: Move to Format Util
   _formatDecimal(num) {
-    return Format.toFixedFloat(num, 2)
+    return Format.toFixedFloat(num, 2);
   }
 
   // TODO: Move to Format Util
@@ -148,8 +153,8 @@ class FantasyFootballRankings extends Component {
   _renderDetails() {
     return (
       <div>
-        <h4>Breakdown of the auction value formula:</h4>
-        <ol className={s.formula_details_list}>
+        <h4>Breakdown of the auction value model:</h4>
+        <DetailsList>
           <li><span>relative positional median value</span> - a player&apos;s average points scored per game divided by the median of average points scored per game cumulative for a position</li>
 
           <li><span>relative positional top quarter value</span> - a player&apos;s average points scored per game divided by the top quarter median of average points scored per game cumulative for a position</li>
@@ -159,10 +164,9 @@ class FantasyFootballRankings extends Component {
           <li><span>squared value of the multiplied value</span> - squared value of the multiple of relative positional median &amp; top quarter value</li>
 
           <li><span>squared value scaled by availability</span> - squared value of the multiple of relative positional median &amp; top quarter value, then scaled by the percentage of games a player played in weeks 1 through 16</li>
+        </DetailsList>
 
-        </ol>
-
-        <a href='https://github.com/kyleaclark/fantasy-football-stats' className={s.github__link} target='_blank'>View the data model source code on GitHub</a>
+        <Link external={true} type='text' to='https://github.com/kyleaclark/fantasy-football-stats' target='_blank'>View the data model source code on GitHub</Link>
       </div>
     )
   }
@@ -173,7 +177,7 @@ class FantasyFootballRankings extends Component {
         sortBy = {
           property: 'auction_value',
           order: 'descending'
-        }
+        };
 
     return (
       <div>
@@ -182,7 +186,6 @@ class FantasyFootballRankings extends Component {
             {this._renderPositionSelection()}
             <Table
               key={'fantasy_football_rankings_table_' + this.state.selectedPositionValue}
-              className={s.table__component}
               rowClassNameKey={'default'}
               columns={tableColumns}
               keys={['player']}
