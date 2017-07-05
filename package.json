@@ -25,7 +25,6 @@
     "fastclick": "^1.0.6",
     "graphql": "^0.9.1",
     "history": "^4.5.1",
-    "isomorphic-style-loader": "^1.1.0",
     "jsonwebtoken": "^7.2.1",
     "mongoose": "^4.9.2",
     "node-fetch": "^1.6.3",

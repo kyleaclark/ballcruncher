@@ -80,9 +80,6 @@ const config = {
         test: /\.css/,
         use: [
           {
-            loader: 'isomorphic-style-loader',
-          },
-          {
             loader: 'css-loader',
             options: {
               // CSS Loader https://github.com/webpack/css-loader

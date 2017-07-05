@@ -17,8 +17,6 @@ import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
 import App from './components/app';
 import Html from './components/html';
-import { ErrorPageWithoutStyle } from './routes/error/errorPage';
-import errorPageStyle from './routes/error/errorPage.css';
 import schema from './data/schema';
 import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
@@ -77,12 +75,6 @@ app.get('*', async (req, res, next) => {
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
     const context = {
-      // Enables critical path CSS rendering
-      // https://github.com/kriasoft/isomorphic-style-loader
-      insertCss: (...styles) => {
-        // eslint-disable-next-line no-underscore-dangle
-        styles.forEach(style => css.add(style._getCss()));
-      },
       // Initialize a new Redux store
       // http://redux.js.org/docs/basics/UsageWithReact.html
       store,
@@ -140,7 +132,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
       description={err.message}
       styles={[]} // eslint-disable-line no-underscore-dangle
     >
-      {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
+      {ReactDOM.renderToString(<h3>Sorry, an unexpected error occurred.</h3>)}
     </Html>,
   );
   res.status(err.status || 500);
