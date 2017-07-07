@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Link from '../link';
 
 const NavContainer = styled.div`
-  font-family: var(--font-family-alt);
   margin-top: 0px;
 `;
 

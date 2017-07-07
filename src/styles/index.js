@@ -8,12 +8,12 @@ export default () => injectGlobal`
     color: #222;
     font-weight: 100;
     font-size: 1em; /* ~16px; */
-    font-family: var(--font-family-base);
+    font-family: "Roboto", "Menlo", "HelveticaNeue-Light", "sans-serif";
     line-height: 1.375; /* ~22px */
   }
 
   body {
-    font-family: 'Roboto';
+    font-family: "Roboto", "Menlo", "HelveticaNeue-Light", "sans-serif";
   }
 
   a {
