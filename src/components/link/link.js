@@ -11,28 +11,12 @@ function isModifiedEvent(event) {
 }
 
 const NavigationLink = styled.a`
+  color: ${props => props.theme['brand-color']};
   display: inline-block;
   padding: 0 20px 3px 0;
   padding-top: 0;
   text-decoration: none;
   font-size: 1.125em;
-
-  &,
-  &:active,
-  &:visited {
-    color: ${props => props.theme['brand-color']};
-  };
-
-  &:hover {
-    color: ${props => props.theme['gray-lightest']};
-  };
-`;
-
-const TextLink = styled.a`
-  color: ${props => props.theme['brand-color']};
-  font-size: 1em;
-  text-decoration: none;
-
 
   &:active,
   &:visited {
@@ -40,7 +24,22 @@ const TextLink = styled.a`
   }
 
   &:hover {
-    color: ${props => props.theme['gray-dark']};
+    color: ${props => props.theme['gray-lightest']};
+  }
+`;
+
+const TextLink = styled.a`
+  color: ${props => props.theme['brand-color']};
+  font-size: 1em;
+  text-decoration: none;
+
+  &:active,
+  &:visited {
+    color: ${props => props.theme['brand-color']};
+  }
+
+  &:hover {
+    color: ${props => props.theme['gray']};
   }
 `;
 

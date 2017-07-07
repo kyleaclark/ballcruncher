@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import serialize from 'serialize-javascript';
 import { injectGlobal } from 'styled-components';
-import styledNormalize from 'styled-normalize';
 import { segmentTrackingId } from '../config';
 import baseStyles from '../styles/index';
 
