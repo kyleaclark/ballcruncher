@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import LoadingSpinner from '../../components/core/loading_spinner';
 import Link from '../../components/link';
 import BlogEntries from '../../components/views/blog_entries';
 import NflPowerRankings from '../../components/views/nfl_power_rankings';
@@ -49,7 +50,7 @@ class Home extends Component {
       )
     } else {
       return (
-        <h4>Please wait, loading...</h4>
+        <LoadingSpinner>Loading NFL Power Rankings...</LoadingSpinner>
       )
     }
   }

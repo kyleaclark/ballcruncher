@@ -61,4 +61,5 @@ Test any javascript module by creating a `__tests__/` directory where
 the file is. Append `-test.js` to the filename and [Jest](https://facebook.github.io/jest/) will do the rest.
 
 ---
-Generated using [react-starter-kit](https://github.com/kriasoft/react-starter-kit/)
+- Generated base code from [react-starter-kit](https://github.com/kriasoft/react-starter-kit/)
+- Credit https://github.com/lukehaas/css-loaders for spinner css

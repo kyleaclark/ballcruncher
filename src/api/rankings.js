@@ -21,7 +21,6 @@ router.get('/', (req, res) => {
   const dbQuery = Ranking.findOne({ year: query.year, week: query.week }, {});
   mongoose.Promise = Promise;
   dbQuery.exec((err, rankings) => {
-    console.log('errrrrrr : ', rankings);
     if (err) {
       return res.send(err);
     }

@@ -4,6 +4,17 @@ import variables from '../variables';
 import Header from '../header';
 import Footer from '../footer';
 
+const Body = styled.div`
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+`;
+
+const Main = styled.div`
+  flex: 1 1 auto;
+  width: 100%;
+`;
+
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
@@ -12,11 +23,13 @@ class Layout extends React.Component {
   render() {
     return (
       <ThemeProvider theme={variables}>
-        <div>
+        <Body>
           <Header />
-          {this.props.children}
+          <Main>
+            {this.props.children}
+          </Main>
           <Footer />
-        </div>
+        </Body>
       </ThemeProvider>
     );
   }

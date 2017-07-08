@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 
 import Link from '../../components/link';
+import LoadingSpinner from '../../components/core/loading_spinner';
 import NflPowerRankings from '../../components/views/nfl_power_rankings';
 
 import * as RankingsActions from '../../actions/index';
@@ -42,7 +43,7 @@ class Nfl extends Component {
       )
     } else {
       return (
-        <h4>Please wait, loading...</h4>
+        <LoadingSpinner>Please wait, loading...</LoadingSpinner>
       )
     }
   }
