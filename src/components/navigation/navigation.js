@@ -11,6 +11,7 @@ class Navigation extends Component {
   render() {
     return (
       <NavContainer role="navigation">
+        <Link navigationLink={true} to="/nba">NBA</Link>
         <Link navigationLink={true} to="/nfl">NFL</Link>
         <Link navigationLink={true} to="/fantasy-football">Fantasy Football</Link>
       </NavContainer>
