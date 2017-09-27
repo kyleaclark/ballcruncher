@@ -17,19 +17,19 @@ const PageContainer = styled.div`
 
 function mapStateToProps(state) {
   return {
-    fantasyFootballRankings: state.fantasyFootballRankings
-  }
+    fantasyFootballRankings: state.fantasyFootballRankings,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(RankingsActions, dispatch)
-  }
+    actions: bindActionCreators(RankingsActions, dispatch),
+  };
 }
 
 class FantasyFootball extends Component {
 
-  _renderRankings () {
+  _renderRankings() {
     const rankings = this.props.fantasyFootballRankings;
     const emptyRankings = Object.keys(rankings).length === 0;
 
@@ -39,30 +39,29 @@ class FantasyFootball extends Component {
           rankings={rankings}
           {...this.props.actions}
         />
-      )
-    } else {
-      return (
-        <LoadingSpinner>Please wait, loading...</LoadingSpinner>
-      )
+      );
     }
+    return (
+      <LoadingSpinner>Please wait, loading...</LoadingSpinner>
+    );
   }
 
-  render () {
+  render() {
     return (
       <PageContainer>
 
-          <h3>Fantasy Football Rankings</h3>
-          <p>2017 projected auction value from 2016 fantasy production, as past performance is a useful predictor of future outcomes.</p>
+        <h3>Fantasy Football Rankings</h3>
+        <p>2017 projected auction value from 2016 fantasy production, as past performance is a useful predictor of future outcomes.</p>
 
-          {this._renderRankings()}
+        {this._renderRankings()}
 
       </PageContainer>
-    )
+    );
   }
 
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(FantasyFootball)
+  mapDispatchToProps,
+)(FantasyFootball);

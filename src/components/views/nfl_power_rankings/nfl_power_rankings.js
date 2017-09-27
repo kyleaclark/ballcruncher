@@ -22,17 +22,17 @@ class NflPowerRankings extends Component {
   }
 
   componentWillMount() {
-    let columns = this._buildTableColumns();
-    let yearSelectionOptions = this._buildYearSelectionOptions();
-    let weekSelectionOptions = this._buildWeekSelectionOptions();
+    const columns = this._buildTableColumns();
+    const yearSelectionOptions = this._buildYearSelectionOptions();
+    const weekSelectionOptions = this._buildWeekSelectionOptions();
 
-    let initialState = {
+    const initialState = {
       columns,
       yearSelectionOptions,
-      weekSelectionOptions
+      weekSelectionOptions,
     };
 
-    let builtState = Object.assign({}, initialState, this._buildRankings());
+    const builtState = Object.assign({}, initialState, this._buildRankings());
     this.setState(builtState);
   }
 
@@ -42,7 +42,7 @@ class NflPowerRankings extends Component {
       { label: 'Team', property: 'id', title: 'Team', sortable: true },
       { label: 'Wins', property: 'wins', title: 'Wins', sortable: true },
       { label: 'Losses', property: 'losses', title: 'Losses', sortable: true },
-      { label: 'Power Rating', property: 'power_ranking', formatter: this._formatDecimal, title: 'Power Rating', sortable: true }
+      { label: 'Power Rating', property: 'power_ranking', formatter: this._formatDecimal, title: 'Power Rating', sortable: true },
     ];
 
     if (this.props.fullRankings) {
@@ -57,113 +57,109 @@ class NflPowerRankings extends Component {
         { label: 'Pt Diff', property: 'point_differential', title: 'Point Differential', sortable: true },
         { label: 'Avg Pts', property: 'points_scored_avg', formatter: this._formatDecimal, title: 'Points Scored Per Game', sortable: true },
         { label: 'Avg Against', property: 'points_against_avg', formatter: this._formatDecimal, title: 'Points Against Per Game', sortable: true },
-        { label: 'Turnover Diff', property: 'turnover_differential', title: 'Turnover Differential', sortable: true }
-      ])
+        { label: 'Turnover Diff', property: 'turnover_differential', title: 'Turnover Differential', sortable: true },
+      ]);
     }
 
     return columns;
   }
 
   _buildYearSelectionOptions() {
-    let yearSelectionOptions = yearsList.map((item) => {
-      return {
-        value: item,
-        label: item.toString()
-      }
-    })
+    const yearSelectionOptions = yearsList.map(item => ({
+      value: item,
+      label: item.toString(),
+    }));
 
-    return yearSelectionOptions
+    return yearSelectionOptions;
   }
 
   _buildWeekSelectionOptions() {
-    let weekSelectionOptions = {}
+    const weekSelectionOptions = {};
 
-    let rankings = {}
+    const rankings = {};
     yearsList.forEach((item) => {
-      rankings[item] = []
+      rankings[item] = [];
       for (let weekIndex = 1; weekIndex < 18; weekIndex++) {
         rankings[item].push({
-          week: weekIndex
-        })
+          week: weekIndex,
+        });
       }
-    })
-
-    Object.keys(rankings).forEach((key) => {
-      weekSelectionOptions[key] = this._buildSingleYearWeekSelectionOptions(rankings[key])
     });
 
-    return weekSelectionOptions
+    Object.keys(rankings).forEach((key) => {
+      weekSelectionOptions[key] = this._buildSingleYearWeekSelectionOptions(rankings[key]);
+    });
+
+    return weekSelectionOptions;
   }
 
   _buildSingleYearWeekSelectionOptions(rankingsList) {
-    let options = rankingsList.map((item, index) => {
-      let week = index + 1
-      let label = ' Week ' + week
+    const options = rankingsList.map((item, index) => {
+      const week = index + 1;
+      const label = ` Week ${week}`;
 
       return {
         value: week,
-        label: label
-      }
-    })
+        label,
+      };
+    });
 
-    return options.reverse()
+    return options.reverse();
   }
 
   _buildRankings(yearValue) {
-    let rankingsMap = this.props.rankings
+    const rankingsMap = this.props.rankings;
 
-    let selectedYear = yearValue || yearsList[0]
-    let rankingsList = rankingsMap[selectedYear]
-    let selectedWeek = 3
+    const selectedYear = yearValue || yearsList[0];
+    const rankingsList = rankingsMap[selectedYear];
+    const selectedWeek = 3;
 
     return {
       selectedYear,
       rankingsList,
-      selectedWeek
-    }
+      selectedWeek,
+    };
   }
 
   // TODO: Move to Format Util
   _formatDecimal(num) {
-    return Format.toFixedFloat(num, 2)
+    return Format.toFixedFloat(num, 2);
   }
 
   // TODO: Move to Format Util
   _formatSpecialDecimal(num) {
-    const fixedNum = Format.toFixedFloat(num, 2)
-    return Format.stripLeadingZero(fixedNum)
+    const fixedNum = Format.toFixedFloat(num, 2);
+    return Format.stripLeadingZero(fixedNum);
   }
 
   _onYearSelect(option) {
     this.props.getRankings(option.value, this.state.selectedWeek)
       .then(() => {
         this.setState((prevState, props) => ({
-          selectedYear: option.value
+          selectedYear: option.value,
         }));
       })
       .catch((error) => {
         // TODO: Handle error in the UI for the user
-        console.error('getRankings : ', error)
-      })
+        console.error('getRankings : ', error);
+      });
   }
 
   _onWeekSelect(option) {
     this.props.getRankings(this.state.selectedYear, option.value)
       .then(() => {
         this.setState((prevState, props) => ({
-          selectedWeek: option.value
+          selectedWeek: option.value,
         }));
       })
       .catch((error) => {
         // TODO: Handle error in the UI for the user
-        console.error('getRankings : ', error)
-      })
+        console.error('getRankings : ', error);
+      });
   }
 
   _renderYearSelection() {
-    const currentOption = this.state.yearSelectionOptions.find(year => {
-      return year.value === this.state.selectedYear
-    })
+    const currentOption = this.state.yearSelectionOptions.find(year => year.value === this.state.selectedYear);
 
     return (
       <Dropdown
@@ -172,14 +168,12 @@ class NflPowerRankings extends Component {
         value={currentOption}
         placeholder="Select an option"
       />
-    )
+    );
   }
 
   _renderWeekSelection() {
-    const weekSelectionOptions = this.state.weekSelectionOptions[this.state.selectedYear]
-    const currentOption = weekSelectionOptions.find(week => {
-      return week.value === this.state.selectedWeek
-    })
+    const weekSelectionOptions = this.state.weekSelectionOptions[this.state.selectedYear];
+    const currentOption = weekSelectionOptions.find(week => week.value === this.state.selectedWeek);
 
     return (
       <Dropdown
@@ -187,7 +181,7 @@ class NflPowerRankings extends Component {
         onChange={this._onWeekSelect.bind(this)}
         value={currentOption}
       />
-    )
+    );
   }
 
   _renderDetails() {
@@ -228,19 +222,19 @@ class NflPowerRankings extends Component {
 
         <br /><br />
 
-        <Link external={true} type='text' to='https://github.com/kyleaclark/nfl-power-rankings' target='_blank'>View the data model source code on GitHub</Link>
+        <Link external type="text" to="https://github.com/kyleaclark/nfl-power-rankings" target="_blank">View the data model source code on GitHub</Link>
       </div>
-    )
+    );
   }
 
   render() {
-    const rankingId = this.state.selectedYear + '_' + this.state.selectedWeek
+    const rankingId = `${this.state.selectedYear}_${this.state.selectedWeek}`;
     let tableData = this.props.rankings[rankingId].data,
-        tableColumns = this.state.columns,
-        sortBy = {
-          property: 'power_ranking',
-          order: 'descending'
-        }
+      tableColumns = this.state.columns,
+      sortBy = {
+        property: 'power_ranking',
+        order: 'descending',
+      };
 
     return (
       <div>
@@ -249,7 +243,7 @@ class NflPowerRankings extends Component {
             {this._renderYearSelection()}
             {this._renderWeekSelection()}
             <Table
-              key={'nfl_rankings_table_' + this.state.selectedWeek}
+              key={`nfl_rankings_table_${this.state.selectedWeek}`}
               columns={tableColumns}
               keys={['id']}
               sortBy={sortBy}
@@ -260,7 +254,7 @@ class NflPowerRankings extends Component {
 
         {tableData && this.props.fullRankings && this._renderDetails()}
       </div>
-    )
+    );
   }
 
 }
