@@ -52,7 +52,7 @@ class FantasyFootball extends Component {
       <PageContainer>
 
           <h3>Fantasy Football Rankings</h3>
-          <p>Projections from 2015 fantasy production, as past performance is a useful predictor of future outcomes.</p>
+          <p>2017 projected auction value from 2016 fantasy production, as past performance is a useful predictor of future outcomes.</p>
 
           {this._renderRankings()}
 

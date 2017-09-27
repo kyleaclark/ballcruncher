@@ -13,7 +13,7 @@ const DetailsList = styled.ul`
 `;
 
 // TODO: Dynamically generate Years and Weeks from a utility service or API data source
-const yearsList = [2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009];
+const yearsList = [2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009];
 
 class NflPowerRankings extends Component {
 
@@ -114,7 +114,7 @@ class NflPowerRankings extends Component {
 
     let selectedYear = yearValue || yearsList[0]
     let rankingsList = rankingsMap[selectedYear]
-    let selectedWeek = 17
+    let selectedWeek = 3
 
     return {
       selectedYear,
