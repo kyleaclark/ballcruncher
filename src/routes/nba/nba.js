@@ -10,6 +10,24 @@ const PageContainer = styled.div`
   max-width: ${props => props.theme['max-content-width']};
 `;
 
+const BlogSubTitle = styled.h5`
+  margin-top: 2px;
+  margin-bottom: 0;
+`;
+
+const BlogDetails = styled.h5`
+  font-size: 0.8em;
+  font-weight: 300;
+  margin-top: 0;
+`;
+
+const NbaSubContent = styled.div`
+  border-top: 1px dashed #ddd;
+  margin-top: 25px;
+  padding-top: 10px;
+`;
+
+
 function mapStateToProps(state) {
   return {
   }
@@ -26,9 +44,18 @@ class NBA extends Component {
 
     return (
       <PageContainer>
-        <h3>{title}</h3>
-        <Link navigationLink={true} to="/nba/blog/latest">NBA Blog</Link>
-        <h4>Visit faketrademachine.com for a beta version for an NBA Trade simulator</h4>
+        <h3>NBA Blog</h3>
+        <p>Introducing the NBA content section at Ballcruncher.</p>
+        <div>
+          <Link navigationLink={true} to='/nba/blog/2017-09-28-the-gimmicked-70'>The Gimmicked 70</Link>
+          <BlogSubTitle>The night Devin Booker went off for 70 and was labeled "gimmicked."</BlogSubTitle>
+          <BlogDetails>September 28, 2017 by Kyle Clark</BlogDetails>
+        </div>
+        <NbaSubContent>
+          <Link external type='text' to='http://www.faketrademachine.com/' target='_blank'>Fake Trade Machine</Link>
+          <BlogSubTitle>Visit faketrademachine.com for a beta version of an NBA Trade simulator</BlogSubTitle>
+          <BlogDetails>Beta released on August 10, 2017 developed by Kyle Clark</BlogDetails>
+        </NbaSubContent>
       </PageContainer>
     );
   }

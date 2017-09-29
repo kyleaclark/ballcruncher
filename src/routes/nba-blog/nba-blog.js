@@ -8,6 +8,24 @@ const PageContainer = styled.div`
   max-width: ${props => props.theme['max-content-width']};
 `;
 
+const BlogTitle = styled.h2`
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 2px;
+  padding-bottom: 2px;
+  text-transform: uppercase;
+`;
+
+const BlogDetails = styled.h4`
+  font-size: 14px;
+  font-weight: 300;
+  margin-top: 0;
+`;
+
+const BlogContent = styled.div`
+  font-size: 18px;
+  font-weight: 400;
+`;
+
 function mapStateToProps(state) {
   return {
   }
@@ -20,12 +38,13 @@ function mapDispatchToProps(dispatch) {
 
 class NbaBlog extends Component {
   render() {
-    const { title, html } = this.props;
+    const { title, publishDate, author, html } = this.props;
 
     return (
       <PageContainer>
-        <h3>{title}</h3>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+        <BlogTitle>{title}</BlogTitle>
+        <BlogDetails>{publishDate}<br />by {author}</BlogDetails>
+        <BlogContent dangerouslySetInnerHTML={{ __html: html }} />
       </PageContainer>
     );
   }

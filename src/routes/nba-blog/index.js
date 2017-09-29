@@ -19,8 +19,8 @@ export default {
   async action({ store, path }) {
     const data = await new Promise((resolve) => {
       require.ensure([], require => {
-        resolve(require('../../content/temp.md'));
-      }, 'temp');
+        resolve(require('../../content/2017-09-28-the-gimmicked-70.md'));
+      }, 'The Gimmicked 70');
     });
 
     return {

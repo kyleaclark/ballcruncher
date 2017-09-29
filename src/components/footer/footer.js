@@ -16,6 +16,7 @@ const FooterContainer = styled.div`
 
 const FooterText = styled.span`
   color: rgba(255, 255, 255, .5);
+  display: block;
 `;
 
 class Footer extends Component {
@@ -27,6 +28,7 @@ class Footer extends Component {
       <FooterWrapper>
         <FooterContainer>
           <FooterText>© Ballcruncher 2015-{year} &ndash; Sports Musings &amp; Analysis</FooterText>
+          <Link external type='text' to='https://twitter.com/theballcruncher' target='_blank'>@theballcruncher</Link>
         </FooterContainer>
       </FooterWrapper>
     );
