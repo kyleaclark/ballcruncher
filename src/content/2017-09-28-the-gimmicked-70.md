@@ -36,4 +36,5 @@ The last 45 seconds may have been squeezing the last drop out of a lemon to prov
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Booker was a bench player only two short years prior as a freshman for the Kentucky Wildcats playing behind the Harrison twins.  As a twenty year old playing on the youngest starting lineup in NBA history, he had the Boston Garden on their feet rooting for him to make NBA history on their beloved Celtics.
+
 Forget the number.  In a league dominated by Golden State and LeBron, Booker’s extraordinary performance provided a rare moment of greatness and hope for the Suns.  Now that means something.
