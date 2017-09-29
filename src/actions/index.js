@@ -25,7 +25,7 @@ export function getRankings(year, week) {
       const data = await resp.json()
       dispatch(updateRankings(data))
     } catch (error) {
-      console.log('getRankings error : ', error)
+      // console.log('getRankings error : ', error)
     }
   }
 }
