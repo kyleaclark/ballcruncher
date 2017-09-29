@@ -10,6 +10,8 @@ export default {
     require('./home').default,
     require('./nfl').default,
     require('./fantasy-football').default,
+    require('./nba').default,
+    require('./nba-blog').default
   ],
 
   async action({ next }) {

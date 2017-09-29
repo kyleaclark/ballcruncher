@@ -8,7 +8,6 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
-import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
@@ -17,13 +16,11 @@ import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
 import App from './components/app';
 import Html from './components/html';
-import schema from './data/schema';
 import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import { port, dbConnection } from './config';
 
-import { getRankings } from './actions/index';
 import rankingsApi from './api/rankings';
 import fantasyFootballRankingsApi from './api/fantasy-football-rankings';
 
@@ -52,13 +49,6 @@ app.use(bodyParser.json());
 app.use('/api/rankings', rankingsApi);
 app.use('/api/fantasy-football-rankings', fantasyFootballRankingsApi);
 
-app.use('/graphql', expressGraphQL(req => ({
-  schema,
-  graphiql: __DEV__,
-  rootValue: { request: req },
-  pretty: __DEV__,
-})));
-
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
@@ -67,8 +57,6 @@ app.get('*', async (req, res, next) => {
     const store = configureStore({}, {
       cookie: req.headers.cookie,
     });
-
-    store.dispatch(getRankings());
 
     const css = new Set();
 
