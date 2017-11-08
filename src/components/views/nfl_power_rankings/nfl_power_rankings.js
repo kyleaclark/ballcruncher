@@ -112,7 +112,7 @@ class NflPowerRankings extends Component {
 
     const selectedYear = yearValue || yearsList[0];
     const rankingsList = rankingsMap[selectedYear];
-    const selectedWeek = 4;
+    const selectedWeek = 9;
 
     return {
       selectedYear,

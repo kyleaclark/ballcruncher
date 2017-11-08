@@ -8,7 +8,7 @@ export default {
   path: '/nfl',
 
   async action({ store }) {
-    store.dispatch(getRankings(2017, 4));
+    store.dispatch(getRankings(2017, 9));
 
     return {
       title: 'NFL',
