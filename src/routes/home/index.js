@@ -8,7 +8,7 @@ export default {
   path: '/',
 
   async action({ store }) {
-    store.dispatch(getRankings(2017, 10));
+    store.dispatch(getRankings(2017, 11));
 
     return {
       title: 'Home',
