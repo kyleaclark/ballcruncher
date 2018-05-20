@@ -13,4 +13,4 @@ RUN npm run build
 
 WORKDIR /usr/local/app/build
 
-CMD ["npm", "start"]
+CMD npm start
