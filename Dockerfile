@@ -1,15 +1,16 @@
-FROM gcr.io/google_appengine/nodejs
+FROM node:6.2.2
+MAINTAINER Kyle Clark
 
-RUN /usr/local/bin/install_node '=6.2.2'
+WORKDIR /usr/local/app
 
-COPY package.json /app/package.json
+COPY package.json /usr/local/app/package.json
 RUN npm install
 
-COPY public /app/public
-COPY src /app/src
-COPY tools /app/tools
+COPY public /usr/local/app/public
+COPY src /usr/local/app/src
+COPY tools /usr/local/app/tools
 RUN npm run build
 
-WORKDIR /app/build
+WORKDIR /usr/local/app/build
 
 CMD npm start

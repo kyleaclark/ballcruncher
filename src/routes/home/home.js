@@ -59,9 +59,9 @@ class Home extends Component {
     return (
       <PageContainer>
 
-        <PageSubTitle>Data analysis of weekly NFL Power Rankings and annual Fantasy Football Rankings.</PageSubTitle>
+        <PageSubTitle>Stat-based weekly NFL Power Rankings and annual Fantasy Football Rankings.</PageSubTitle>
 
-        <PageSubHeadline>Learn more about the data models on the bottom of the <Link type={'text'} to="/nfl">NFL</Link> and <Link type={'text'} to="/fantasy-football">Fantasy Football</Link> pages.</PageSubHeadline>
+        <PageSubHeadline>Learn more about the metrics on the bottom of the <Link type={'text'} to="/nfl">NFL</Link> and <Link type={'text'} to="/fantasy-football">Fantasy Football</Link> pages.</PageSubHeadline>
 
         <hr />
 
